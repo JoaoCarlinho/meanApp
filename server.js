@@ -1,3 +1,4 @@
+process.env.PWD = process.cwd()
 var createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -59,7 +60,7 @@ app.use(function (req, res, next) {
 });
 
 /// Angular DIST output folder
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(process.env.PWD, 'public')));
  
 
 // set routes
@@ -70,7 +71,7 @@ app.use('/subscribers', subscribers);
 
 // Send all other requests to the Angular app
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/index.html'));
+    res.sendFile(path.join(process.env.PWD, 'public/index.html'));
 });
 
 // catch 404 and forward to error handler
