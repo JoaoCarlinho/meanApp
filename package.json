@@ -75,5 +75,15 @@
   },
   "engines": {
     "npm": "6.4.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/heroku/node-js-getting-started"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ],
+  "license": "MIT"
 }
