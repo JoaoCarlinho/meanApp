@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NewsletterService } from '../services/newsletter.service'
+import { HidepanelService } from '../services/hidepanel.service';
 
 @Component({
   selector: 'app-footer',
@@ -9,7 +10,7 @@ import { NewsletterService } from '../services/newsletter.service'
 export class FooterComponent implements OnInit {
   subscribing: boolean;
 
-  constructor(private news: NewsletterService) { }
+  constructor(private news: NewsletterService, private data: HidepanelService) { }
 
   ngOnInit() {
     this.news.subscribeVisibility.subscribe(subscribeVisibility => this.subscribing = subscribeVisibility)
@@ -34,9 +35,11 @@ export class FooterComponent implements OnInit {
     
   }
 
-  subscribe(){    
+  subscribe(){
+
     this.subscribing = !this.subscribing;
     this.news.ShowSubscribeForm(this.subscribing);
+    this.data.ShowHidePanel(false);
   }
 
 }
