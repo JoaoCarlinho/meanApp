@@ -1,2 +1,0 @@
-# meanApp
-IO mean app
