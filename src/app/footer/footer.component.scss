@@ -1,0 +1,93 @@
+/****************************************FOOTER CSS********************************************/
+footer{
+    max-width:75%;
+    margin:0 auto;
+}
+
+#footer-section{
+    margin: 0 auto;
+    position: relative;
+    z-index: 9;
+    border-top: solid 1px #d0d0ce;
+    }
+    
+    #footer-top-links li{
+    background:#000000;
+    text-align:center;
+    }
+    
+    #footer-top-links li a{
+    text-align: center;
+    line-height: 1em;
+    text-align:center;
+    color:#ffffff;
+    background:#000000;
+    }
+    
+    #footer-top-links li a:visited{
+    color:#ffffff;
+    }
+    
+    
+    
+    
+    .homeBottomText{
+    display:block; color:#000000; clear:both; margin:0 auto 0 auto; text-align:center;
+    width:100%; background:silver;
+    }
+    
+    .homeBottomText a{
+    color:#000000;
+    }
+    
+    
+    .row{
+    width: 100%;
+    display:block;
+    margin:0 auto 0 auto;
+    max-width: 63.75em;
+    padding:0;
+    line-height: 1;
+    background:silver;
+    }
+
+    hr{
+        height: 3px;
+        opacity: .35;
+        margin:5px auto;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //large
+@media only screen and (min-width:850px) {
+
+}
+//medium
+@media only screen and (min-width:600px) and (max-width: 850px) {
+
+}
+
+//small screens
+@media only screen and (min-width:350px) and (max-width: 600px) {
+
+}
+
+//tiny screens
+@media only screen and (max-width: 350px) {
+
+}

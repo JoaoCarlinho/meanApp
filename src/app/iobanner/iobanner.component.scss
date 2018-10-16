@@ -1,0 +1,106 @@
+/*********************************************topNav elements********************************************************/
+
+#banner{
+    position:fixed; top:0; height:100px;  width:100%; clear:both; z-index: 5; text-align:center;
+    margin: 0 auto 0 auto;
+}
+    
+    
+#topNav{
+    background:#ffffff; width:100%;
+    display:block; //z-index: 10;   
+    box-shadow: none;   
+    font-family: "Graphik Black","Arial Black",Sans-Serif;   font-weight: normal;   font-size: 1.25em;
+}
+    
+#navTopLogoLeft{
+    color:navy;
+    background:no-repeat url('../../assets/IO.png');
+    background-size:contain;
+
+}
+    
+#navTopSearch{
+    color:navy; font-weight:100; font-size: 1.25em;
+}
+    
+#navTopRight{
+   color:navy;
+}
+    
+#navTopRight li{
+    margin-top:8px;
+}
+    
+#btnMainMenu{
+    color:navy;
+    background:no-repeat url('../../assets/hamburger.png');
+    background-size:contain;
+}
+
+
+#navTopLogoLeft{
+    margin-left: 5px; position: absolute; //z-index: 1;
+    height:45px; width:108px;
+}
+
+#btnMainMenu{
+    height:45px; width:108px;
+}
+
+#navTopSearch{
+    width:175px; height:44px; top:11px; text-align:center;
+    background-color: #000;  border-radius: 20px;  display: inline-block; line-height: 10px;
+}
+
+#navTopRight{
+    position: absolute; right:20px; top: 0px; color:navy;
+}
+
+
+//large
+@media only screen and (min-width:850px) {
+    #topNav{
+        padding: 10px;   height: 80px;
+    }
+    
+ /*   
+    #navTopLogoLeft{
+        margin-left: 5px; position: absolute; //z-index: 1;
+        height:45px; width:108px; text-align:center;
+    }
+    
+    #navTopSearch{
+        width:196px; height:44px; top:11px; text-align:center;
+        background-color: #000;  border-radius: 20px;  display: inline-block; line-height: 10px;
+    }
+    
+    #navTopRight{
+        position: absolute; right:100px; top: 20px; color:navy;
+    }
+*/
+    
+    .nav > li > a{
+        position: relative;
+        display: block;
+    }
+    
+    #frontPageIntro{
+        height:542px;
+    }  
+
+}
+//medium
+@media only screen and (min-width:600px) and (max-width: 850px) {
+
+}
+
+//small screens
+@media only screen and (min-width:350px) and (max-width: 600px) {
+
+}
+
+//tiny screens
+@media only screen and (max-width: 350px) {
+
+}

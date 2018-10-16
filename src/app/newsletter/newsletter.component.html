@@ -1,0 +1,85 @@
+<div *ngIf="this.subscribeVisibility" class="requestModal text-center">
+  <form>
+      <!-- Industry, Region, Position and ServiceType will be a select inputs-->
+      <table class="text-left">
+          <tr>
+              <th colspan="2"><p>Please provide your contact info.<br/>
+                                We'll keep you up-to-date on the latest<br/> 
+                                in technology in industry</p></th>
+          </tr>
+          <tr>
+              <td><label>First Name</label></td><td><input placeholder="Johnathan" value="Johnathan" [(ngModel)]="subscriberInfo.firstName" [ngModelOptions]="{standalone:
+                  true}" type="text" required/></td>
+          </tr>
+          <tr>
+              <td><label>Last Name</label></td><td><input placeholder="Skeete" value="Skeete" [(ngModel)]="subscriberInfo.lastName" [ngModelOptions]="{standalone:
+                  true}" type="text" required/></td>
+          </tr>
+          <tr>
+              <td><label>Email</label></td><td><input placeholder="JSkeete@gmail.com" value="JSkeete@gmail.com" [(ngModel)]="subscriberInfo.email" [ngModelOptions]="{standalone:
+                  true}" type="text" required/></td>
+          </tr>
+          <tr>
+              <td><label>Cell #</label></td><td><input placeholder="9016203000" value="9016203000" [(ngModel)]="subscriberInfo.phone" [ngModelOptions]="{standalone:
+                  true}" type="text" required/></td>
+          </tr>
+          <tr>
+              <td><label>Company</label></td><td><input placeholder="IO" value="IO" [(ngModel)]="subscriberInfo.company" [ngModelOptions]="{standalone:
+                  true}" type="text" required/></td>
+          </tr>
+          <tr>
+              <td><label>Industry</label></td><td><input placeholder="IT Services" value="IT Services" [(ngModel)]="subscriberInfo.industry" [ngModelOptions]="{standalone:
+                  true}" type="text" required/></td>
+          </tr>
+          <tr>
+              <td><label>Dept. Function</label></td><td><input placeholder="Enterpries Architecture" value="Enterpries Architecture" [(ngModel)]="subscriberInfo.department" [ngModelOptions]="{standalone:
+                  true}" type="text" required/></td>
+          </tr>
+          <tr>
+              <td><label>Position</label></td><td><input placeholder="Lead" value="Lead" [(ngModel)]="subscriberInfo.position" [ngModelOptions]="{standalone:
+                  true}" type="text" required/></td>
+          </tr>
+      </table>
+      <p>
+            <button class="btn-success" (click)="confirmSubscription()">Submit</button>&nbsp;&nbsp;<button class="btn-danger" (click)="subscribe()">Cancel</button>
+      </p>
+  </form>
+</div>
+<div *ngIf="this.confirmVisibility" class="confirmModal text-center">
+  <form>
+      <p>Please confirm submission<br/>
+      <table>
+          <tr>
+              <th colspan="2"></th>
+          </tr>
+          <tr>
+              <td>First Name</td><td>{{subscriberInfo.firstName}}</td>
+          </tr>
+          <tr>
+              <td>Last Name</td><td>{{subscriberInfo.lastName}}</td>
+          </tr>
+          <tr>
+              <td>Email</td><td>{{subscriberInfo.email}}</td>
+          </tr>
+          <tr>
+              <td>Office #</td><td>{{subscriberInfo.phone}}</td>
+          </tr>
+          <tr>
+              <td>Company</td><td>{{subscriberInfo.company}}</td>
+          </tr>
+          <tr>
+              <td>Industry</td><td>{{subscriberInfo.industry}}</td>
+          </tr>
+          <tr>
+              <td>Dept. Function</td><td>{{subscriberInfo.department}}</td>
+          </tr>
+          <tr>
+              <td>Position</td><td>{{subscriberInfo.position}}</td>
+          </tr>
+      </table>
+      <p>
+            <button class="btn-success" (click)="submitSubscription()">Confirm</button>&nbsp;&nbsp;<button class="btn-danger" (click)="confirmSubscription()">Cancel</button>
+      </p>
+  </form>
+</div>
+

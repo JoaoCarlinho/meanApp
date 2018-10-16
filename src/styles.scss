@@ -1,0 +1,84 @@
+/* You can add global styles to this file, and also import other style files */
+/******************************* General styling for sitewide elements ******************************************/
+@import "../dist/cerulean/variables";
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
+@import "../dist/cerulean/bootswatch";
+
+.requestModal, .confirmModal {
+    position: absolute;
+    top:0;
+    left: 0;
+    height:100%;
+    width: 100%;
+    background-color: rgb(129, 154, 201);
+    overflow-y:scroll;
+}
+
+.requestModal {
+    z-index: 3;
+}
+
+.confirmModal {
+    z-index: 4;
+}
+
+.formPad{
+    padding: 15px auto;
+}
+
+table{
+    margin: 15px auto 0 auto
+}
+/**
+body{
+    font-size:100%; font-family: "Goudy Old Style", Garamond, "Big Caslon", "Times New Roman", serif; 
+    width:100%;
+    overflow:scroll;         
+    white-space:normal;        
+    margin:0 auto;
+    padding:0;
+    text-align:left;
+}
+
+div {
+display: block;
+}
+
+input{
+border-radius:20px;
+}
+
+
+a{
+text-align:center; text-decoration: none; color:black; cursor:pointer;
+}
+
+a:visited{
+text-decoration:none; color:black;
+}
+
+ul{
+    padding:0px;
+}
+
+
+
+
+//large
+@media only screen and (min-width:850px) {
+
+}
+//medium
+@media only screen and (min-width:600px) and (max-width: 850px) {
+
+}
+
+//small screens
+@media only screen and (min-width:350px) and (max-width: 600px) {
+
+}
+
+//tiny screens
+@media only screen and (max-width: 350px) {
+
+}**/

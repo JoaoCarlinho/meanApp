@@ -1,0 +1,108 @@
+<div *ngIf="this.formVisibility" class="requestModal text-center">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+        <!-- Industry, Region, Position and ServiceType will be a select inputs-->
+        <table class="text-left">
+            <tr>
+                <th colspan="2"><p>Please provide some basic info.<br/>
+                    Our experienced specialists<br/> 
+                    will follow-up shortly!</p></th>
+            </tr>
+            <tr>
+                <td><label>First Name</label></td><td><input placeholder="Johnathan" value="Johnathan" [(ngModel)]="consultInfo.firstName" [ngModelOptions]="{standalone:
+                    true}" type="text" required/></td>
+            </tr>
+            <tr>
+                <td><label>Last Name</label></td><td><input placeholder="Skeete" value="Skeete" [(ngModel)]="consultInfo.lastName" [ngModelOptions]="{standalone:
+                    true}" type="text" required/></td>
+            </tr>
+            <tr>
+                <td><label>Email</label></td><td><input placeholder="JSkeete@gmail.com" value="JSkeete@gmail.com" [(ngModel)]="consultInfo.email" [ngModelOptions]="{standalone:
+                    true}" type="text" required/></td>
+            </tr>
+            <tr>
+                <td><label>Office #</label></td><td><input placeholder="9016203000" value="9016203000" [(ngModel)]="consultInfo.phone" [ngModelOptions]="{standalone:
+                    true}" type="text" required/></td>
+            </tr>
+            <tr>
+                <td><label>Company</label></td><td><input placeholder="IO" value="IO" [(ngModel)]="consultInfo.company" [ngModelOptions]="{standalone:
+                    true}" type="text" required/></td>
+            </tr>
+            <tr>
+                <td><label>Industry</label></td><td><input placeholder="IT Services" value="IT Services" [(ngModel)]="consultInfo.industry" [ngModelOptions]="{standalone:
+                    true}" type="text" required/></td>
+            </tr>
+            <tr>
+                <td><label>Dept. Function</label></td><td><input placeholder="Enterpries Architecture" value="Enterpries Architecture" [(ngModel)]="consultInfo.department" [ngModelOptions]="{standalone:
+                    true}" type="text" required/></td>
+            </tr>
+            <tr>
+                <td><label>Time Zone</label></td><td><input placeholder="EST" value="EST" [(ngModel)]="consultInfo.region" [ngModelOptions]="{standalone:
+                    true}" type="text" required/></td>
+            </tr>
+            <tr>
+                <td><label>Position</label></td><td><input placeholder="Lead" value="Lead" [(ngModel)]="consultInfo.position" [ngModelOptions]="{standalone:
+                    true}" type="text" required/></td>
+            </tr>
+            <tr>
+                <td><label># Accounts</label></td><td><input placeholder="15" value="15" [(ngModel)]="consultInfo.clientAccounts" [ngModelOptions]="{standalone:
+                    true}" type="text" required/></td>
+            </tr>
+            <tr>
+                <td><label># Employees</label></td><td><input placeholder="30" value="30" [(ngModel)]="consultInfo.employees" [ngModelOptions]="{standalone:
+                    true}" type="text" required/></td>
+            </tr>
+            <tr>
+                <td><label>Service</label></td><td><input placeholder="{{serviceType}}" value="{{serviceType}}" [(ngModel)]="consultInfo.serviceType" [ngModelOptions]="{standalone:
+                    true}" type="text" required/></td>
+            </tr>
+        </table>
+        <p><button type="button" class="btn-success" (click)="confirmRequest()">Submit</button>&nbsp;&nbsp;<button class="btn-danger" (click)="requestConsult()">Cancel</button></p>
+    </form>
+</div>
+<div *ngIf="this.confirmVisibility" class="confirmModal text-center">
+    <form>
+        <p>Please confirm submission<br/>
+        <table>
+            <tr>
+                <th colspan="2"></th>
+            </tr>
+            <tr>
+                <td>First Name</td><td>{{consultInfo.firstName}}</td>
+            </tr>
+            <tr>
+                <td>Last Name</td><td>{{consultInfo.lastName}}</td>
+            </tr>
+            <tr>
+                <td>Email</td><td>{{consultInfo.email}}</td>
+            </tr>
+            <tr>
+                <td>Office #</td><td>{{consultInfo.phone}}</td>
+            </tr>
+            <tr>
+                <td>Company</td><td>{{consultInfo.company}}</td>
+            </tr>
+            <tr>
+                <td>Industry</td><td>{{consultInfo.industry}}</td>
+            </tr>
+            <tr>
+                <td>Dept. Function</td><td>{{consultInfo.department}}</td>
+            </tr>
+            <tr>
+                <td>Time Zone</td><td>{{consultInfo.region}}</td>
+            </tr>
+            <tr>
+                <td>Position</td><td>{{consultInfo.position}}</td>
+            </tr>
+            <tr>
+                <td># Accounts</td><td>{{consultInfo.clientAccounts}}</td>
+            </tr>
+            <tr>
+                <td># Employees</td><td>{{consultInfo.employees}}</td>
+            </tr>
+            <tr>
+                <td>Service</td><td>{{consultInfo.serviceType}}</td>
+            </tr>
+        </table>
+        <p><button type="button" class="btn-success" (click)="submitRequest()">Confirm</button>&nbsp;&nbsp;<button class="btn-danger" (click)="confirmRequest()">Cancel</button></p>
+    </form>
+</div>

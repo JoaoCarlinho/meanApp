@@ -1,0 +1,65 @@
+/*********************************Control Panel CSS****************************************/
+#cp{
+    font-family: "OpenSans";
+    z-index:2;
+    background: #3f4c92;
+    color:#ffffff;
+    cursor: pointer;
+    text-align:center;
+}
+    
+#cp li{
+    display:block;
+}
+
+ul{
+    padding:0 5px;
+}
+hr{
+    background-color:#9eabf8; height: 2px;
+}
+
+
+
+//Large screens
+@media only screen and (min-width:600px) {
+
+    /*********************************Control Panel CSS****************************************/
+    #cp{
+        position:fixed;
+        right: 0;
+        top: 115px;
+        width:190px
+    }
+    
+    li{
+        margin: 15px auto 0 auto;
+    }
+    
+    
+    .cpBottom{
+        font-size:1em;
+    }
+    
+}
+
+//medium
+@media only screen and (min-width:600px){
+    #cp{
+        
+    }
+
+}
+
+//small screens
+@media only screen and (min-width:350px) and (max-width: 600px) {
+
+}
+
+//tiny screens
+@media only screen and (max-width: 600px) {
+#cp{
+    width:100%;
+}
+}
+
