@@ -1,12 +1,14 @@
 const express = require('express');
 const router = express.Router();
 var IOService = require('../models/ioservices.js');
+var list = require('./IOServiceList.js');
+
 
 /* GET ALL IOSERVICES */
 router.get('/', function(req, res, next) {
-  IOService.find(function (err, IOService) {
+  IOService.find(function (err, ioservices) {
     if (err) return next(err);
-    res.json(IOService);
+    res.json(list);
   });
 });
 

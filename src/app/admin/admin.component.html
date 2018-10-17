@@ -1,3 +1,186 @@
-<p>
-  admin works!
-</p>
+<div *ngIf="this.adminVisibility">
+  <!--**********************************************Login Form**************************************************************-->
+  <div *ngIf="this.loginFormVisibility">
+    <form class="form-signin" novalidate>
+      <table class="text-left">
+        <tr><th colspan="2">Please enter credentials to view admin panel</th></tr>
+        <tr>
+          <td>username:</td><td><input type="text" id="username" name="username" [(ngModel)]="userName" required/></td>
+        </tr>
+        <tr>
+          <td>Password:</td><td><input type="password" id="password" name="password" [(ngModel)]="password" required/></td>
+        </tr>
+      </table>
+    </form>
+    <p>
+      <button class="btn-success" type="submit" (click)="Submit()">Submit</button>&nbsp;&nbsp;<button class="btn-danger" (click)="ShowAdminPanel()">Cancel</button>
+    </p>
+  </div>
+  <div *ngIf="this.loginSuccess">
+<!--**********************************************Update/Create Form**************************************************************-->
+    <div *ngIf="this.editingService">
+        <form>
+          <table class="text-left">
+            <tr><th colspan="2">Please enter information to edit or add services</th></tr>
+            <tr>
+              <td>Name:</td><td><input placeholder="{{serviceInfo.name}}" value="Test" [(ngModel)]="serviceInfo.name" [ngModelOptions]="{standalone:
+                true}" type="text" required/></td>
+            </tr>
+            <tr>
+              <td>Price:</td><td><input placeholder="{{serviceInfo.price}}" value="$10000" [(ngModel)]="serviceInfo.price" [ngModelOptions]="{standalone:
+                true}" type="text" required/></td>
+            </tr>
+            <tr>
+              <td>Schedule:</td>
+              <td>
+                <span>
+                    <input type="text" placeholder="{{serviceInfo.schedule['minimum delivery']}}" [(ngModel)]="serviceInfo.schedule['minimum delivery']" value="18 weeks" /><br/>
+                    <label >Total Delivery</label>
+                </span>
+        
+                <span>
+                    <input type="text" placeholder="{{serviceInfo.schedule['Review']}}" [(ngModel)]="serviceInfo.schedule['Review']" value="2 weeks" />
+                    <label >Review Period</label>
+                </span>
+        
+                <span>
+                    <input type="text" placeholder="{{serviceInfo.schedule['Implementation/Confirmation']}}" [(ngModel)]="serviceInfo.schedule['Implementation/Confirmation']" value="2 weeks" />
+                    <label >Implementation/SIT period</label>
+                </span>
+                <span>
+                    <input type="text" placeholder="{{serviceInfo.schedule['Test/Development']}}"  [(ngModel)]="serviceInfo.schedule['Test/Development']"value="2 weeks"  />
+                    <label >Development/UAT period</label>
+                </span>
+        
+                <span>
+                    <input type="text" placeholder="{{serviceInfo.schedule['Planning/Issue Tracking']}}" [(ngModel)]="serviceInfo.schedule['Planning/Issue Tracking']" value="2 weeks" />
+                    <label >Planning/Issue Tracking</label>
+                </span>
+        
+                <span>
+                    <input type="text" placeholder="{{serviceInfo.schedule['Research/Planning']}}" [(ngModel)]="serviceInfo.schedule['Research/Planning']" value="2 weeks" />
+                    <label >Research/Planning</label>
+                </span>
+                <span>
+                    <input type="text" placeholder="{{serviceInfo.schedule['Design']}}" [(ngModel)]="serviceInfo.schedule['Design']" value="2 weeks"  />
+                    <label >Design</label>
+                </span>
+        
+                <span>
+                    <input type="text" placeholder="{{serviceInfo.schedule['Development']}}" [(ngModel)]="serviceInfo.schedule['Development']" value="2 weeks" />
+                    <label >Development</label>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td>Description:</td><td><textarea placeholder="{{serviceInfo.description}}" [(ngModel)]="serviceInfo.description"></textarea></td>
+            </tr>
+            <tr>
+              <td>Maintenance:</td><td><textarea  placeholder="{{serviceInfo.maintenance}}"[(ngModel)]="serviceInfo.maintenance"></textarea></td>
+            </tr>
+            <tr>
+              <td>Type:</td><td><input type="text" placeholder="{{serviceInfo.serviceType}}" [(ngModel)]="serviceInfo.serviceType"/></td><!-- select-->
+            </tr>
+  
+          </table>
+            <p>
+              <button class="btn-success" (click)=ConfirmUpdate()>update service list</button><button class="btn-success" (click)=EditService()>cancel</button>
+            </p>
+        </form>
+    </div>
+<!--*********************************************Table displaying services**************************************************************-->
+    <p><button (click)="EditService()" class="btn-success">Add New</button></p>
+    <div *ngFor="let service of serviceList">
+      <table>
+          <tr><th colspan="2">Please confirm details of update to service list</th></tr>
+        <tr>
+          <td>name:</td><td>{{service.name}}</td>
+        </tr>
+        <tr>
+          <td>price:</td><td>{{service.price}}</td>
+        </tr>
+        <tr>
+          <td>schedule:</td>
+          <td>
+            <ul>
+                <li *ngIf="service.schedule['minimum delivery']">{{service.schedule['minimum delivery']}}</li>     
+                <li *ngIf="service.schedule['Review']">{{service.schedule['Review']}}</li>
+                <li *ngIf="service.schedule['Implementation/Confirmation']">{{service.schedule['Test Development']}}</li>
+                <li *ngIf="service.schedule['Implementation/Confirmation']">{{service.schedule['Implementation/Confirmation']}}</li>
+                <li *ngIf="service.schedule['Planning/Issue Tracking']">{{service.schedule['Planning/Issue Tracking']}}</li>
+                <li *ngIf="service.schedule['Research/Planning']">{{service.schedule['Research/Planning']}}</li>
+                <li *ngIf="service.schedule['Design']">{{service.schedule['Design']}}</li>
+                <li *ngIf="service.schedule['Development']">{{service.schedule['Development']}}</li>
+            </ul>
+        </td>
+        </tr>
+        <tr>
+          <td>description:</td><td>{{service.description}}</td>
+        </tr>
+        <tr>
+          <td>maintenance:</td><td>{{service.maintenance}}</td>
+        </tr>
+        <tr>
+          <td>type:</td><td>{{service.serviceType}}</td>
+        </tr>
+      </table>
+      <button class="btn-primary" (click)="EditService(service)">edit</button>
+    </div>
+<!--*********************************************Confirmation Form**************************************************************-->
+    <div *ngIf="this.confirmService">
+      <table>
+          <tr><th colspan="2">Please confirm details of update to service list</th></tr>
+        <tr>
+          <td>name:</td><td>{{serviceInfo.name}}</td>
+        </tr>
+        <tr>
+          <td>price:</td><td>{{serviceInfo.price}}</td>
+        </tr>
+        <tr>
+          <td>schedule:</td>
+          <td>
+              <span>
+                  {{serviceInfo.schedule['minimum delivery']}}
+              </span>
+      
+              <span>
+                  {{serviceInfo.schedule['Review']}}
+              </span>
+      
+              <span>
+                  {{serviceInfo.schedule['Implementation/Confirmation']}}
+              </span>
+              <span>
+                  {{serviceInfo.schedule['Test/Development']}}
+              </span>
+      
+              <span>
+                  {{serviceInfo.schedule['Planning/Issue Tracking']}}
+              </span>
+      
+              <span>
+                  {{serviceInfo.schedule['Research/Planning']}}
+              </span>
+              <span>
+                  {{serviceInfo.schedule['Design']}}
+              </span>
+      
+              <span>
+                  {{serviceInfo.schedule['Development']}}
+              </span>
+            </td>
+        </tr>
+        <tr>
+          <td>description:</td><td>{{serviceInfo.description}}</td>
+        </tr>
+        <tr>
+          <td>maintenance:</td><td>{{serviceInfo.maintenance}}</td>
+        </tr>
+        <tr>
+          <td>type:</td><td>{{serviceInfo.type}}</td><!-- select-->
+        </tr>
+      </table>
+      <button (click)="UpdateServices()" class="btn-success">edit</button>&nbsp;&nbsp;&nbsp;<button (click)="EditService(serviceInfo)" class="btn-danger"></button>
+    </div>
+  </div>
+</div>

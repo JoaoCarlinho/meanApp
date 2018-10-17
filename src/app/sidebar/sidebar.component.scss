@@ -1,7 +1,7 @@
 /*********************************Control Panel CSS****************************************/
 #cp{
     font-family: "OpenSans";
-    z-index:2;
+    z-index:6;
     background: #3f4c92;
     color:#ffffff;
     cursor: pointer;
@@ -12,8 +12,9 @@
     display:block;
 }
 
-ul{
-    padding:0 5px;
+ul div{
+    margin:5px auto 0 auto;
+    border-bottom: 1px solid #9eabf8;  
 }
 hr{
     background-color:#9eabf8; height: 2px;
@@ -28,12 +29,12 @@ hr{
     #cp{
         position:fixed;
         right: 0;
-        top: 115px;
-        width:190px
+        top: 50px;
+        width:190px;
     }
     
     li{
-        margin: 15px auto 0 auto;
+        margin: 5px auto 0 auto;
     }
     
     

@@ -1,18 +1,16 @@
 <div id="details" *ngIf="this.detailVisibility" class="bg-primary">
         <p *ngIf="serviceShowing.description" class="text-left">{{serviceShowing.description}}</p>
-
 <!--<ul>
         <li *ngIf="serviceShowing.price" class="servicePrice">{{serviceShowing.price}}</li>
         <li *ngIf="serviceShowing.description"  class="serviceMaintin">{{serviceShowing.description}}</li>
         <li *ngIf="serviceShowing.schedule['minimum delivery']" class="schedulePoint">{{serviceShowing.schedule['minimum delivery']}}</li>     
         <li *ngIf="serviceShowing.schedule['Review']" class="schedulePoint">{{serviceShowing.schedule['Review']}}</li>
-        <li *ngIf="serviceShowing.schedule['Implementation/Confirmation']" class="schedulePoint">{{serviceShowing.schedule['Test Development']}}</li>
+        <li *ngIf="serviceShowing.schedule['Test/Development]" class="schedulePoint">{{serviceShowing.schedule['Test Development']}}</li>
         <li *ngIf="serviceShowing.schedule['Implementation/Confirmation']" class="schedulePoint">{{serviceShowing.schedule['Implementation/Confirmation']}}</li>
         <li *ngIf="serviceShowing.schedule['Planning/Issue Tracking']" class="schedulePoint">{{serviceShowing.schedule['Planning/Issue Tracking']}}</li>
         <li *ngIf="serviceShowing.schedule['Research/Planning']" class="schedulePoint">{{serviceShowing.schedule['Research/Planning']}}</li>
         <li *ngIf="serviceShowing.schedule['Design']" class="schedulePoint">{{serviceShowing.schedule['Design']}}</li>
         <li *ngIf="serviceShowing.schedule['Development']" class="schedulePoint">{{serviceShowing.schedule['Development']}}</li>
-        <li *ngIf="serviceShowing.schedule['Test/Implementation']" class="schedulePoint">{{serviceShowing.schedule['Test/Implementation']}}</li>
         <li *ngIf="serviceShowing.maintenance" class="serviceMaintin">{{serviceShowing.maintenance}}</li>
         <li *ngIf="serviceShowing.serviceType" class="serviceType">{{serviceShowing.serviceType}}</li>
     </ul>
