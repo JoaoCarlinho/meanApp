@@ -420,7 +420,7 @@ var ConsultationComponent = /** @class */ (function () {
         //set current visibility of request Form
         this.message.formVisibility.subscribe(function (formVisibility) { return _this.formVisibility = formVisibility; });
         //this.consultInfo = {"firstName":"", "lastName": "", "email": "", "phone": "", "serviceType": "", "company": "", "industry": "", "region": "", "department": "", "position": "", "clientAccounts": 0, "employees": 0, "requestDate": Date.now(), "consultDate": Date.now(), "closedStatus": 0};
-        this.consultInfo = { "firstName": "Johnathan", "lastName": "Skeete", "email": "JSkeete@gmail.com", "phone": "9016203000", "serviceType": "Consulting Services", "company": "IO", "industry": "IT Services", "region": "EST", "department": "Sales", "position": "Lead", "clientAccounts": 15, "employees": 30, "requestDate": Date.now(), "consultDate": Date.now(), "closedStatus": 0 };
+        this.consultInfo = { "firstName": "Mr./Mrs.", "lastName": "Business", "email": "yourName@example.com", "phone": "xxxxxxxxxx", "serviceType": "Consulting Services", "company": "Inc500", "industry": "IOT", "region": "EST", "department": "Sales", "position": "Tech Manager", "clientAccounts": 150, "employees": 300, "requestDate": Date.now(), "consultDate": Date.now(), "closedStatus": 0 };
     };
     ConsultationComponent.prototype.requestConsult = function () {
         this.formVisibility = !this.formVisibility;
@@ -872,7 +872,7 @@ var NewsletterComponent = /** @class */ (function () {
         //set current state of subscription submission
         //this.news.subscriptionState.subscribe(subscriptionState => this.subscriptionState = subscriptionState)
         //this.subscriberInfo = {"firstName":"", "lastName": "", "email": "", "phone": "", "serviceType": "", "company": "", "industry": "", "region": "", "department": "", "position": "", "clientAccounts": 0, "employees": 0, "requestDate": Date.now(), "consultDate": Date.now(), "closedStatus": 0};
-        this.subscriberInfo = { "firstName": "Johnathan", "lastName": "Skeete", "email": "JSkeete@gmail.com", "phone": "9016203000", "company": "IO", "industry": "IT Services", "department": "Sales", "position": "Lead", "subscribeDate": Date.now(), };
+        this.subscriberInfo = { "firstName": "New", "lastName": "Subscriber", "email": "yourName@example.com", "phone": "xxxxxxxxxx", "company": "Inc500", "industry": "IOT", "department": "Operations", "position": "CTO", "subscribeDate": Date.now(), };
     };
     NewsletterComponent.prototype.subscribe = function () {
         this.subscribeVisibility = !this.subscribeVisibility;
