@@ -420,7 +420,7 @@ var ConsultationComponent = /** @class */ (function () {
         //set current visibility of request Form
         this.message.formVisibility.subscribe(function (formVisibility) { return _this.formVisibility = formVisibility; });
         //this.consultInfo = {"firstName":"", "lastName": "", "email": "", "phone": "", "serviceType": "", "company": "", "industry": "", "region": "", "department": "", "position": "", "clientAccounts": 0, "employees": 0, "requestDate": Date.now(), "consultDate": Date.now(), "closedStatus": 0};
-        this.consultInfo = { "firstName": "Mr./Mrs.", "lastName": "Business", "email": "yourName@example.com", "phone": "xxxxxxxxxx", "serviceType": "Consulting Services", "company": "Inc500", "industry": "IOT", "region": "EST", "department": "Sales", "position": "Tech Manager", "clientAccounts": 150, "employees": 300, "requestDate": Date.now(), "consultDate": Date.now(), "closedStatus": 0 };
+        this.consultInfo = { "firstName": "Mr./Mrs.", "lastName": "Business", "email": "yourName@example.com", "phone": "xxxxxxxxxx", "serviceType": "Consulting Services", "company": "Inc500", "industry": "IOT", "region": "EST", "department": "Sales", "position": "CTO", "clientAccounts": 150, "employees": 300, "requestDate": Date.now(), "consultDate": Date.now(), "closedStatus": 0 };
     };
     ConsultationComponent.prototype.requestConsult = function () {
         this.formVisibility = !this.formVisibility;
@@ -872,7 +872,7 @@ var NewsletterComponent = /** @class */ (function () {
         //set current state of subscription submission
         //this.news.subscriptionState.subscribe(subscriptionState => this.subscriptionState = subscriptionState)
         //this.subscriberInfo = {"firstName":"", "lastName": "", "email": "", "phone": "", "serviceType": "", "company": "", "industry": "", "region": "", "department": "", "position": "", "clientAccounts": 0, "employees": 0, "requestDate": Date.now(), "consultDate": Date.now(), "closedStatus": 0};
-        this.subscriberInfo = { "firstName": "New", "lastName": "Subscriber", "email": "yourName@example.com", "phone": "xxxxxxxxxx", "company": "Inc500", "industry": "IOT", "department": "Operations", "position": "CTO", "subscribeDate": Date.now(), };
+        this.subscriberInfo = { "firstName": "New", "lastName": "Subscriber", "email": "yourName@example.com", "phone": "xxxxxxxxxx", "company": "Inc500", "industry": "IOT", "department": "Sales", "position": "Tech Manager", "subscribeDate": Date.now(), };
     };
     NewsletterComponent.prototype.subscribe = function () {
         this.subscribeVisibility = !this.subscribeVisibility;
@@ -1425,7 +1425,7 @@ module.exports = "<div id=\"cp\" *ngIf=\"this.visibility\" class=\"text-center\"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/*********************************Control Panel CSS****************************************/\n#cp {\n  font-family: \"OpenSans\";\n  z-index: 2;\n  background: #3f4c92;\n  color: #ffffff;\n  cursor: pointer;\n  text-align: center; }\n#cp li {\n  display: block; }\nul div {\n  margin: 5px auto 0 auto;\n  border-bottom: 1px solid #9eabf8; }\nhr {\n  background-color: #9eabf8;\n  height: 2px; }\n@media only screen and (min-width: 600px) {\n  /*********************************Control Panel CSS****************************************/\n  #cp {\n    position: fixed;\n    right: 0;\n    top: 115px;\n    width: 190px; }\n  li {\n    margin: 15px auto 0 auto; }\n  .cpBottom {\n    font-size: 1em; } }\n@media only screen and (max-width: 600px) {\n  #cp {\n    width: 100%; } }\n"
+module.exports = "/*********************************Control Panel CSS****************************************/\n#cp {\n  font-family: \"OpenSans\";\n  z-index: 2;\n  background: #3f4c92;\n  color: #ffffff;\n  cursor: pointer;\n  text-align: center; }\n#cp li {\n  display: block; }\nul div {\n  margin: 5px auto 0 auto;\n  border-bottom: 1px solid #9eabf8; }\nhr {\n  background-color: #9eabf8;\n  height: 2px; }\n@media only screen and (min-width: 600px) {\n  /*********************************Control Panel CSS****************************************/\n  #cp {\n    position: absolute;\n    right: 0;\n    top: 0;\n    width: 190px; }\n  li {\n    margin: 15px auto 0 auto; }\n  .cpBottom {\n    font-size: 1em; } }\n@media only screen and (max-width: 600px) {\n  #cp {\n    width: 100%; } }\n"
 
 /***/ }),
 

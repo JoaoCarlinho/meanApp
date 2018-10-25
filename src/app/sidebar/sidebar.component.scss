@@ -27,9 +27,9 @@ hr{
 
     /*********************************Control Panel CSS****************************************/
     #cp{
-        position:fixed;
+        position:absolute;
         right: 0;
-        top: 115px;
+        top: 0;
         width:190px
     }
     
@@ -59,8 +59,8 @@ hr{
 
 //tiny screens
 @media only screen and (max-width: 600px) {
-#cp{
-    width:100%;
-}
+    #cp{
+        width:100%;
+    }
 }
 
