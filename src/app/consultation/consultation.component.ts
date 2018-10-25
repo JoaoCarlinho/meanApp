@@ -25,7 +25,7 @@ export class ConsultationComponent implements OnInit {
     //set current visibility of request Form
     this.message.formVisibility.subscribe(formVisibility => this.formVisibility = formVisibility)
     //this.consultInfo = {"firstName":"", "lastName": "", "email": "", "phone": "", "serviceType": "", "company": "", "industry": "", "region": "", "department": "", "position": "", "clientAccounts": 0, "employees": 0, "requestDate": Date.now(), "consultDate": Date.now(), "closedStatus": 0};
-    this.consultInfo = {"firstName":"Johnathan", "lastName": "Skeete", "email": "JSkeete@gmail.com", "phone": "9016203000", "serviceType": "Consulting Services", "company": "IO", "industry": "IT Services", "region": "EST", "department": "Sales", "position": "Lead", "clientAccounts": 15, "employees": 30, "requestDate": Date.now(), "consultDate": Date.now(), "closedStatus": 0};
+    this.consultInfo = {"firstName":"Mr./Mrs.", "lastName": "Business", "email": "yourName@example.com", "phone": "xxxxxxxxxx", "serviceType": "Consulting Services", "company": "Inc500", "industry": "IOT", "region": "EST", "department": "Sales", "position": "CTO", "clientAccounts": 150, "employees": 300, "requestDate": Date.now(), "consultDate": Date.now(), "closedStatus": 0};
   }
 
   requestConsult(){

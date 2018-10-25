@@ -21,7 +21,7 @@ export class NewsletterComponent implements OnInit {
     //set current state of subscription submission
     //this.news.subscriptionState.subscribe(subscriptionState => this.subscriptionState = subscriptionState)
     //this.subscriberInfo = {"firstName":"", "lastName": "", "email": "", "phone": "", "serviceType": "", "company": "", "industry": "", "region": "", "department": "", "position": "", "clientAccounts": 0, "employees": 0, "requestDate": Date.now(), "consultDate": Date.now(), "closedStatus": 0};
-    this.subscriberInfo = {"firstName":"Johnathan", "lastName": "Skeete", "email": "JSkeete@gmail.com", "phone": "9016203000", "company": "IO", "industry": "IT Services", "department": "Sales", "position": "Lead", "subscribeDate": Date.now(), };
+    this.subscriberInfo = {"firstName":"New", "lastName": "Subscriber", "email": "yourName@example.com", "phone": "xxxxxxxxxx", "company": "Inc500", "industry": "IOT", "department": "Sales", "position": "Tech Manager", "subscribeDate": Date.now(), };
   }
 
   subscribe(){

@@ -64,9 +64,16 @@ router.post('/', function(req, res, next) {
     else{
           let emailMessage ='<h1>'+req.body.firstName+',</h1><p> Thank you for reaching out to ISE Optimizations.  Our account specialists will be contacting you withing the next two business days.<br/>';
           emailMessage+='We look forward to moving your business into the future!</p>'
+          let maillist = [
+            req.body.email,
+            'JSkeete@gmail.com',
+          ];
+          
+          maillist.toString();
+
           var mailOptions = {
             from: '"ISE Optimizations" <JSkeete@gmail.com>',
-            to: req.body.email/*+',JSkeete@gmail.com**/,
+            to: maillist,
             subject:'Request for Information Received',
             generateTextFromHTML: true,
             html: emailMessage,

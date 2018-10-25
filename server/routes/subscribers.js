@@ -62,9 +62,17 @@ router.post('/', function(req, res, next) {
     }else{
       let emailMessage ='<h1>'+req.body.firstName+",</h1><p>Welcome to the future of tech.  You'll be one of the few in the know regarding the way technology is changing our society.<br/>";
           emailMessage+='Pat yourself on the back!</p>'
+
+          let maillist = [
+            req.body.email,
+            'JSkeete@gmail.com',
+          ];
+          
+          maillist.toString();
+
           var mailOptions = {
             from: '"ISE Optimizations" <JSkeete@gmail.com>',
-            to: req.body.email/*+',JSkeete@gmail.com**/,
+            to: maillist,
             subject:'Subscription Request Received',
             generateTextFromHTML: true,
             html: emailMessage,
