@@ -1,7 +1,7 @@
 /*********************************************topNav elements********************************************************/
 
 #banner{
-    position:fixed; top:0; left:0; height:100px;  width:100%; clear:both; z-index: 5; text-align:center;
+    position:fixed; top:0; left:0; height:75px;  width:100%; clear:both; z-index: 5; text-align:center;
     margin: 0 auto 0 auto;
 }
     
@@ -93,15 +93,21 @@
 }
 //medium
 @media only screen and (min-width:600px) and (max-width: 850px) {
-
+    #topNav{
+        padding: 10px;   height: 60px;
+    }
 }
 
 //small screens
 @media only screen and (min-width:350px) and (max-width: 600px) {
-
+    #topNav{
+        padding: 5px;   height: 65px;
+    }
 }
 
 //tiny screens
 @media only screen and (max-width: 350px) {
-
+    #topNav{
+        padding: 5px;   height: 65px;
+    }
 }

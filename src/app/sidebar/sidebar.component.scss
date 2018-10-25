@@ -12,6 +12,10 @@
     display:block;
 }
 
+ul{
+    padding:0;
+}
+
 ul div{
     margin:5px auto 0 auto;
     border-bottom: 1px solid #9eabf8;  
@@ -30,7 +34,7 @@ hr{
         position:absolute;
         right: 0;
         top: 0;
-        width:190px
+        width:175px
     }
     
     li{
@@ -43,14 +47,18 @@ hr{
     }
     
 }
-
+/*
 //medium
 @media only screen and (min-width:600px){
     #cp{
-        
+        position:absolute;
+        right: 0;
+        top: 100px;
+        width:175px
     }
 
 }
+*/
 
 //small screens
 @media only screen and (min-width:350px) and (max-width: 600px) {
@@ -61,6 +69,7 @@ hr{
 @media only screen and (max-width: 600px) {
     #cp{
         width:100%;
+        margin-top:75px;
     }
 }
 

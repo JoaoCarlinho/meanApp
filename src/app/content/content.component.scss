@@ -1,7 +1,7 @@
 #frontPageIntro{
     border-radius:15px;
     position: relative;
-    text-align:center; margin:115px auto 0 auto ;
+    text-align:center;
     overflow-y: scroll;
     //background: white; /* For browsers that do not support gradients */
     //background: -webkit-linear-gradient(#fff0b3, rgb(110, 112, 230)); /* For Safari 5.1 to 6.0 */
@@ -21,20 +21,26 @@ table{
 //large
 @media only screen and (min-width:850px) {
     #frontPageIntro{
-        //width:60%;
+        margin:115px auto 0 auto ;
     }
 }
 //medium
 @media only screen and (min-width:600px) and (max-width: 850px) {
-
+    #frontPageIntro{
+        margin:115px auto 0 auto ;
+    }
 }
 
 //small screens
 @media only screen and (min-width:350px) and (max-width: 600px) {
-
+    #frontPageIntro{
+        margin:75px auto 0 auto ;
+    }
 }
 
 //tiny screens
 @media only screen and (max-width: 350px) {
-
+    #frontPageIntro{
+        margin:75px auto 0 auto ;
+    }
 }
