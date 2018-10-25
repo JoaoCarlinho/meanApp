@@ -30,7 +30,7 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"this.adminVisibility\">\n  <!--**********************************************Login Form**************************************************************-->\n  <div *ngIf=\"this.loginFormVisibility\">\n    <form class=\"form-signin\" novalidate>\n      <table class=\"text-left\">\n        <tr><th colspan=\"2\">Please enter credentials to view admin panel</th></tr>\n        <tr>\n          <td>username:</td><td><input type=\"text\" id=\"username\" name=\"username\" [(ngModel)]=\"userName\" required/></td>\n        </tr>\n        <tr>\n          <td>Password:</td><td><input type=\"password\" id=\"password\" name=\"password\" [(ngModel)]=\"password\" required/></td>\n        </tr>\n      </table>\n    </form>\n    <p>\n      <button class=\"btn-success\" type=\"submit\" (click)=\"Submit()\">Submit</button>&nbsp;&nbsp;<button class=\"btn-danger\" (click)=\"ShowAdminPanel()\">Cancel</button>\n    </p>\n  </div>\n  <div *ngIf=\"this.loginSuccess\">\n<!--**********************************************Update/Create Form**************************************************************-->\n    <div *ngIf=\"this.editingService\">\n        <form>\n          <table class=\"text-left\">\n            <tr><th colspan=\"2\">Please enter information to edit or add services</th></tr>\n            <tr>\n              <td>Name:</td><td><input placeholder=\"{{serviceInfo.name}}\" value=\"Test\" [(ngModel)]=\"serviceInfo.name\" [ngModelOptions]=\"{standalone:\n                true}\" type=\"text\" required/></td>\n            </tr>\n            <tr>\n              <td>Price:</td><td><input placeholder=\"{{serviceInfo.price}}\" value=\"$10000\" [(ngModel)]=\"serviceInfo.price\" [ngModelOptions]=\"{standalone:\n                true}\" type=\"text\" required/></td>\n            </tr>\n            <tr>\n              <td>Schedule:</td>\n              <td>\n                <span>\n                    <input type=\"text\" placeholder=\"{{serviceInfo.schedule['minimum delivery']}}\" [(ngModel)]=\"serviceInfo.schedule['minimum delivery']\" value=\"18 weeks\" /><br/>\n                    <label >Total Delivery</label>\n                </span>\n        \n                <span>\n                    <input type=\"text\" placeholder=\"{{serviceInfo.schedule['Review']}}\" [(ngModel)]=\"serviceInfo.schedule['Review']\" value=\"2 weeks\" />\n                    <label >Review Period</label>\n                </span>\n        \n                <span>\n                    <input type=\"text\" placeholder=\"{{serviceInfo.schedule['Implementation/Confirmation']}}\" [(ngModel)]=\"serviceInfo.schedule['Implementation/Confirmation']\" value=\"2 weeks\" />\n                    <label >Implementation/SIT period</label>\n                </span>\n                <span>\n                    <input type=\"text\" placeholder=\"{{serviceInfo.schedule['Test/Development']}}\"  [(ngModel)]=\"serviceInfo.schedule['Test/Development']\"value=\"2 weeks\"  />\n                    <label >Development/UAT period</label>\n                </span>\n        \n                <span>\n                    <input type=\"text\" placeholder=\"{{serviceInfo.schedule['Planning/Issue Tracking']}}\" [(ngModel)]=\"serviceInfo.schedule['Planning/Issue Tracking']\" value=\"2 weeks\" />\n                    <label >Planning/Issue Tracking</label>\n                </span>\n        \n                <span>\n                    <input type=\"text\" placeholder=\"{{serviceInfo.schedule['Research/Planning']}}\" [(ngModel)]=\"serviceInfo.schedule['Research/Planning']\" value=\"2 weeks\" />\n                    <label >Research/Planning</label>\n                </span>\n                <span>\n                    <input type=\"text\" placeholder=\"{{serviceInfo.schedule['Design']}}\" [(ngModel)]=\"serviceInfo.schedule['Design']\" value=\"2 weeks\"  />\n                    <label >Design</label>\n                </span>\n        \n                <span>\n                    <input type=\"text\" placeholder=\"{{serviceInfo.schedule['Development']}}\" [(ngModel)]=\"serviceInfo.schedule['Development']\" value=\"2 weeks\" />\n                    <label >Development</label>\n                </span>\n              </td>\n            </tr>\n            <tr>\n              <td>Description:</td><td><textarea placeholder=\"{{serviceInfo.description}}\" [(ngModel)]=\"serviceInfo.description\"></textarea></td>\n            </tr>\n            <tr>\n              <td>Maintenance:</td><td><textarea  placeholder=\"{{serviceInfo.maintenance}}\"[(ngModel)]=\"serviceInfo.maintenance\"></textarea></td>\n            </tr>\n            <tr>\n              <td>Type:</td><td><input type=\"text\" placeholder=\"{{serviceInfo.serviceType}}\" [(ngModel)]=\"serviceInfo.serviceType\"/></td><!-- select-->\n            </tr>\n  \n          </table>\n            <p>\n              <button class=\"btn-success\" (click)=ConfirmUpdate()>update service list</button><button class=\"btn-success\" (click)=EditService()>cancel</button>\n            </p>\n        </form>\n    </div>\n<!--*********************************************Table displaying services**************************************************************-->\n    <p><button (click)=\"EditService()\" class=\"btn-success\">Add New</button></p>\n    <div *ngFor=\"let service of serviceList\">\n      <table>\n          <tr><th colspan=\"2\">Please confirm details of update to service list</th></tr>\n        <tr>\n          <td>name:</td><td>{{service.name}}</td>\n        </tr>\n        <tr>\n          <td>price:</td><td>{{service.price}}</td>\n        </tr>\n        <tr>\n          <td>schedule:</td>\n          <td>\n            <ul>\n                <li *ngIf=\"service.schedule['minimum delivery']\">{{service.schedule['minimum delivery']}}</li>     \n                <li *ngIf=\"service.schedule['Review']\">{{service.schedule['Review']}}</li>\n                <li *ngIf=\"service.schedule['Implementation/Confirmation']\">{{service.schedule['Test Development']}}</li>\n                <li *ngIf=\"service.schedule['Implementation/Confirmation']\">{{service.schedule['Implementation/Confirmation']}}</li>\n                <li *ngIf=\"service.schedule['Planning/Issue Tracking']\">{{service.schedule['Planning/Issue Tracking']}}</li>\n                <li *ngIf=\"service.schedule['Research/Planning']\">{{service.schedule['Research/Planning']}}</li>\n                <li *ngIf=\"service.schedule['Design']\">{{service.schedule['Design']}}</li>\n                <li *ngIf=\"service.schedule['Development']\">{{service.schedule['Development']}}</li>\n            </ul>\n        </td>\n        </tr>\n        <tr>\n          <td>description:</td><td>{{service.description}}</td>\n        </tr>\n        <tr>\n          <td>maintenance:</td><td>{{service.maintenance}}</td>\n        </tr>\n        <tr>\n          <td>type:</td><td>{{service.serviceType}}</td>\n        </tr>\n      </table>\n      <button class=\"btn-primary\" (click)=\"EditService(service)\">edit</button>\n    </div>\n<!--*********************************************Confirmation Form**************************************************************-->\n    <div *ngIf=\"this.confirmService\">\n      <table>\n          <tr><th colspan=\"2\">Please confirm details of update to service list</th></tr>\n        <tr>\n          <td>name:</td><td>{{serviceInfo.name}}</td>\n        </tr>\n        <tr>\n          <td>price:</td><td>{{serviceInfo.price}}</td>\n        </tr>\n        <tr>\n          <td>schedule:</td>\n          <td>\n              <span>\n                  {{serviceInfo.schedule['minimum delivery']}}\n              </span>\n      \n              <span>\n                  {{serviceInfo.schedule['Review']}}\n              </span>\n      \n              <span>\n                  {{serviceInfo.schedule['Implementation/Confirmation']}}\n              </span>\n              <span>\n                  {{serviceInfo.schedule['Test/Development']}}\n              </span>\n      \n              <span>\n                  {{serviceInfo.schedule['Planning/Issue Tracking']}}\n              </span>\n      \n              <span>\n                  {{serviceInfo.schedule['Research/Planning']}}\n              </span>\n              <span>\n                  {{serviceInfo.schedule['Design']}}\n              </span>\n      \n              <span>\n                  {{serviceInfo.schedule['Development']}}\n              </span>\n            </td>\n        </tr>\n        <tr>\n          <td>description:</td><td>{{serviceInfo.description}}</td>\n        </tr>\n        <tr>\n          <td>maintenance:</td><td>{{serviceInfo.maintenance}}</td>\n        </tr>\n        <tr>\n          <td>type:</td><td>{{serviceInfo.type}}</td><!-- select-->\n        </tr>\n      </table>\n      <button (click)=\"UpdateServices()\" class=\"btn-success\">edit</button>&nbsp;&nbsp;&nbsp;<button (click)=\"EditService(serviceInfo)\" class=\"btn-danger\"></button>\n    </div>\n  </div>\n</div>"
+module.exports = "<div *ngIf=\"this.adminVisibility\">\n  <!--**********************************************Login Form**************************************************************-->\n  <div *ngIf=\"this.loginFormVisibility\">\n    <form class=\"form-signin\" novalidate>\n      <table class=\"text-left\">\n        <tr><th colspan=\"2\">Please enter credentials to view admin panel</th></tr>\n        <tr>\n          <td>username:</td><td><input type=\"text\" id=\"username\" name=\"username\" [(ngModel)]=\"userName\" required/></td>\n        </tr>\n        <tr>\n          <td>Password:</td><td><input type=\"password\" id=\"password\" name=\"password\" [(ngModel)]=\"password\" required/></td>\n        </tr>\n      </table>\n    </form>\n    <p>\n      <button class=\"btn-success\" type=\"submit\" (click)=\"Submit(); UpdateVisibility();\">Submit</button>&nbsp;&nbsp;<button class=\"btn-danger\" (click)=\"ShowAdminPanel(); UpdateVisibility();\">Cancel</button>\n    </p>\n  </div>\n  <div *ngIf=\"this.loginSuccess\">\n<!--**********************************************Update Form**************************************************************-->\n    <div *ngIf=\"this.editingService\" id=\"editService\">\n      <form *ngIf=\"this.serviceInfo\">\n          <table class=\"text-left\" class=\"table table-striped table-hover \">\n            <tr><th colspan=\"2\">Please enter information to edit or add services</th></tr>\n            <tr>\n              <td>Name:</td><td><input placeholder=\"{{this.serviceInfo.name}}\"  [(ngModel)]=\"this.serviceInfo.name\" [ngModelOptions]=\"{standalone:\n                true}\" type=\"text\" required/></td>\n            </tr>\n            <tr>\n              <td>Price:</td><td><input placeholder=\"{{this.serviceInfo.price}}\" [(ngModel)]=\"this.serviceInfo.price\" [ngModelOptions]=\"{standalone:\n                true}\" type=\"text\" required/></td>\n            </tr>\n            <tr>\n              <td>Schedule:</td>\n              <td>\n                <span>\n                    <input type=\"text\" placeholder=\"{{this.serviceInfo.schedule['minimum delivery']}}\" [(ngModel)]=\"this.serviceInfo.schedule['minimum delivery']\" [ngModelOptions]=\"{standalone:\n                      true}\" />\n                    <label >Total Delivery</label>\n                </span><br/>\n        \n                <span>\n                    <input type=\"text\" placeholder=\"{{this.serviceInfo.schedule['Review']}}\" [(ngModel)]=\"this.serviceInfo.schedule['Review']\" [ngModelOptions]=\"{standalone:\n                      true}\"/>\n                    <label >Review Period</label>\n                </span><br/>\n        \n                <span>\n                    <input type=\"text\" placeholder=\"{{this.serviceInfo.schedule['Implementation/Confirmation']}}\" [(ngModel)]=\"this.serviceInfo.schedule['Implementation/Confirmation']\" [ngModelOptions]=\"{standalone:\n                      true}\"/>\n                    <label >Implementation/SIT period</label>\n                </span><br/>\n                <span>\n                    <input type=\"text\" placeholder=\"{{this.serviceInfo.schedule['Test/Development']}}\"  [(ngModel)]=\"this.serviceInfo.schedule['Test/Development']\" [ngModelOptions]=\"{standalone:\n                      true}\"/>\n                    <label >Development/UAT period</label>\n                </span><br/>\n        \n                <span>\n                    <input type=\"text\" placeholder=\"{{this.serviceInfo.schedule['Planning/Issue Tracking']}}\" [(ngModel)]=\"this.serviceInfo.schedule['Planning/Issue Tracking']\"  [ngModelOptions]=\"{standalone:\n                      true}\"/>\n                    <label >Planning/Issue Tracking</label>\n                </span><br/>\n        \n                <span>\n                    <input type=\"text\" placeholder=\"{{this.serviceInfo.schedule['Research/Planning']}}\" [(ngModel)]=\"this.serviceInfo.schedule['Research/Planning']\" [ngModelOptions]=\"{standalone:\n                      true}\"/>\n                    <label >Research/Planning</label>\n                </span><br/>\n                <span>\n                    <input type=\"text\" placeholder=\"{{this.serviceInfo.schedule['Design']}}\" [(ngModel)]=\"this.serviceInfo.schedule['Design']\" [ngModelOptions]=\"{standalone:\n                      true}\"/>\n                    <label >Design</label>\n                </span><br/>\n        \n                <span>\n                    <input type=\"text\" placeholder=\"{{this.serviceInfo.schedule['Development']}}\" [(ngModel)]=\"this.serviceInfo.schedule['Development']\" [ngModelOptions]=\"{standalone:\n                      true}\"/>\n                    <label >Development</label>\n                </span>\n              </td>\n            </tr>\n            <tr>\n              <td>Description:</td><td><textarea placeholder=\"{{this.serviceInfo.description}}\" [(ngModel)]=\"this.serviceInfo.description\" [ngModelOptions]=\"{standalone:\n                true}\" ></textarea></td>\n            </tr>\n            <tr>\n              <td>Maintenance:</td><td><textarea  placeholder=\"{{this.serviceInfo.maintenance}}\"[(ngModel)]=\"this.serviceInfo.maintenance\" [ngModelOptions]=\"{standalone:\n                true}\" ></textarea></td>\n            </tr>\n            <tr>\n              <td>Type:</td><td><input type=\"text\" placeholder=\"{{this.serviceInfo.serviceType}}\" [(ngModel)]=\"this.serviceInfo.serviceType\" [ngModelOptions]=\"{standalone:\n                true}\"/></td><!-- select-->\n            </tr>\n  \n          </table>\n            <p>\n              <button class=\"btn-success\" (click)=\"ConfirmUpdate()\">update service list</button><button class=\"btn-danger\" (click)=\"EditService()\">cancel</button>\n            </p>\n        </form>\n    </div>\n<!--**********************************************Create Form**************************************************************-->\n    <div *ngIf=\"this.creatingService\" id=\"createService\">\n        <form #frm=\"ngForm\" class=\"text-left\" (ngSubmit)=\"ConfirmCreate(frm)\">\n          <div class=\"form-group\">\n            <label>Name:</label><input type=\"text\" class=\"form.control\" name=\"serviceName\" ngModel required #serviceName=\"ngModel\"/><br/>\n            <label>Price:</label><input type=\"text\" class=\"form.control\" name=\"servicePrice\" ngModel required #servicePrice=\"ngModel\"/><br/>\n            <ul>\n              <li><label>Min Delivery:</label><input type=\"text\" class=\"form.control\" name=\"serviceDelivery\" ngModel required #serviceDelivery=\"ngModel\"/></li>\n              <li><label>Design:</label><input type=\"text\" class=\"form.control\" name=\"serviceDesign\" ngModel required #serviceDesign=\"ngModel\"/></li>\n              <li><label>Development:</label><input type=\"text\" class=\"form.control\" name=\"serviceDevelopment\" ngModel required #serviceDevelopment=\"ngModel\"/></li>\n              <li><label>Test:</label><input type=\"text\" class=\"form.control\" name=\"serviceTest\" ngModel #serviceTest=\"ngModel\"/></li>\n              <li><label>Review:</label><input type=\"text\" class=\"form.control\" name=\"serviceReview\" ngModel #serviceReview=\"ngModel\"/></li>\n            </ul><br/>\n            <label>Description:</label><input type=\"text\" class=\"form.control\" name=\"serviceDescription\" ngModel required #serviceDescription=\"ngModel\"/><br/>\n            <label>Maintenance:</label><input type=\"text\" class=\"form.control\" name=\"serviceMaintain\" ngModel required #serviceMaintain=\"ngModel\"/><br/>\n            <label>Category:</label><input type=\"text\" class=\"form.control\" name=\"serviceType\" ngModel required #serviceType=\"ngModel\"/><br/>\n          </div>\n           <!--\n          <table class=\"text-left\" class=\"table table-striped table-hover \">\n              <tr><th colspan=\"2\">Please enter information to edit or add services</th></tr>\n              <tr>\n                <td>Name:</td><td><input placeholder=\"{{this.serviceInfo.name}}\"  [(ngModel)]=\"this.serviceInfo.name\" [ngModelOptions]=\"{standalone:\n                  true}\" type=\"text\" required/></td>\n              </tr>\n              <tr>\n                <td>Price:</td><td><input placeholder=\"{{this.serviceInfo.price}}\" [(ngModel)]=\"this.serviceInfo.price\" [ngModelOptions]=\"{standalone:\n                  true}\" type=\"text\" required/></td>\n              </tr>\n              <tr>\n                <td>Schedule:</td>\n                <td>\n                  <span>\n                      <input type=\"text\" placeholder=\"{{this.serviceInfo.schedule['minimum delivery']}}\" [(ngModel)]=\"this.serviceInfo.schedule['minimum delivery']\" [ngModelOptions]=\"{standalone:\n                        true}\" />\n                      <label >Total Delivery</label>\n                  </span><br/>\n          \n                  <span>\n                      <input type=\"text\" placeholder=\"{{this.serviceInfo.schedule['Review']}}\" [(ngModel)]=\"this.serviceInfo.schedule['Review']\" [ngModelOptions]=\"{standalone:\n                        true}\"/>\n                      <label >Review Period</label>\n                  </span><br/>\n          \n                  <span>\n                      <input type=\"text\" placeholder=\"{{this.serviceInfo.schedule['Implementation/Confirmation']}}\" [(ngModel)]=\"this.serviceInfo.schedule['Implementation/Confirmation']\" [ngModelOptions]=\"{standalone:\n                        true}\"/>\n                      <label >Implementation/SIT period</label>\n                  </span><br/>\n                  <span>\n                      <input type=\"text\" placeholder=\"{{this.serviceInfo.schedule['Test/Development']}}\"  [(ngModel)]=\"this.serviceInfo.schedule['Test/Development']\" [ngModelOptions]=\"{standalone:\n                        true}\"/>\n                      <label >Development/UAT period</label>\n                  </span><br/>\n          \n                  <span>\n                      <input type=\"text\" placeholder=\"{{this.serviceInfo.schedule['Planning/Issue Tracking']}}\" [(ngModel)]=\"this.serviceInfo.schedule['Planning/Issue Tracking']\"  [ngModelOptions]=\"{standalone:\n                        true}\"/>\n                      <label >Planning/Issue Tracking</label>\n                  </span><br/>\n          \n                  <span>\n                      <input type=\"text\" placeholder=\"{{this.serviceInfo.schedule['Research/Planning']}}\" [(ngModel)]=\"this.serviceInfo.schedule['Research/Planning']\" [ngModelOptions]=\"{standalone:\n                        true}\"/>\n                      <label >Research/Planning</label>\n                  </span><br/>\n                  <span>\n                      <input type=\"text\" placeholder=\"{{this.serviceInfo.schedule['Design']}}\" [(ngModel)]=\"this.serviceInfo.schedule['Design']\" [ngModelOptions]=\"{standalone:\n                        true}\"/>\n                      <label >Design</label>\n                  </span><br/>\n          \n                  <span>\n                      <input type=\"text\" placeholder=\"{{this.serviceInfo.schedule['Development']}}\" [(ngModel)]=\"this.serviceInfo.schedule['Development']\" [ngModelOptions]=\"{standalone:\n                        true}\"/>\n                      <label >Development</label>\n                  </span>\n                </td>\n              </tr>\n              <tr>\n                <td>Description:</td><td><textarea placeholder=\"{{this.serviceInfo.description}}\" [(ngModel)]=\"this.serviceInfo.description\" [ngModelOptions]=\"{standalone:\n                  true}\" ></textarea></td>\n              </tr>\n              <tr>\n                <td>Maintenance:</td><td><textarea  placeholder=\"{{this.serviceInfo.maintenance}}\"[(ngModel)]=\"this.serviceInfo.maintenance\" [ngModelOptions]=\"{standalone:\n                  true}\" ></textarea></td>\n              </tr>\n              <tr>\n                <td>Type:</td><td><input type=\"text\" placeholder=\"{{this.serviceInfo.serviceType}}\" [(ngModel)]=\"this.serviceInfo.serviceType\" [ngModelOptions]=\"{standalone:\n                  true}\"/></td><!-- select\\->\n              </tr>\n    \n            </table>\n          -->\n              <p>\n                <button type=\"submit\" class=\"btn-success\">update service list</button><button class=\"btn-danger\" (click)=\"EditService()\">cancel</button>\n              </p>\n          </form>\n      </div>\n<!--*********************************************Table displaying services**************************************************************-->\n    <p><button (click)=\"CreateService()\" class=\"btn-success\">Add New</button></p>\n    <div *ngFor=\"let service of serviceList\" id=\"listView\">\n      <table class=\"text-left table table-striped table-hover \">\n        <tr>\n          <th>Service:</th><th>{{service.name}}</th>\n        </tr>\n        <tr>\n          <td>Price:</td><td>{{service.price}}</td>\n        </tr>\n        <tr>\n          <td>Schedule:</td>\n          <td>\n            <ul style=\"list-style: none;\">\n                <li *ngIf=\"service.schedule['minimum delivery']\">{{service.schedule['minimum delivery']}}</li>     \n              <!-- \n                <li *ngIf=\"service.schedule['Review']\">{{service.schedule['Review']}}</li>\n                <li *ngIf=\"service.schedule['Implementation/Confirmation']\">{{service.schedule['Test Development']}}</li>\n                <li *ngIf=\"service.schedule['Implementation/Confirmation']\">{{service.schedule['Implementation/Confirmation']}}</li>\n                <li *ngIf=\"service.schedule['Planning/Issue Tracking']\">{{service.schedule['Planning/Issue Tracking']}}</li>\n                <li *ngIf=\"service.schedule['Research/Planning']\">{{service.schedule['Research/Planning']}}</li>\n                <li *ngIf=\"service.schedule['Design']\">{{service.schedule['Design']}}</li>\n                <li *ngIf=\"service.schedule['Development']\">{{service.schedule['Development']}}</li>\n              -->\n            </ul>\n        </td>\n        </tr>\n        <tr>\n          <td>Dscription:</td><td>{{service.description}}</td>\n        </tr>\n        <tr>\n          <td>Maintenance:</td><td>{{service.maintenance}}</td>\n        </tr>\n        <tr>\n          <td>Type:</td><td>{{service.serviceType}}</td>\n        </tr>\n      </table>\n      <button class=\"btn-primary\" (click)=\"EditService(service)\">edit</button>\n    </div>\n<!--*********************************************Confirmation Form**************************************************************-->\n    <div *ngIf=\"this.confirmService\" id=\"confirmService\">\n      <table class=\"text-left\" *ngIf=\"this.serviceInfo\">\n          <tr><th colspan=\"2\">Please confirm details of update to service list</th></tr>\n        <tr>\n          <td>name:</td><td>{{this.serviceInfo.name}}</td>\n        </tr>\n        <tr>\n          <td>price:</td><td>{{this.serviceInfo.price}}</td>\n        </tr>\n        <tr>\n          <td>schedule:</td>\n          <td>\n              <span>\n                  {{this.serviceInfo.schedule['minimum delivery']}}\n              </span>\n      \n              <span>\n                  {{this.serviceInfo.schedule['Review']}}\n              </span>\n      \n              <span>\n                  {{this.serviceInfo.schedule['Implementation/Confirmation']}}\n              </span>\n              <span>\n                  {{this.serviceInfo.schedule['Test/Development']}}\n              </span>\n      \n              <span>\n                  {{this.serviceInfo.schedule['Planning/Issue Tracking']}}\n              </span>\n      \n              <span>\n                  {{this.serviceInfo.schedule['Research/Planning']}}\n              </span>\n              <span>\n                  {{this.serviceInfo.schedule['Design']}}\n              </span>\n      \n              <span>\n                  {{this.serviceInfo.schedule['Development']}}\n              </span>\n            </td>\n        </tr>\n        <tr>\n          <td>description:</td><td>{{this.serviceInfo.description}}</td>\n        </tr>\n        <tr>\n          <td>maintenance:</td><td>{{this.serviceInfo.maintenance}}</td>\n        </tr>\n        <tr>\n          <td>type:</td><td>{{this.serviceInfo.type}}</td><!-- select-->\n        </tr>\n      </table>\n      <button (click)=\"UpdateServices()\" class=\"btn-success\">edit</button>&nbsp;&nbsp;&nbsp;<button (click)=\"EditService(this.serviceInfo)\" class=\"btn-danger\">Cancel</button>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -41,7 +41,7 @@ module.exports = "<div *ngIf=\"this.adminVisibility\">\n  <!--******************
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = "table {\n  border: 2px #3f4c92 solid;\n  text-align: left; }\n"
 
 /***/ }),
 
@@ -57,6 +57,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdminComponent", function() { return AdminComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _services_admin_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/admin.service */ "./src/app/services/admin.service.ts");
+/* harmony import */ var _services_servicelist_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/servicelist.service */ "./src/app/services/servicelist.service.ts");
+/* harmony import */ var _services_hidepanel_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/hidepanel.service */ "./src/app/services/hidepanel.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -68,43 +70,94 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
+
+
 var AdminComponent = /** @class */ (function () {
-    function AdminComponent(admin) {
+    function AdminComponent(admin, info, data) {
         this.admin = admin;
+        this.info = info;
+        this.data = data;
         this.editingService = false;
         this.creatingService = false;
     }
     AdminComponent.prototype.ngOnInit = function () {
         var _this = this;
-        //set current service for detail
-        this.admin.loginState.subscribe(function (state) { return _this.loginFormVisibility = !state; });
+        //subscribe for login form visibility
+        this.admin.loginState.subscribe(function (state) {
+            _this.loginFormVisibility = !state;
+            _this.loginSuccess = state;
+        });
         //set current service for detail
         this.admin.adminVisible.subscribe(function (adminVisible) { return _this.adminVisibility = adminVisible; });
+        //subscribe to current service list
+        this.info.loadServiceLines().subscribe(function (res) { return _this.serviceList = res; });
     };
     AdminComponent.prototype.Submit = function () {
-        console.log(this.userName); // { first: '', last: '' }
-        console.log(this.password); // false 
+        //console.log(this.userName);  // { first: '', last: '' }
+        //console.log(this.password);  // false 
         this.admin.Login({ "userName": this.userName, "password": this.password });
+        console.log(this.serviceList);
     };
     AdminComponent.prototype.ShowAdminPanel = function () {
         this.loginSuccess = false;
         this.adminVisibility = !this.adminVisibility;
         this.admin.ShowAdminPanel(this.adminVisibility);
     };
-    AdminComponent.prototype.CreateService = function () {
-        this.editingService = !this.editingService;
-    };
     AdminComponent.prototype.EditService = function (IOService) {
         if (IOService === void 0) { IOService = null; }
         this.editingService = !this.editingService;
-        if (IOService != null) {
+        scroll(0, 0);
+        if (IOService == null) {
+            this.updateType = 'new';
+        }
+        else {
+            this.updateType = 'current';
             this.serviceInfo = IOService;
         }
     };
-    AdminComponent.prototype.UpdateServices = function () {
+    AdminComponent.prototype.ConfirmUpdate = function () {
         this.editingService = !this.editingService;
         this.confirmService = !this.confirmService;
+    };
+    AdminComponent.prototype.ConfirmCreate = function (form) {
+        this.creatingService = !this.creatingService;
+        this.confirmCreate = !this.confirmCreate;
+        this.serviceInfo = {
+            name: form.serviceName,
+            price: form.servicePrice,
+            schedule: { "minimum delivery": form.serviceDelivery, "Design": form.serviceDesign, "Development": form.serviceDevelopment, "Implementation/Confirmation": form.serviceTest, "Review": form.serviceReview },
+            description: form.serviceDescription,
+            maintenance: form.serviceMaintain,
+            serviceType: form.serviceType,
+        };
+        console.log(this.serviceInfo);
+    };
+    AdminComponent.prototype.UpdateServices = function (serviceStatus) {
+        this.confirmService = !this.confirmService;
         this.admin.UpdateServices(this.serviceInfo);
+        this.updateType = '';
+    };
+    AdminComponent.prototype.getServices = function () {
+        var _this = this;
+        this.info.loadServiceLines()
+            .subscribe(function (services) {
+            _this.serviceList = services;
+        });
+    };
+    AdminComponent.prototype.CreateService = function () {
+        var _this = this;
+        this.creatingService = !this.creatingService;
+        this.admin.CreateService(this.serviceInfo)
+            .subscribe(function (result) {
+            console.log(result);
+            _this.getServices();
+        });
+        this.updateType = '';
+    };
+    //function to hide admin panel
+    AdminComponent.prototype.UpdateVisibility = function () {
+        this.data.ShowHidePanel(false);
+        //console.log ('visiblity:'+this.visibility);
     };
     AdminComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -112,7 +165,7 @@ var AdminComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./admin.component.html */ "./src/app/admin/admin.component.html"),
             styles: [__webpack_require__(/*! ./admin.component.scss */ "./src/app/admin/admin.component.scss")]
         }),
-        __metadata("design:paramtypes", [_services_admin_service__WEBPACK_IMPORTED_MODULE_1__["AdminService"]])
+        __metadata("design:paramtypes", [_services_admin_service__WEBPACK_IMPORTED_MODULE_1__["AdminService"], _services_servicelist_service__WEBPACK_IMPORTED_MODULE_2__["ServicelistService"], _services_hidepanel_service__WEBPACK_IMPORTED_MODULE_3__["HidepanelService"]])
     ], AdminComponent);
     return AdminComponent;
 }());
@@ -432,7 +485,7 @@ module.exports = "<div id=\"frontPageIntro\" class=\"text-center\">\n  <div clas
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#frontPageIntro {\n  border-radius: 15px;\n  position: relative;\n  text-align: center;\n  margin: 115px auto 0 auto;\n  overflow: auto; }\n\ninput {\n  font-size: .75em; }\n\ntable {\n  font-size: .75em; }\n"
+module.exports = "#frontPageIntro {\n  border-radius: 15px;\n  position: relative;\n  text-align: center;\n  margin: 115px auto 0 auto;\n  overflow-y: scroll; }\n\ninput {\n  font-size: .75em; }\n\ntable {\n  font-size: .75em; }\n"
 
 /***/ }),
 
@@ -491,7 +544,7 @@ var ContentComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<footer class=\"text-center\">\n    <hr id=\"line1\" width=12% >\n    <hr id=\"line2\" width=24% >\n    <hr id=\"line3\" width=36% >\n    <hr id=\"line4\" width=48% >\n    <hr id=\"line5\" width=60% >\n    <hr id=\"line6\" width=72% >\n    <hr id=\"line7\" width=84% >\n    <hr id=\"line8\" width=96% >\t\n    <hr id=\"line9\" width=96% >\n    <hr id=\"line10\" width=84% >\n    <hr id=\"line11\" width=72% >\n    <hr id=\"line12\" width=60% >\n    <hr id=\"line13\" width=48% >\n    <hr id=\"line14\" width=36% >\n    <hr id=\"line15\" width=24% >\n    <hr id=\"line16\" width=12% >\n    <p class=\"text-left\">&copy; 2018 ISE Optimizations</p>\n    <button class=\"btn-success\" (click)=\"subscribe()\">Subscribe to our newsletter!</button>\n</footer>\n"
+module.exports = "<footer class=\"text-center\">\n    <hr id=\"line1\" width=3% >\n    <hr id=\"line2\" width=6% >\n    <hr id=\"line3\" width=9% >\n\t<hr id=\"line4\" width=12% >\n    <hr id=\"line5\" width=15% >\n    <hr id=\"line6\" width=18% >\n\t<hr id=\"line7\" width=21% >\n\t<hr id=\"line8\" width=24% >\n    <hr id=\"line9\" width=27% >\n    <hr id=\"line10\" width=30% >\n\t<hr id=\"line11\" width=33% >\n\t<hr id=\"line12\" width=36% >\n    <hr id=\"line13\" width=39% >\n    <hr id=\"line14\" width=42% >\n\t<hr id=\"line15\" width=45% >\n\t<hr id=\"line16\" width=48% >\n    <hr id=\"line17\" width=51% >\n    <hr id=\"line18\" width=54% >\n\t<hr id=\"line19\" width=57% >\n\t<hr id=\"line20\" width=60% >\n    <hr id=\"line21\" width=63% >\n    <hr id=\"line22\" width=66% >\n\t<hr id=\"line23\" width=69% >\n\t<hr id=\"line24\" width=72% >\n    <hr id=\"line25\" width=75% >\n    <hr id=\"line26\" width=78% >\n\t<hr id=\"line27\" width=81% >\n\t<hr id=\"line28\" width=84% >\n    <hr id=\"line29\" width=87% >\n    <hr id=\"line30\" width=90% >\n\t<hr id=\"line31\" width=93% >\n\t<hr id=\"line32\" width=96% >\n    <hr id=\"line33\" width=99% >\n\t<hr id=\"line34\" width=96% >\n    <hr id=\"line35\" width=93% >\n    <hr id=\"line36\" width=90% >\n\t<hr id=\"line37\" width=87% >\n\t<hr id=\"line38\" width=84% >\n    <hr id=\"line39\" width=81% >\n    <hr id=\"line40\" width=78% >\n\t<hr id=\"line41\" width=75% >\n\t<hr id=\"line42\" width=72% >\n    <hr id=\"line43\" width=69% >\n    <hr id=\"line44\" width=66% >\n\t<hr id=\"line45\" width=63% >\n\t<hr id=\"line46\" width=60% >\n    <hr id=\"line47\" width=57% >\n    <hr id=\"line48\" width=54% >\n\t<hr id=\"line49\" width=51% >\n\t<hr id=\"line50\" width=48% >\n    <hr id=\"line51\" width=45% >\n    <hr id=\"line52\" width=42% >\n\t<hr id=\"line53\" width=39% >\n\t<hr id=\"line54\" width=36% >\n    <hr id=\"line55\" width=33% >\n    <hr id=\"line56\" width=30% >\n\t<hr id=\"line57\" width=27% >\n\t<hr id=\"line58\" width=24% >\n    <hr id=\"line59\" width=21% >\n    <hr id=\"line60\" width=18% >\n\t<hr id=\"line61\" width=15% >\n\t<hr id=\"line62\" width=12% >\n    <hr id=\"line63\" width=9% >\n    <hr id=\"line64\" width=6% >\n\t<hr id=\"line65\" width=3% >\n    <p class=\"text-left\">&copy; 2018 ISE Optimizations</p>\n    <button class=\"btn-success\" (click)=\"subscribe()\">Subscribe to our newsletter!</button><br/>\n    <hr/>\n</footer>\n"
 
 /***/ }),
 
@@ -502,7 +555,7 @@ module.exports = "<footer class=\"text-center\">\n    <hr id=\"line1\" width=12%
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/****************************************FOOTER CSS********************************************/\nfooter {\n  max-width: 75%;\n  margin: 0 auto; }\n#footer-section {\n  margin: 0 auto;\n  position: relative;\n  z-index: 9;\n  border-top: solid 1px #d0d0ce; }\n#footer-top-links li {\n  background: #000000;\n  text-align: center; }\n#footer-top-links li a {\n  text-align: center;\n  line-height: 1em;\n  text-align: center;\n  color: #ffffff;\n  background: #000000; }\n#footer-top-links li a:visited {\n  color: #ffffff; }\n.homeBottomText {\n  display: block;\n  color: #000000;\n  clear: both;\n  margin: 0 auto 0 auto;\n  text-align: center;\n  width: 100%;\n  background: silver; }\n.homeBottomText a {\n  color: #000000; }\n.row {\n  width: 100%;\n  display: block;\n  margin: 0 auto 0 auto;\n  max-width: 63.75em;\n  padding: 0;\n  line-height: 1;\n  background: silver; }\nhr {\n  height: 3px;\n  opacity: .35;\n  margin: 5px auto; }\n"
+module.exports = "/****************************************FOOTER CSS********************************************/\nfooter {\n  max-width: 75%;\n  margin: 0 auto; }\n#footer-section {\n  margin: 0 auto;\n  position: relative;\n  z-index: 9;\n  border-top: solid 1px #d0d0ce; }\n#footer-top-links li {\n  background: #000000;\n  text-align: center; }\n#footer-top-links li a {\n  text-align: center;\n  line-height: 1em;\n  text-align: center;\n  color: #ffffff;\n  background: #000000; }\n#footer-top-links li a:visited {\n  color: #ffffff; }\n.homeBottomText {\n  display: block;\n  color: #000000;\n  clear: both;\n  margin: 0 auto 0 auto;\n  text-align: center;\n  width: 100%;\n  background: silver; }\n.homeBottomText a {\n  color: #000000; }\n.row {\n  width: 100%;\n  display: block;\n  margin: 0 auto 0 auto;\n  max-width: 63.75em;\n  padding: 0;\n  line-height: 1;\n  background: silver; }\nhr {\n  opacity: .35;\n  margin: 0 auto; }\n@media only screen and (min-width: 850px) {\n  hr {\n    height: 4px; } }\n@media only screen and (min-width: 600px) and (max-width: 850px) {\n  hr {\n    height: 3px; } }\n@media only screen and (min-width: 350px) and (max-width: 600px) {\n  hr {\n    height: 3px; } }\n@media only screen and (max-width: 350px) {\n  hr {\n    height: 2px; } }\n"
 
 /***/ }),
 
@@ -540,16 +593,13 @@ var FooterComponent = /** @class */ (function () {
         var _this = this;
         this.news.subscribeVisibility.subscribe(function (subscribeVisibility) { return _this.subscribing = subscribeVisibility; });
         function init() {
-            var time = 500;
-            var colors = [
-                'blue', 'red', 'green', 'indigo', 'orange', 'yellow', 'violet', 'cyan',
-                'aqua', 'brown', 'black', 'pink', 'firebrick', 'fuchsia', 'gold', 'silver'
-            ];
-            for (var i = 1; i <= 16; i++) {
-                var num = Math.floor(Math.random() * colors.length);
+            var time = 100;
+            var colors = ['6BEAF0', '#4AB8F6', '#4AB8F6', '#4AB8F6', '#1275AD', '#6BEAF0', '#6BEAF0', '#6BEAF0', '#75C2D6', '#75C2D6', '#75C2D6', '#3AC0E4', '#6BEAF0', '#75C2D6', 'silver', 'silver'];
+            for (var i = 1; i <= 65; i++) {
+                var colorNum = Math.floor(Math.random() * (colors.length - 1));
                 var element = document.getElementById('line' + i);
                 //console.log(element.hasAttribute('color'));
-                element.setAttribute('color', colors[num - 1]);
+                element.setAttribute('color', colors[colorNum]);
             }
             setTimeout(function () { init(); }, time);
         }
@@ -595,7 +645,7 @@ module.exports = "<div id=\"banner\">\n  <nav id=\"topNav\">\n      <div id=\"na
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/*********************************************topNav elements********************************************************/\n#banner {\n  position: fixed;\n  top: 0;\n  height: 100px;\n  width: 100%;\n  clear: both;\n  z-index: 5;\n  text-align: center;\n  margin: 0 auto 0 auto; }\n#topNav {\n  background: #ffffff;\n  width: 100%;\n  display: block;\n  box-shadow: none;\n  font-family: \"Graphik Black\",\"Arial Black\",Sans-Serif;\n  font-weight: normal;\n  font-size: 1.25em; }\n#navTopLogoLeft {\n  color: navy;\n  background: no-repeat url('IO.png');\n  background-size: contain; }\n#navTopSearch {\n  color: navy;\n  font-weight: 100;\n  font-size: 1.25em; }\n#navTopRight {\n  color: navy; }\n#navTopRight li {\n  margin-top: 8px; }\n#btnMainMenu {\n  color: navy;\n  background: no-repeat url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAY1BMVEUAAABBeLxAeLxBd7xBeLxAeLw/dLk/d7tBd7s/b68/d7c/eLw/d7xBeLs/dbxBeLxCeb3///9yksucr9rK0+vy9ftRf8BchcRoi8fW3vCzweOGoNO+yufj6fV8mc+ouN+Rp9biExFJAAAAEHRSTlMAwNCg8OAwQIAQIHBgkFCwhZRvygAABNxJREFUeNrt3emS6ygMBlCBwRivcvbO0un3f8qZf9yqqclyW5FAxXmDr0SACBtDVVVVVVVVVVVVVVXEwh9aVcHmrjEW/8uYqSs8agzd4vEZ2wwBCtSPjcfX2WmOUJAwWXyfGVoowtw4/Ft+yj5k2zj8Hd/1kK04eKRgRshS3yAZ30XITTBIq+n15ksZM8unN2Nr8HOaCNJigx/lOpA1OPw0H0BOa5HDEkFIh0zcLFpAtWUckJULwCsa5DYBp+CQn41KR2jiWmDSoJQROESLchqhRULVstE6lGUjQ0DNEUeH8mz/wYCYBdcqDZi4D1WxxWzYyDDJaIqYAqqOGD3mpWHYqumK2GB+RoaOjLAWyMyYJReBSO8wTxaIWMzVBCQmzFcAAgEz5iLDUi9r0TpGk1npGE1cVDpGk4ZoM6N1Pu2xAB5+wWAJOoJpRu1k47EME0NvTVivtIRJo7WESf+JEh4u2x2T63bztIj0JdzuV063b/oi+ocF/Fq5namLOBIE5IwYabcz91XCN+nGpsUHjquIGz7gSVvA21XGibBBHB0+sFtlbPGBhXKp2K8yzoQLhsFHViE7fGQg/Of7leMoRU/44Np1lXHBh1q6Pv5llXHEhybC9swto4km8YRPV36vAvZHfKIlbED9CAQ8YfLL2TTicxfuNfF2wqcM6ZHv8bznzPdzwBdE4sOY04bLkfiYxmKpJoKfYd4MQ6dbGMN5k7Cg4DiGYkV0WK5G6USTWK0TTUKw7c5cS7CjyVsgmErLP/G26hNi0UxN+NZisWFzwlc5uoTH88povz3ga8gSbldm+w1Vwg5fcc6sH5y0BAlz7CYmgSThYb9KODMklO7qsyW8rjJ+GBIKn66xJVyF7NgS7lcZd7aEO/Wj9GeVcWJLeFxFfCFDQtFHhjYMCUXXizvSJJzxFYcd/zTD/O8JLzfepXCDXAmTzZbNz4mwJRxrJ6r8hB5LNtWe978aLNms9JA7CfX8kOO9Ufn3SbFgi/pnMTp4xaT+eZoZyxVB+VRj4TVewQNDWnc1I+kLwJfrfuVyO59IXwfu8bkTd6fmeqC8N8o+D7jn7yUeCG8emAgCSkQMdPd47rJs6ju6V/E3q4j94elaQTVMz6uMb7oro9oSz54c4Y0Rq5Ar4aUDXYEJW3hHX94o9fCeBR+45zjTDPCeOcfVgvayKF/Yit/QfofkKLJrI76gJrqidt6G/ELBI/dAvR+ebbqJiphszl9sU8zufsSHjIZbISlLmIpYCgOgvIgBQHcRDeW3ubRdP++V3pqYBK3XlyYL5m8g+2iA0s8HDFqnmcSUcOqreZxa+L1B6xhNTDnzqL7NmwEaoaC1XtmfjBbILDmf2pOINvcNt8ZV0TJ8HFDZ5wFHTJR+i3TUGjAZtAZMmpyeV9cdcQRQHdGN8EGD1t9gMioPKP/xcd/Cx7VOdifDoLcopYnAIi5iPQs2HQpwARgFh9xsD6yiYe/8shsc8vEBBPQGuUwRZAxOaQGTnmPd6CJICh4/y/QgbXBKB2gSO/epfCMk0hn15ksZleZL4uCRjpkhR/OCJFzTQ656gkKaMULW2uk3Ie3QQwHazuLfWFK8/MWx8fgOO81QnH6eDL7AL12IUKw+dI3x/1c40w0hggoxhLn7UwgBqqqqqqqqqqqqqmz8AzLJMWOJgY4mAAAAAElFTkSuQmCC\");\n  background-size: contain;\n  z-index: 7; }\n#navTopLogoLeft {\n  margin-left: 5px;\n  position: absolute;\n  height: 45px;\n  width: 108px; }\n#btnMainMenu {\n  height: 45px;\n  width: 108px; }\n#navTopSearch {\n  width: 175px;\n  height: 44px;\n  top: 11px;\n  text-align: center;\n  background-color: #000;\n  border-radius: 20px;\n  display: inline-block;\n  line-height: 10px; }\n#navTopRight {\n  position: absolute;\n  right: 5px;\n  top: 0px;\n  color: navy; }\n@media only screen and (min-width: 850px) {\n  #topNav {\n    padding: 10px;\n    height: 80px; }\n  /*   \n    #navTopLogoLeft{\n        margin-left: 5px; position: absolute; //z-index: 1;\n        height:45px; width:108px; text-align:center;\n    }\n    \n    #navTopSearch{\n        width:196px; height:44px; top:11px; text-align:center;\n        background-color: #000;  border-radius: 20px;  display: inline-block; line-height: 10px;\n    }\n    \n    #navTopRight{\n        position: absolute; right:100px; top: 20px; color:navy;\n    }\n*/\n  .nav > li > a {\n    position: relative;\n    display: block; }\n  #frontPageIntro {\n    height: 542px; } }\n"
+module.exports = "/*********************************************topNav elements********************************************************/\n#banner {\n  position: fixed;\n  top: 0;\n  left: 0;\n  height: 100px;\n  width: 100%;\n  clear: both;\n  z-index: 5;\n  text-align: center;\n  margin: 0 auto 0 auto; }\n#topNav {\n  background: #ffffff;\n  width: 100%;\n  display: block;\n  box-shadow: none;\n  font-family: \"Graphik Black\",\"Arial Black\",Sans-Serif;\n  font-weight: normal;\n  font-size: 1.25em; }\n#navTopLogoLeft {\n  color: navy;\n  background: no-repeat url('IO.png');\n  background-size: contain; }\n#navTopSearch {\n  color: navy;\n  font-weight: 100;\n  font-size: 1.25em; }\n#navTopRight {\n  color: navy; }\n#navTopRight li {\n  margin-top: 8px; }\n#btnMainMenu {\n  color: navy;\n  background: no-repeat url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAY1BMVEUAAABBeLxAeLxBd7xBeLxAeLw/dLk/d7tBd7s/b68/d7c/eLw/d7xBeLs/dbxBeLxCeb3///9yksucr9rK0+vy9ftRf8BchcRoi8fW3vCzweOGoNO+yufj6fV8mc+ouN+Rp9biExFJAAAAEHRSTlMAwNCg8OAwQIAQIHBgkFCwhZRvygAABNxJREFUeNrt3emS6ygMBlCBwRivcvbO0un3f8qZf9yqqclyW5FAxXmDr0SACBtDVVVVVVVVVVVVVVXEwh9aVcHmrjEW/8uYqSs8agzd4vEZ2wwBCtSPjcfX2WmOUJAwWXyfGVoowtw4/Ft+yj5k2zj8Hd/1kK04eKRgRshS3yAZ30XITTBIq+n15ksZM8unN2Nr8HOaCNJigx/lOpA1OPw0H0BOa5HDEkFIh0zcLFpAtWUckJULwCsa5DYBp+CQn41KR2jiWmDSoJQROESLchqhRULVstE6lGUjQ0DNEUeH8mz/wYCYBdcqDZi4D1WxxWzYyDDJaIqYAqqOGD3mpWHYqumK2GB+RoaOjLAWyMyYJReBSO8wTxaIWMzVBCQmzFcAAgEz5iLDUi9r0TpGk1npGE1cVDpGk4ZoM6N1Pu2xAB5+wWAJOoJpRu1k47EME0NvTVivtIRJo7WESf+JEh4u2x2T63bztIj0JdzuV063b/oi+ocF/Fq5namLOBIE5IwYabcz91XCN+nGpsUHjquIGz7gSVvA21XGibBBHB0+sFtlbPGBhXKp2K8yzoQLhsFHViE7fGQg/Of7leMoRU/44Np1lXHBh1q6Pv5llXHEhybC9swto4km8YRPV36vAvZHfKIlbED9CAQ8YfLL2TTicxfuNfF2wqcM6ZHv8bznzPdzwBdE4sOY04bLkfiYxmKpJoKfYd4MQ6dbGMN5k7Cg4DiGYkV0WK5G6USTWK0TTUKw7c5cS7CjyVsgmErLP/G26hNi0UxN+NZisWFzwlc5uoTH88povz3ga8gSbldm+w1Vwg5fcc6sH5y0BAlz7CYmgSThYb9KODMklO7qsyW8rjJ+GBIKn66xJVyF7NgS7lcZd7aEO/Wj9GeVcWJLeFxFfCFDQtFHhjYMCUXXizvSJJzxFYcd/zTD/O8JLzfepXCDXAmTzZbNz4mwJRxrJ6r8hB5LNtWe978aLNms9JA7CfX8kOO9Ufn3SbFgi/pnMTp4xaT+eZoZyxVB+VRj4TVewQNDWnc1I+kLwJfrfuVyO59IXwfu8bkTd6fmeqC8N8o+D7jn7yUeCG8emAgCSkQMdPd47rJs6ju6V/E3q4j94elaQTVMz6uMb7oro9oSz54c4Y0Rq5Ar4aUDXYEJW3hHX94o9fCeBR+45zjTDPCeOcfVgvayKF/Yit/QfofkKLJrI76gJrqidt6G/ELBI/dAvR+ebbqJiphszl9sU8zufsSHjIZbISlLmIpYCgOgvIgBQHcRDeW3ubRdP++V3pqYBK3XlyYL5m8g+2iA0s8HDFqnmcSUcOqreZxa+L1B6xhNTDnzqL7NmwEaoaC1XtmfjBbILDmf2pOINvcNt8ZV0TJ8HFDZ5wFHTJR+i3TUGjAZtAZMmpyeV9cdcQRQHdGN8EGD1t9gMioPKP/xcd/Cx7VOdifDoLcopYnAIi5iPQs2HQpwARgFh9xsD6yiYe/8shsc8vEBBPQGuUwRZAxOaQGTnmPd6CJICh4/y/QgbXBKB2gSO/epfCMk0hn15ksZleZL4uCRjpkhR/OCJFzTQ656gkKaMULW2uk3Ie3QQwHazuLfWFK8/MWx8fgOO81QnH6eDL7AL12IUKw+dI3x/1c40w0hggoxhLn7UwgBqqqqqqqqqqqqqmz8AzLJMWOJgY4mAAAAAElFTkSuQmCC\");\n  background-size: contain;\n  z-index: 7; }\n#navTopLogoLeft {\n  margin-left: 5px;\n  position: absolute;\n  height: 45px;\n  width: 108px; }\n#btnMainMenu {\n  height: 45px;\n  width: 45px; }\n#navTopSearch {\n  width: 175px;\n  height: 44px;\n  top: 11px;\n  text-align: center;\n  background-color: #000;\n  border-radius: 20px;\n  display: inline-block;\n  line-height: 10px; }\n#navTopRight {\n  position: absolute;\n  right: 5px;\n  top: 0px;\n  color: navy; }\n@media only screen and (min-width: 850px) {\n  #topNav {\n    padding: 10px;\n    height: 80px; }\n  /*   \n    #navTopLogoLeft{\n        margin-left: 5px; position: absolute; //z-index: 1;\n        height:45px; width:108px; text-align:center;\n    }\n    \n    #navTopSearch{\n        width:196px; height:44px; top:11px; text-align:center;\n        background-color: #000;  border-radius: 20px;  display: inline-block; line-height: 10px;\n    }\n    \n    #navTopRight{\n        position: absolute; right:100px; top: 20px; color:navy;\n    }\n*/\n  .nav > li > a {\n    position: relative;\n    display: block; }\n  #frontPageIntro {\n    height: 542px; } }\n"
 
 /***/ }),
 
@@ -614,7 +664,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_servicedetail_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/servicedetail.service */ "./src/app/services/servicedetail.service.ts");
 /* harmony import */ var _services_newsletter_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/newsletter.service */ "./src/app/services/newsletter.service.ts");
 /* harmony import */ var _services_consult_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../services/consult.service */ "./src/app/services/consult.service.ts");
-/* harmony import */ var _services_admin_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../services/admin.service */ "./src/app/services/admin.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -629,14 +678,13 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-
+//import { AdminService } from '../services/admin.service';
 var IobannerComponent = /** @class */ (function () {
-    function IobannerComponent(data, detail, consult, news, admin) {
+    function IobannerComponent(data, detail, consult, news) {
         this.data = data;
         this.detail = detail;
         this.consult = consult;
         this.news = news;
-        this.admin = admin;
     }
     IobannerComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -647,7 +695,7 @@ var IobannerComponent = /** @class */ (function () {
         //set current visibility of request Form
         this.news.subscribeVisibility.subscribe(function (subscribeVisibility) { return _this.subscribeVisibility = subscribeVisibility; });
         //set current visibility of request Form
-        this.admin.adminVisible.subscribe(function (adminVisible) { return _this.adminVisibility = adminVisible; });
+        //this.admin.adminVisible.subscribe(adminVisible => this.adminVisibility = adminVisible)
     };
     IobannerComponent.prototype.UpdateVisibility = function () {
         this.visibility = this.visibility == true ? false : true;
@@ -655,7 +703,7 @@ var IobannerComponent = /** @class */ (function () {
         this.formVisibility = false;
         this.subscribeVisibility = false;
         this.adminVisibility = false;
-        this.admin.ShowAdminPanel(this.adminVisibility);
+        //this.admin.ShowAdminPanel(this.adminVisibility);
         this.consult.ShowRequestForm(this.formVisibility);
         this.news.ShowSubscribeForm(this.subscribeVisibility);
         //console.log ('visiblity:'+this.visibility);
@@ -666,7 +714,7 @@ var IobannerComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./iobanner.component.html */ "./src/app/iobanner/iobanner.component.html"),
             styles: [__webpack_require__(/*! ./iobanner.component.scss */ "./src/app/iobanner/iobanner.component.scss")]
         }),
-        __metadata("design:paramtypes", [_services_hidepanel_service__WEBPACK_IMPORTED_MODULE_1__["HidepanelService"], _services_servicedetail_service__WEBPACK_IMPORTED_MODULE_2__["ServicedetailService"], _services_consult_service__WEBPACK_IMPORTED_MODULE_4__["ConsultService"], _services_newsletter_service__WEBPACK_IMPORTED_MODULE_3__["NewsletterService"], _services_admin_service__WEBPACK_IMPORTED_MODULE_5__["AdminService"]])
+        __metadata("design:paramtypes", [_services_hidepanel_service__WEBPACK_IMPORTED_MODULE_1__["HidepanelService"], _services_servicedetail_service__WEBPACK_IMPORTED_MODULE_2__["ServicedetailService"], _services_consult_service__WEBPACK_IMPORTED_MODULE_4__["ConsultService"], _services_newsletter_service__WEBPACK_IMPORTED_MODULE_3__["NewsletterService"]])
     ], IobannerComponent);
     return IobannerComponent;
 }());
@@ -682,7 +730,7 @@ var IobannerComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"details\" *ngIf=\"this.detailVisibility\" class=\"bg-primary\">\n        <p *ngIf=\"serviceShowing.description\" class=\"text-left\">{{serviceShowing.description}}</p>\n<!--<ul>\n        <li *ngIf=\"serviceShowing.price\" class=\"servicePrice\">{{serviceShowing.price}}</li>\n        <li *ngIf=\"serviceShowing.description\"  class=\"serviceMaintin\">{{serviceShowing.description}}</li>\n        <li *ngIf=\"serviceShowing.schedule['minimum delivery']\" class=\"schedulePoint\">{{serviceShowing.schedule['minimum delivery']}}</li>     \n        <li *ngIf=\"serviceShowing.schedule['Review']\" class=\"schedulePoint\">{{serviceShowing.schedule['Review']}}</li>\n        <li *ngIf=\"serviceShowing.schedule['Test/Development]\" class=\"schedulePoint\">{{serviceShowing.schedule['Test Development']}}</li>\n        <li *ngIf=\"serviceShowing.schedule['Implementation/Confirmation']\" class=\"schedulePoint\">{{serviceShowing.schedule['Implementation/Confirmation']}}</li>\n        <li *ngIf=\"serviceShowing.schedule['Planning/Issue Tracking']\" class=\"schedulePoint\">{{serviceShowing.schedule['Planning/Issue Tracking']}}</li>\n        <li *ngIf=\"serviceShowing.schedule['Research/Planning']\" class=\"schedulePoint\">{{serviceShowing.schedule['Research/Planning']}}</li>\n        <li *ngIf=\"serviceShowing.schedule['Design']\" class=\"schedulePoint\">{{serviceShowing.schedule['Design']}}</li>\n        <li *ngIf=\"serviceShowing.schedule['Development']\" class=\"schedulePoint\">{{serviceShowing.schedule['Development']}}</li>\n        <li *ngIf=\"serviceShowing.maintenance\" class=\"serviceMaintin\">{{serviceShowing.maintenance}}</li>\n        <li *ngIf=\"serviceShowing.serviceType\" class=\"serviceType\">{{serviceShowing.serviceType}}</li>\n    </ul>\n-->\n<button class=\"btn-success\" (click)=\"requestConsult()\">Connect with Us!</button>\n</div>\n"
+module.exports = "<div id=\"details\" *ngIf=\"this.detailVisibility\" class=\"alert alert-dismissible alert-info\">\n        <p *ngIf=\"serviceShowing.description\" class=\"text-left\">{{serviceShowing.description}}</p>\n\n<!--<ul>\n        <li *ngIf=\"serviceShowing.price\" class=\"servicePrice\">{{serviceShowing.price}}</li>\n        <li *ngIf=\"serviceShowing.description\"  class=\"serviceMaintin\">{{serviceShowing.description}}</li>\n        <li *ngIf=\"serviceShowing.schedule['minimum delivery']\" class=\"schedulePoint\">{{serviceShowing.schedule['minimum delivery']}}</li>     \n        <li *ngIf=\"serviceShowing.schedule['Review']\" class=\"schedulePoint\">{{serviceShowing.schedule['Review']}}</li>\n        <li *ngIf=\"serviceShowing.schedule['Implementation/Confirmation']\" class=\"schedulePoint\">{{serviceShowing.schedule['Test Development']}}</li>\n        <li *ngIf=\"serviceShowing.schedule['Implementation/Confirmation']\" class=\"schedulePoint\">{{serviceShowing.schedule['Implementation/Confirmation']}}</li>\n        <li *ngIf=\"serviceShowing.schedule['Planning/Issue Tracking']\" class=\"schedulePoint\">{{serviceShowing.schedule['Planning/Issue Tracking']}}</li>\n        <li *ngIf=\"serviceShowing.schedule['Research/Planning']\" class=\"schedulePoint\">{{serviceShowing.schedule['Research/Planning']}}</li>\n        <li *ngIf=\"serviceShowing.schedule['Design']\" class=\"schedulePoint\">{{serviceShowing.schedule['Design']}}</li>\n        <li *ngIf=\"serviceShowing.schedule['Development']\" class=\"schedulePoint\">{{serviceShowing.schedule['Development']}}</li>\n        <li *ngIf=\"serviceShowing.schedule['Test/Implementation']\" class=\"schedulePoint\">{{serviceShowing.schedule['Test/Implementation']}}</li>\n        <li *ngIf=\"serviceShowing.maintenance\" class=\"serviceMaintin\">{{serviceShowing.maintenance}}</li>\n        <li *ngIf=\"serviceShowing.serviceType\" class=\"serviceType\">{{serviceShowing.serviceType}}</li>\n    </ul>\n-->\n<button class=\"btn-success\" (click)=\"requestConsult()\">Connect with Us!</button>\n</div>\n"
 
 /***/ }),
 
@@ -908,7 +956,7 @@ var ServiceLinePipe = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1>{{serviceLine}}</h1>\n<div class=\"listBox\">\n        <span *ngFor=\"let service of getList | myfilter:serviceLine\" class=\"textLeft\">\n                <h5 (click)=\"ShowService(service); UpdateVisibility(); ShowDetail();\" routerLink=\"/services/\">{{service.name}}</h5>\n        </span>\n</div>"
+module.exports = "<h1>{{serviceLine}}</h1>\n<div class=\"listBox\">\n        <span *ngFor=\"let service of list | myfilter:serviceLine\" class=\"textLeft\">\n                <h5 (click)=\"ShowService(service); UpdateVisibility(); ShowDetail();\" routerLink=\"/services/\">{{service.name}}</h5>\n        </span>\n</div>"
 
 /***/ }),
 
@@ -955,182 +1003,15 @@ var ServiceListComponent = /** @class */ (function () {
         this.info = info;
         this.detail = detail;
         this.data = data;
-        this.getList = [{ "id": 1, "name": 'Basic Web Dev',
-                "price": '$5000',
-                "schedule": {
-                    "minimum delivery": '6 weeks',
-                    "Design": '14 days',
-                    "Development": '14 days',
-                    "Implementation/Confirmation": '14 days',
-                },
-                "description": "Let one of ISE Optimizations' savvy Digital Marketing Specialists create an eye-catching web promotional application for your organization.  The standard application includes email marketing campaign management with newsletter registration buttons on the site, event promotion and registration, with up to 5 seperate pages of content.',//'Basic marketing site with newsletter and event registration(~5 page templates(Home, about, etc.)",
-                "maintenance": 'Extended management and support $1000/mo.(1 monthly checkup, 4 design, development and testing hours - covers seasonal promotional updates and monthly updates to events pages)',
-                "serviceType": 'Digital Services'
-            },
-            {
-                "id": 2,
-                "name": 'Basic E-Commerce Platform',
-                "price": '$7500',
-                "schedule": {
-                    "minimum delivery": '8 weeks',
-                    "Design": '14 days',
-                    "Development": '21 days',
-                    "Implementation/Confirmation": '21 days',
-                },
-                "description": 'ISE Optimizations will provide your business the dual threat of a Digital Marketing Specialist to design an attractive, easy to navigate E-commerce site, in collaboration with one of our Business Process Management experts to deliver a back-office content-management portal to handle purchase and fulfillment for up to 3 non-cusotomizable product lines.  Email Marketing, newsletter registration, event promotion and registration included with up to 5 separate pages of content.',
-                "maintenance": 'Extended management and support $1500/mo.(1 monthly checkup, 6 design, development and testing hours - covers seasonal promotional updates and monthly updates to events pages)',
-                "serviceType": 'Digital Services'
-            },
-            {
-                "id": 3,
-                "name": 'Advanced E-Commerce Platform',
-                "price": '$10000',
-                "schedule": {
-                    "minimum delivery": '10 weeks',
-                    "Design": '21 days',
-                    "Development": '28 days',
-                    "Implementation/Confirmation": '21 days',
-                },
-                "description": 'Get to know your customers so you can give them exactly what they want.  Our Data Modeling experts will provide a reporting dashboard delivering real-time data and easily customizable historic reports, so you can make decisions based on the metrics which matter to you. This will allow you to ensure the content on your E-commerce site is sending the correct message and ensure your operations teams are using the back-office content-management portal as efficiently and effectively as possible. Up to 5 non-customizable product lines come standard.',
-                "maintenance": 'Extended management and support $2000/mo.(2 monthly checkups, 8 design, development and testing hours - covers seasonal promotional updates and monthly updates to events pages)',
-                "serviceType": 'Digital Services'
-            },
-            {
-                "id": 4,
-                "name": 'Enterprise Customer Relationship Management Platform',
-                "price": '$15000',
-                "schedule": {
-                    "minimum delivery": '12 weeks',
-                    "Design": '21 days',
-                    "Development": '35 days',
-                    "Implementation/Confirmation": '28 days',
-                },
-                "description": 'Gain a competitive edge with the ability to engage site visitors and ensure they fulfill their shopping goals with our customizable chat experience.  Not only will your reporting dashboard provide information on how customers are using your site, but also how each one-on-one interaction with site visitors is contributing to the bottom line.  The added ability for fulfillment personnel to see notes from chat conversations on the back-office management system will greatly improve order accuracy and customer satisfaction.  E-commerce  site with back-office content-management portal and reporting dashboard delivering real-time data. Up to 8 product lines come standard. ( includes 2 customizable options)',
-                "maintenance": 'Extended management and support $2500/mo.(2 monthly checkups,  1 monthly interaction review, 10 design, development and testing hours - covers seasonal promotional updates and monthly updates to events pages)',
-                "serviceType": 'Digital Services'
-            },
-            {
-                "id": 5,
-                "name": 'Customer Interaction Tag',
-                "price": '$7500 + engagement bonus',
-                "schedule": {
-                    "minimum delivery": '6 weeks',
-                    "Design": '14 days',
-                    "Development": '14 days',
-                    "Implementation/Confirmation": '14 days',
-                },
-                "description": 'Already have an Ecommerce site? Let ISE Optimizations connect you with our seasoned Business Process Management experts upgrade your site with the ability to engage customers by integrating our real-time chat experience.  Customers will really appreciate the opportunity to connect with the folks inside your organization, and in turn you will celebrate increasesing sales and customer satisfaction.  Not only will your reporting dashboard provide information on how customers are using your site, but also how each one-on-one interaction with site visitors is contributing to the bottom line.  The added ability for fulfillment personnel to see notes from chat conversations on the back-office management system will greatly improve order accuracy and customer satisfaction.',
-                "maintenance": 'Extended management and support $1000/mo.(1 monthly checkup, 1 monthly interaction review, 2 design, development and testing hours - covers seasonal/promotional updates)',
-                "serviceType": 'Digital Services'
-            },
-            {
-                "id": 6,
-                "name": 'Market Consulting',
-                "price": '$75/hr. + performance bonus ~$36,000/12 weeks',
-                "schedule": {
-                    "minimum delivery": '12 weeks',
-                    "Research/Planning": '21 days',
-                    "Development": '28 days',
-                    "Implementation/Confirmation": '35 days',
-                },
-                "description": "Let one of ISE Optimizations' savvy Digital Marketing Specialists setup digital ad channels such as google ad-words, social media platforms based on industry performance, while also taking your campaign to the streets with comprehensive print resources.  Our experts will really get to know your business and your customers in order to keep your customers hooked on your brand with well-timed promotions as well as referral incentive programs.",
-                "maintenance": 'Extended management and support $1000/mo.(2 monthly checkups, 6 planning/implementation hours) -covers(seasonal promotional updates and event planning)',
-                "serviceType": 'Consulting Services'
-            },
-            {
-                "id": 7,
-                "name": 'Business Process Improvement',
-                "price": '$100/hr. + performance bonus ~$48,000/12 weeks',
-                "schedule": {
-                    "minimum delivery": '12 weeks',
-                    "Research/Planning": '21 days',
-                    "Development": '28 days',
-                    "Implementation/Confirmation": '35 days',
-                },
-                "description": "ISE Optimizations will let one of our resources take residence within your organization to get a deep understanding of its' culture and uncover sources of waste. Whether it require adjustment of current business processes, integration of advanced software tools, improving efficiency, reducing overhead and moving your organizationto the leading edge of your industry is what our experts do in their sleep.",
-                "maintenance": 'Extended management and support $1000/mo.(2 monthly checkups, 6 planning/implementation hours) -covers(continued coaching and metrics review)',
-                "serviceType": 'Consulting Services'
-            },
-            {
-                "id": 8,
-                "name": 'IT Systems integration',
-                "price": '$100/hr. ~$48,000/12 weeks',
-                "schedule": {
-                    "minimum delivery": '12 weeks',
-                    "Research/Planning": '21 days',
-                    "Development": '28 days',
-                    "Implementation/Confirmation": '35 days',
-                },
-                "description": 'We at ISE Optimizations take pride in being well-versed in the latest advancements in technology.  We will send one of our expert Technology Managers to assess the current state of technology within your organization.  We will simplify data management with cloud integrations and increase security of data systems on distributed or internal network solutions',
-                "maintenance": 'Extended management and support $1000/mo.(2 monthly checkups, 6 planning/implementation hours) -covers(continued security review and on-going support)',
-                "serviceType": 'Technology Services'
-            },
-            {
-                "id": 9,
-                "name": 'Database Architecture',
-                "price": '$100/hr. ~$48,000/12 weeks',
-                "schedule": {
-                    "minimum delivery": '8 weeks',
-                    "Design": '21 days',
-                    "Development": '21 days',
-                    "Implementation/Confirmation": '14 days',
-                },
-                "description": 'ISE Optimizations employs data modeling experts with experience solutioning for a wide range of industries. Our experts will ensure your organization is equipped with the right hardware  or cloud solution to support the flow of information required for ongoing interactions within your organization as well as client-facing portals, operations reporting, safekeeping of historic data, or simply organization of disparate sources of information',
-                "maintenance": 'Extended management and support $1000/mo.(2 monthly checkup, 4 design, development and testing hours - covers(continued security review and on-going support)',
-                "serviceType": 'Technology Services'
-            },
-            {
-                "id": 10,
-                "name": 'Project Management',
-                "price": '$125/hr. ~$60,000/12 weeks',
-                "schedule": {
-                    "minimum delivery": '12 weeks',
-                    "Design": '28 days',
-                    "Development": '28 days',
-                    "Implementation/Confirmation": '28 days',
-                },
-                "description": "Acquire one of ISE Optimizations' masterful Project Management resrourses as on a full-time basis while your organization transitions through Business Development, IT systems integration, Data Warehousing or resource planning projects.  Our Project managers will ensure delivery is on-time and under-budget while constantly assessing the proposed implementation to close gaps and eliminate sources of waste",
-                "maintenance": 'Contracts can be renewed based on need.  Project resources will not receive new assignments more than 1 month before contract end date',
-                "serviceType": 'Operations Support'
-            },
-            {
-                "id": 11,
-                "name": 'Tech Support Specialist',
-                "price": '$75/hr. ~$36,000/12 weeks',
-                "schedule": {
-                    "minimum delivery": '12 weeks',
-                    "Review": '14 days',
-                    "Planning/Issue Tracking": '35 days',
-                    "Implementation/Confirmation": '35 days',
-                },
-                "description": 'Need and Easy Button?, ISE Optimizations provides the closest thing to it with technology enthusiasts to amaze even the most veteran resources on the Geek Squad.  Our tech specialists ensure your systems stay up and running, while funcitoning at the most efficient level by trouble-shooting and conducting workflow analysis.  Ensure the security of sensitive information as well as adherence to compliance standards through User Access Administration.  Leadership might even be in for a pleasant surprise and learn some things about your organization that even the most experienced leaders may not notice  by providing support to Data analytics efforts',
-                "maintenance": 'Contracts can be renewed based on need.  Project resources will not receive new assignments more than 1 month before contract end date',
-                "serviceType": 'Operations Support'
-            },
-            {
-                "id": 12,
-                "name": 'Quality Assurance/Testing resource',
-                "price": '$75/hr. ~$36,000/12 weeks',
-                "schedule": {
-                    "minimum delivery": '12 weeks',
-                    "Review": '14 days',
-                    "Test/Development": '35 days',
-                    "Implementation/Confirmation": '35 days',
-                },
-                "description": "Ensure your system operates flawlessly, end-to-end by acquiring one of ISE Optimization prolific QA Engineers.  Developing automated tests for new technology implementation as well as safeguards for current processes will ensure risk is mitigated, time-to-production is reduced and the need pay resources to spend time manually testing small pieces of processes by implementation of a continous integratoin pipeline",
-                "maintenance": 'Contracts can be renewed based on need.  Project resources will not receive new assignments more than 1 month before contract end date',
-                "serviceType": 'Operations Support'
-            }];
     }
-    ;
     ServiceListComponent.prototype.ngOnInit = function () {
         var _this = this;
-        //set current visibility of sidebar
-        this.data.currentMessage.subscribe(function (visibility) { return _this.visibility = visibility; });
         //set current service line
         this.info.currentLine.subscribe(function (line) { return _this.serviceLine = line; });
         //import service list from API
-        //this.info.loadServiceLines().then(res => this.getList = res)
+        //this.info.loadServiceLines()
+        //subscribe to current service list
+        this.info.loadServiceLines().subscribe(function (res) { return _this.list = res; });
         //set current service for detail
         this.detail.currentService.subscribe(function (ioservice) { return _this.serviceShowing = ioservice; });
         //set current visibility of service detail
@@ -1139,12 +1020,11 @@ var ServiceListComponent = /** @class */ (function () {
     ServiceListComponent.prototype.ShowService = function (ioservice) {
         this.serviceShowing = ioservice;
         this.detail.ShowService(this.serviceShowing);
-        console.log(this.serviceShowing);
+        //console.log(this.serviceShowing);
+        console.log(this.list);
     };
     ServiceListComponent.prototype.UpdateVisibility = function () {
-        this.visibility = false;
-        this.data.ShowHidePanel(this.visibility);
-        //console.log ('visiblity:'+this.visibility);
+        this.data.ShowHidePanel(false);
     };
     ServiceListComponent.prototype.ShowDetail = function () {
         this.detailVisibility = true;
@@ -1213,19 +1093,36 @@ var AdminService = /** @class */ (function () {
         //let headers = new Headers();
         //headers.append('Content-Type','application/json');
         //return this._http.post("/admin/", formValues, {headers: headers})
-        return this._http.post("/admin/", formValues)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (res) { return _this.loginSuccess = res.json(); })).toPromise();
+        this._http.post("/admin/", formValues)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (res) { return _this.loginSuccess.next(res.json()); })).toPromise();
     };
     AdminService.prototype.ShowAdminPanel = function (visibility) {
         this.visibility.next(visibility);
+        console.log('showing admin');
     };
     AdminService.prototype.UpdateServices = function (serviceInfo) {
-        var _this = this;
         var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_2__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        //return this._http.post("/ioservices/", serviceInfo, {headers: headers})
-        return this._http.post("/ioservices/", serviceInfo)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (res) { return _this.updateSuccess = res.json().data; })).toPromise();
+        return this._http.put("/ioservices/+serviceInfo" + serviceInfo._id, serviceInfo, { headers: headers })
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (res) { return res.json(); }));
+        /*
+          return this._http.put("/ioservices/"+serviceInfo._id, serviceInfo)
+          .pipe(map(res => this.updateSuccess = res.json().data)).toPromise();
+          */
+    };
+    AdminService.prototype.CreateService = function (formValues) {
+        var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_2__["Headers"]();
+        headers.append('Content-Type', 'application/json');
+        return this._http.post("/ioservices/", formValues, { headers: headers })
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (res) { return res.json(); }));
+        /*
+        return this._http.post("/ioservices/", formValues)
+        .pipe(map(res => this.updateSuccess = res.json().data)).toPromise();
+        */
+    };
+    AdminService.prototype.deleteService = function (id) {
+        return this._http.delete("/ioservices/" + id)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (res) { return res.json(); }));
     };
     AdminService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
@@ -1270,7 +1167,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 var ConsultService = /** @class */ (function () {
     function ConsultService(_http) {
         this._http = _http;
-        this.messageSource = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"]('');
+        this.messageSource = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"](false);
         this.requestForm = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"](false);
         this.submissionState = this.messageSource.asObservable();
         this.formVisibility = this.requestForm.asObservable();
@@ -1329,7 +1226,6 @@ var HidepanelService = /** @class */ (function () {
     }
     HidepanelService.prototype.ShowHidePanel = function (visibility) {
         this.messageSource.next(visibility);
-        console.log('sidebar visibility is' + visibility);
     };
     HidepanelService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
@@ -1488,180 +1384,15 @@ var ServicelistService = /** @class */ (function () {
         this._http = _http;
         this.messageSource = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"]('Your Business and Tech Advisors');
         this.currentLine = this.messageSource.asObservable();
-        this.serviceList = [{ "id": 1, "name": 'Basic Web Dev',
-                "price": '$5000',
-                "schedule": {
-                    "minimum delivery": '6 weeks',
-                    "Design": '14 days',
-                    "Development": '14 days',
-                    "Implementation/Confirmation": '14 days',
-                },
-                "description": "Let one of ISE Optimizations' savvy Digital Marketing Specialists create an eye-catching web promotional application for your organization.  The standard application includes email marketing campaign management with newsletter registration buttons on the site, event promotion and registration, with up to 5 seperate pages of content.',//'Basic marketing site with newsletter and event registration(~5 page templates(Home, about, etc.)",
-                "maintenance": 'Extended management and support $1000/mo.(1 monthly checkup, 4 design, development and testing hours - covers seasonal promotional updates and monthly updates to events pages)',
-                "serviceType": 'Digital Services'
-            },
-            {
-                "id": 2,
-                "name": 'Basic E-Commerce Platform',
-                "price": '$7500',
-                "schedule": {
-                    "minimum delivery": '8 weeks',
-                    "Design": '14 days',
-                    "Development": '21 days',
-                    "Implementation/Confirmation": '21 days',
-                },
-                "description": 'ISE Optimizations will provide your business the dual threat of a Digital Marketing Specialist to design an attractive, easy to navigate E-commerce site, in collaboration with one of our Business Process Management experts to deliver a back-office content-management portal to handle purchase and fulfillment for up to 3 non-cusotomizable product lines.  Email Marketing, newsletter registration, event promotion and registration included with up to 5 separate pages of content.',
-                "maintenance": 'Extended management and support $1500/mo.(1 monthly checkup, 6 design, development and testing hours - covers seasonal promotional updates and monthly updates to events pages)',
-                "serviceType": 'Digital Services'
-            },
-            {
-                "id": 3,
-                "name": 'Advanced E-Commerce Platform',
-                "price": '$10000',
-                "schedule": {
-                    "minimum delivery": '10 weeks',
-                    "Design": '21 days',
-                    "Development": '28 days',
-                    "Implementation/Confirmation": '21 days',
-                },
-                "description": 'Get to know your customers so you can give them exactly what they want.  Our Data Modeling experts will provide a reporting dashboard delivering real-time data and easily customizable historic reports, so you can make decisions based on the metrics which matter to you. This will allow you to ensure the content on your E-commerce site is sending the correct message and ensure your operations teams are using the back-office content-management portal as efficiently and effectively as possible. Up to 5 non-customizable product lines come standard.',
-                "maintenance": 'Extended management and support $2000/mo.(2 monthly checkups, 8 design, development and testing hours - covers seasonal promotional updates and monthly updates to events pages)',
-                "serviceType": 'Digital Services'
-            },
-            {
-                "id": 4,
-                "name": 'Enterprise Customer Relationship Management Platform',
-                "price": '$15000',
-                "schedule": {
-                    "minimum delivery": '12 weeks',
-                    "Design": '21 days',
-                    "Development": '35 days',
-                    "Implementation/Confirmation": '28 days',
-                },
-                "description": 'Gain a competitive edge with the ability to engage site visitors and ensure they fulfill their shopping goals with our customizable chat experience.  Not only will your reporting dashboard provide information on how customers are using your site, but also how each one-on-one interaction with site visitors is contributing to the bottom line.  The added ability for fulfillment personnel to see notes from chat conversations on the back-office management system will greatly improve order accuracy and customer satisfaction.  E-commerce  site with back-office content-management portal and reporting dashboard delivering real-time data. Up to 8 product lines come standard. ( includes 2 customizable options)',
-                "maintenance": 'Extended management and support $2500/mo.(2 monthly checkups,  1 monthly interaction review, 10 design, development and testing hours - covers seasonal promotional updates and monthly updates to events pages)',
-                "serviceType": 'Digital Services'
-            },
-            {
-                "id": 5,
-                "name": 'Customer Interaction Tag',
-                "price": '$7500 + engagement bonus',
-                "schedule": {
-                    "minimum delivery": '6 weeks',
-                    "Design": '14 days',
-                    "Development": '14 days',
-                    "Implementation/Confirmation": '14 days',
-                },
-                "description": 'Already have an Ecommerce site? Let ISE Optimizations connect you with our seasoned Business Process Management experts upgrade your site with the ability to engage customers by integrating our real-time chat experience.  Customers will really appreciate the opportunity to connect with the folks inside your organization, and in turn you will celebrate increasesing sales and customer satisfaction.  Not only will your reporting dashboard provide information on how customers are using your site, but also how each one-on-one interaction with site visitors is contributing to the bottom line.  The added ability for fulfillment personnel to see notes from chat conversations on the back-office management system will greatly improve order accuracy and customer satisfaction.',
-                "maintenance": 'Extended management and support $1000/mo.(1 monthly checkup, 1 monthly interaction review, 2 design, development and testing hours - covers seasonal/promotional updates)',
-                "serviceType": 'Digital Services'
-            },
-            {
-                "id": 6,
-                "name": 'Market Consulting',
-                "price": '$75/hr. + performance bonus ~$36,000/12 weeks',
-                "schedule": {
-                    "minimum delivery": '12 weeks',
-                    "Research/Planning": '21 days',
-                    "Development": '28 days',
-                    "Implementation/Confirmation": '35 days',
-                },
-                "description": "Let one of ISE Optimizations' savvy Digital Marketing Specialists setup digital ad channels such as google ad-words, social media platforms based on industry performance, while also taking your campaign to the streets with comprehensive print resources.  Our experts will really get to know your business and your customers in order to keep your customers hooked on your brand with well-timed promotions as well as referral incentive programs.",
-                "maintenance": 'Extended management and support $1000/mo.(2 monthly checkups, 6 planning/implementation hours) -covers(seasonal promotional updates and event planning)',
-                "serviceType": 'Consulting Services'
-            },
-            {
-                "id": 7,
-                "name": 'Business Process Improvement',
-                "price": '$100/hr. + performance bonus ~$48,000/12 weeks',
-                "schedule": {
-                    "minimum delivery": '12 weeks',
-                    "Research/Planning": '21 days',
-                    "Development": '28 days',
-                    "Implementation/Confirmation": '35 days',
-                },
-                "description": "ISE Optimizations will let one of our resources take residence within your organization to get a deep understanding of its' culture and uncover sources of waste. Whether it require adjustment of current business processes, integration of advanced software tools, improving efficiency, reducing overhead and moving your organizationto the leading edge of your industry is what our experts do in their sleep.",
-                "maintenance": 'Extended management and support $1000/mo.(2 monthly checkups, 6 planning/implementation hours) -covers(continued coaching and metrics review)',
-                "serviceType": 'Consulting Services'
-            },
-            {
-                "id": 8,
-                "name": 'IT Systems integration',
-                "price": '$100/hr. ~$48,000/12 weeks',
-                "schedule": {
-                    "minimum delivery": '12 weeks',
-                    "Research/Planning": '21 days',
-                    "Development": '28 days',
-                    "Implementation/Confirmation": '35 days',
-                },
-                "description": 'We at ISE Optimizations take pride in being well-versed in the latest advancements in technology.  We will send one of our expert Technology Managers to assess the current state of technology within your organization.  We will simplify data management with cloud integrations and increase security of data systems on distributed or internal network solutions',
-                "maintenance": 'Extended management and support $1000/mo.(2 monthly checkups, 6 planning/implementation hours) -covers(continued security review and on-going support)',
-                "serviceType": 'Technology Services'
-            },
-            {
-                "id": 9,
-                "name": 'Database Architecture',
-                "price": '$100/hr. ~$48,000/12 weeks',
-                "schedule": {
-                    "minimum delivery": '8 weeks',
-                    "Design": '21 days',
-                    "Development": '21 days',
-                    "Implementation/Confirmation": '14 days',
-                },
-                "description": 'ISE Optimizations employs data modeling experts with experience solutioning for a wide range of industries. Our experts will ensure your organization is equipped with the right hardware  or cloud solution to support the flow of information required for ongoing interactions within your organization as well as client-facing portals, operations reporting, safekeeping of historic data, or simply organization of disparate sources of information',
-                "maintenance": 'Extended management and support $1000/mo.(2 monthly checkup, 4 design, development and testing hours - covers(continued security review and on-going support)',
-                "serviceType": 'Technology Services'
-            },
-            {
-                "id": 10,
-                "name": 'Project Management',
-                "price": '$125/hr. ~$60,000/12 weeks',
-                "schedule": {
-                    "minimum delivery": '12 weeks',
-                    "Design": '28 days',
-                    "Development": '28 days',
-                    "Implementation/Confirmation": '28 days',
-                },
-                "description": "Acquire one of ISE Optimizations' masterful Project Management resrourses as on a full-time basis while your organization transitions through Business Development, IT systems integration, Data Warehousing or resource planning projects.  Our Project managers will ensure delivery is on-time and under-budget while constantly assessing the proposed implementation to close gaps and eliminate sources of waste",
-                "maintenance": 'Contracts can be renewed based on need.  Project resources will not receive new assignments more than 1 month before contract end date',
-                "serviceType": 'Operations Support'
-            },
-            {
-                "id": 11,
-                "name": 'Tech Support Specialist',
-                "price": '$75/hr. ~$36,000/12 weeks',
-                "schedule": {
-                    "minimum delivery": '12 weeks',
-                    "Review": '14 days',
-                    "Planning/Issue Tracking": '35 days',
-                    "Implementation/Confirmation": '35 days',
-                },
-                "description": 'Need and Easy Button?, ISE Optimizations provides the closest thing to it with technology enthusiasts to amaze even the most veteran resources on the Geek Squad.  Our tech specialists ensure your systems stay up and running, while funcitoning at the most efficient level by trouble-shooting and conducting workflow analysis.  Ensure the security of sensitive information as well as adherence to compliance standards through User Access Administration.  Leadership might even be in for a pleasant surprise and learn some things about your organization that even the most experienced leaders may not notice  by providing support to Data analytics efforts',
-                "maintenance": 'Contracts can be renewed based on need.  Project resources will not receive new assignments more than 1 month before contract end date',
-                "serviceType": 'Operations Support'
-            },
-            {
-                "id": 12,
-                "name": 'Quality Assurance/Testing resource',
-                "price": '$75/hr. ~$36,000/12 weeks',
-                "schedule": {
-                    "minimum delivery": '12 weeks',
-                    "Review": '14 days',
-                    "Test/Development": '35 days',
-                    "Implementation/Confirmation": '35 days',
-                },
-                "description": "Ensure your system operates flawlessly, end-to-end by acquiring one of ISE Optimization prolific QA Engineers.  Developing automated tests for new technology implementation as well as safeguards for current processes will ensure risk is mitigated, time-to-production is reduced and the need pay resources to spend time manually testing small pieces of processes by implementation of a continous integratoin pipeline",
-                "maintenance": 'Contracts can be renewed based on need.  Project resources will not receive new assignments more than 1 month before contract end date',
-                "serviceType": 'Operations Support'
-            }];
+        this.listSource = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"]([]);
+        this.currentList = this.listSource.asObservable();
     }
     ServicelistService.prototype.ShowServiceLine = function (line) {
         this.messageSource.next(line);
-        //console.log(this.serviceList);
     };
     ServicelistService.prototype.loadServiceLines = function () {
-        var _this = this;
-        return this._http.get("/ioservices/").pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (serviceList) { return _this.serviceList = serviceList.json().data; })).toPromise();
+        return this._http.get("/api/serviceList")
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (res) { return res.json(); }));
     };
     ServicelistService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
@@ -1683,7 +1414,7 @@ var ServicelistService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"cp\" *ngIf=\"this.visibility\" class=\"text-center\">\n      <ul>\n          <li (click)=\"ShowServiceLine('Consulting Services')\"><div>Consulting</div></li>\n          <li (click)=\"ShowServiceLine('Digital Services')\"><div>Digital</div></li>\n          <li (click)=\"ShowServiceLine('Technology Services')\"><div>Technology</div></li>\n          <li (click)=\"ShowServiceLine('Operations Support')\"><div>Operations</div></li>\n          <li><div>Industries</div></li>\n          <li><div>Careers</div></li>\n      </ul>\n  <hr style=\"background-color:white; height:5px;\">\n      <ul>\n          <li><div>About ISE Optimizations</div></li>\n          <li><div>Corporate Citizenship</div></li>\n          <li><div>Inclusion and Diversity</div></li>\n          <li><div>Inverstor Relations</div></li>\n          <li><div>NewsRoom</div></li>\n          <li (click)=\"ShowAdminPanel()\"><div>Admin</div></li>\n      </ul>\n</div>"
+module.exports = "<div id=\"cp\" *ngIf=\"this.visibility\" class=\"text-center\">\n      <ul>\n        <li (click)=\"ShowServiceLine('Consulting Services')\"><div>Consulting</div></li>\n        <li (click)=\"ShowServiceLine('Digital Services')\"><div>Digital</div></li>\n        <li (click)=\"ShowServiceLine('Technology Services')\"><div>Technology</div></li>\n        <li (click)=\"ShowServiceLine('Operations Support')\"><div>Operations</div></li>\n        <li><div>Industries</div></li>\n        <li><div>Careers</div></li>\n      </ul>\n  <hr style=\"background-color:white; height:5px;\">\n  <ul>\n    <li><div>About ISE Optimizations</div></li>\n    <li><div>Corporate Citizenship</div></li>\n    <li><div>Inclusion and Diversity</div></li>\n    <li><div>Inverstor Relations</div></li>\n    <li><div>NewsRoom</div></li>\n    <li (click)=\"ShowAdminPanel()\"><div>Admin</div></li>\n</ul>\n</div>"
 
 /***/ }),
 
@@ -1694,7 +1425,7 @@ module.exports = "<div id=\"cp\" *ngIf=\"this.visibility\" class=\"text-center\"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/*********************************Control Panel CSS****************************************/\n#cp {\n  font-family: \"OpenSans\";\n  z-index: 6;\n  background: #3f4c92;\n  color: #ffffff;\n  cursor: pointer;\n  text-align: center; }\n#cp li {\n  display: block; }\nul div {\n  margin: 5px auto 0 auto;\n  border-bottom: 1px solid #9eabf8; }\nhr {\n  background-color: #9eabf8;\n  height: 2px; }\n@media only screen and (min-width: 600px) {\n  /*********************************Control Panel CSS****************************************/\n  #cp {\n    position: fixed;\n    right: 0;\n    top: 50px;\n    width: 190px; }\n  li {\n    margin: 5px auto 0 auto; }\n  .cpBottom {\n    font-size: 1em; } }\n@media only screen and (max-width: 600px) {\n  #cp {\n    width: 100%; } }\n"
+module.exports = "/*********************************Control Panel CSS****************************************/\n#cp {\n  font-family: \"OpenSans\";\n  z-index: 2;\n  background: #3f4c92;\n  color: #ffffff;\n  cursor: pointer;\n  text-align: center; }\n#cp li {\n  display: block; }\nul div {\n  margin: 5px auto 0 auto;\n  border-bottom: 1px solid #9eabf8; }\nhr {\n  background-color: #9eabf8;\n  height: 2px; }\n@media only screen and (min-width: 600px) {\n  /*********************************Control Panel CSS****************************************/\n  #cp {\n    position: fixed;\n    right: 0;\n    top: 115px;\n    width: 190px; }\n  li {\n    margin: 15px auto 0 auto; }\n  .cpBottom {\n    font-size: 1em; } }\n@media only screen and (max-width: 600px) {\n  #cp {\n    width: 100%; } }\n"
 
 /***/ }),
 
