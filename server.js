@@ -13,20 +13,52 @@ var cors = require('cors');
 const errorHandler = require('errorhandler');
 var methodOverride = require('method-override');
 
+
+mongoose.connect('mongodb://JCarlinho:g3t$MART18js@ds133104.mlab.com:33104/io',{
+    useNewUrlParser: true
+});
+
+mongoose.set('debug', true);
+
+mongoose.connection.on('connected', ()=>{
+    console.log('MongoDB connected to mongo lab')
+});
+
+
+
+/*
+//use native node-promise
+mongoose.connect('mongodb://localhost:27017/IO',{
+    useNewUrlParser: true
+});
 mongoose.Promise = global.Promise;
+mongoose.connection.on('connected', ()=>{
+    console.log('MongoDB connected at port 27017')
+});
+*/
+
+mongoose.connection.on('error', (err)=>{
+    console.log(err);
+});
+
+
+
 
 //Configure isProduction variable
 const isProduction = process.env.NODE_ENV === 'production';
 
+//list routes
 var admin = require('./server/routes/admin');
+const api = require('./server/routes/api');//change to ioservices
+var ioservices = require('./server/routes/ioservices');
 var consultations = require('./server/routes/consultations');
-const ioservices = require('./server/routes/ioservices');
 var newsletters = require('./server/routes/newsletters');
 var subscribers = require('./server/routes/subscribers');
-
-const app = express();
+/*
 require('./server/models/users');
 require('./server/config/passport');
+*/
+const app = express();
 const server = http.createServer(app);
 let io = socket(server);
 
@@ -40,55 +72,7 @@ app.use(cookieParser());
 app.use(methodOverride());
 app.use(cors());
 
-app.use(session({ secret: 'passport-tutorial', cookie: { maxAge: 60000 }, resave: false, saveUninitialized: false }));
-/*
-
-if(!isProduction) {
-  app.use(errorHandler());
-}
-
-*/
-//use native node-promise
-mongoose.connect('mongodb://JCarlinho:g3t$MART18js@ds133104.mlab.com:33104/io',{
-    useNewUrlParser: true
-});
-
-mongoose.set('debug', true);
-
-mongoose.connection.on('connected', ()=>{
-    console.log('MongoDB connected to mongo lab')
-});
-
-
-mongoose.connection.on('error', (err)=>{
-    console.log(err);
-});;
-/*
-//Error handlers & middlewares
-if(!isProduction) {
-    app.use((err, req, res) => {
-      res.status(err.status || 500);
-  
-      res.json({
-        errors: {
-          message: err.message,
-          error: err,
-        },
-      });
-    });
-  }
-  
-  app.use((err, req, res) => {
-    res.status(err.status || 500);
-  
-    res.json({
-      errors: {
-        message: err.message,
-        error: {},
-      },
-    });
-  });
-*/
+//app.use(session({ secret: 'passport-tutorial', cookie: { maxAge: 60000 }, resave: false, saveUninitialized: false }));
 
 // Add headers
 app.use(function (req, res, next) {
@@ -111,26 +95,34 @@ app.use(function (req, res, next) {
 });
 
 /// Angular DIST output folder
-app.use(express.static(path.join(process.env.PWD, 'public'))) 
+app.use(express.static(path.join(__dirname, 'public')));
+ 
 
 // set routes
 app.use('/admin', admin);
-app.use('/ioservices', ioservices);
+app.use('/api/serviceList', api);//change to ioservices
+app.use('/ioservices', ioservices);//change to ioservices
 app.use('/consultations', consultations);
 app.use('/newsletters', newsletters);
 app.use('/subscribers', subscribers);
-app.use(require('./server/routes'));
 
 // Send all other requests to the Angular app
 app.get('*', (req, res) => {
-    res.sendFile(path.join(process.env.PWD, 'public/index.html'));
+    res.sendFile(path.join(__dirname, 'public/index.html'));
 });
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     next(createError(404));
   });
+
+
+
+if(!isProduction) {
+  app.use(errorHandler());
+}
+
+
   
 // error handler
 app.use(function(err, req, res, next) {
