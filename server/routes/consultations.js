@@ -3,7 +3,7 @@ const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
 var express = require('express');
 var router = express.Router();
-var Consultation = require('../models/consultation.js');
+var Consultation = require('../models/Consultation.js');
 
 const oauth2Client = new OAuth2(
   "291476583769-1ed3fsav3ofuuekefgigg780lpl222t1.apps.googleusercontent.com", // ClientID
@@ -38,7 +38,7 @@ let transporter = nodemailer.createTransport({
   }*/
 });
 
-/* GET ALL CONSULTATIONS */
+/* GET ALL CONSULTATIONSS */
 router.get('/', function(req, res, next) {
   Consultation.find(function (err, consultations) {
     if (err) return next(err);

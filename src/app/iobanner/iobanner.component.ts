@@ -3,7 +3,7 @@ import { HidepanelService } from '../services/hidepanel.service';
 import { ServicedetailService } from '../services/servicedetail.service';
 import { NewsletterService } from '../services/newsletter.service';
 import { ConsultService } from '../services/consult.service';
-import { AdminService } from '../services/admin.service';
+//import { AdminService } from '../services/admin.service';
 
 @Component({
   selector: 'app-iobanner',
@@ -16,7 +16,7 @@ export class IobannerComponent implements OnInit {
   subscribeVisibility: boolean;
   adminVisibility: boolean;
 
-  constructor(private data: HidepanelService, private detail: ServicedetailService, private consult: ConsultService, private news: NewsletterService, private admin: AdminService) { }
+  constructor(private data: HidepanelService, private detail: ServicedetailService, private consult: ConsultService, private news: NewsletterService, /*private admin: AdminService*/) { }
 
   ngOnInit() {
     //set current visibility of sidebar
@@ -26,7 +26,7 @@ export class IobannerComponent implements OnInit {
     //set current visibility of request Form
     this.news.subscribeVisibility.subscribe(subscribeVisibility => this.subscribeVisibility = subscribeVisibility)
     //set current visibility of request Form
-    this.admin.adminVisible.subscribe(adminVisible => this.adminVisibility = adminVisible)
+    //this.admin.adminVisible.subscribe(adminVisible => this.adminVisibility = adminVisible)
   }
 
   UpdateVisibility(){
@@ -35,7 +35,7 @@ export class IobannerComponent implements OnInit {
     this.formVisibility = false;
     this.subscribeVisibility = false;
     this.adminVisibility = false;
-    this.admin.ShowAdminPanel(this.adminVisibility);
+    //this.admin.ShowAdminPanel(this.adminVisibility);
     this.consult.ShowRequestForm(this.formVisibility);
     this.news.ShowSubscribeForm(this.subscribeVisibility);
     //console.log ('visiblity:'+this.visibility);

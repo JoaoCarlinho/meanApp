@@ -30,7 +30,7 @@ export class IoservicesComponent implements OnInit {
 }
 
 export class IOService {
-  id: number;
+  id?: number;
   name: string;
   price: string;
   schedule: object;

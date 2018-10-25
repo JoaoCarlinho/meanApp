@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 
-router.get('*', (req, res) => {
-    if(req.body == "test"){
+router.post('*', (req, res) => {
+    if(req.body.password == "test"){
         res.json(true);
     }else{
         res.json(false);

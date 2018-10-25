@@ -28,9 +28,6 @@ footer{
     color:#ffffff;
     }
     
-    
-    
-    
     .homeBottomText{
     display:block; color:#000000; clear:both; margin:0 auto 0 auto; text-align:center;
     width:100%; background:silver;
@@ -39,7 +36,6 @@ footer{
     .homeBottomText a{
     color:#000000;
     }
-    
     
     .row{
     width: 100%;
@@ -52,42 +48,34 @@ footer{
     }
 
     hr{
-        height: 3px;
         opacity: .35;
-        margin:5px auto;
+        margin:0 auto;
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     //large
-@media only screen and (min-width:850px) {
-
-}
-//medium
-@media only screen and (min-width:600px) and (max-width: 850px) {
-
-}
-
-//small screens
-@media only screen and (min-width:350px) and (max-width: 600px) {
-
-}
-
-//tiny screens
-@media only screen and (max-width: 350px) {
-
-}
+    @media only screen and (min-width:850px) {
+        hr{
+            height:4px;
+        }
+    }
+    //medium
+    @media only screen and (min-width:600px) and (max-width: 850px) {
+        hr{
+            height:3px;
+        }
+    }
+    
+    //small screens
+    @media only screen and (min-width:350px) and (max-width: 600px) {
+        hr{
+            height:3px;
+        }
+    }
+    
+    //tiny screens
+    @media only screen and (max-width: 350px) {
+        hr{
+            height:2px;
+        }
+    }

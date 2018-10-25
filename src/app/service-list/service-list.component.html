@@ -1,6 +1,6 @@
 <h1>{{serviceLine}}</h1>
 <div class="listBox">
-        <span *ngFor="let service of getList | myfilter:serviceLine" class="textLeft">
+        <span *ngFor="let service of list | myfilter:serviceLine" class="textLeft">
                 <h5 (click)="ShowService(service); UpdateVisibility(); ShowDetail();" routerLink="/services/">{{service.name}}</h5>
         </span>
 </div>

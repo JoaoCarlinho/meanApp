@@ -9,6 +9,7 @@ var logger = require('morgan');
 var mongoose = require('mongoose');
 const http = require('http');
 let socket = require('socket.io');
+var cors = require('cors');
 const errorHandler = require('errorhandler');
 var methodOverride = require('method-override');
 
@@ -17,13 +18,15 @@ mongoose.Promise = global.Promise;
 //Configure isProduction variable
 const isProduction = process.env.NODE_ENV === 'production';
 
-const app = express();
-var cors = require('cors');
 var admin = require('./server/routes/admin');
 var consultations = require('./server/routes/consultations');
 const ioservices = require('./server/routes/ioservices');
 var newsletters = require('./server/routes/newsletters');
 var subscribers = require('./server/routes/subscribers');
+
+const app = express();
+require('./server/models/users');
+require('./server/config/passport');
 const server = http.createServer(app);
 let io = socket(server);
 
@@ -37,15 +40,14 @@ app.use(cookieParser());
 app.use(methodOverride());
 app.use(cors());
 
-/// Angular DIST output folder
-app.use(express.static(path.join(process.env.PWD, 'public')))
-
 app.use(session({ secret: 'passport-tutorial', cookie: { maxAge: 60000 }, resave: false, saveUninitialized: false }));
+/*
 
 if(!isProduction) {
   app.use(errorHandler());
 }
 
+*/
 //use native node-promise
 mongoose.connect('mongodb://JCarlinho:g3t$MART18js@ds133104.mlab.com:33104/io',{
     useNewUrlParser: true
@@ -107,7 +109,9 @@ app.use(function (req, res, next) {
     // Pass to next layer of middleware
     next();
 });
- 
+
+/// Angular DIST output folder
+app.use(express.static(path.join(process.env.PWD, 'public'))) 
 
 // set routes
 app.use('/admin', admin);
@@ -115,11 +119,13 @@ app.use('/ioservices', ioservices);
 app.use('/consultations', consultations);
 app.use('/newsletters', newsletters);
 app.use('/subscribers', subscribers);
+app.use(require('./server/routes'));
 
 // Send all other requests to the Angular app
 app.get('*', (req, res) => {
     res.sendFile(path.join(process.env.PWD, 'public/index.html'));
 });
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -12,6 +12,5 @@ export class HidepanelService {
 
   ShowHidePanel(visibility:boolean){
       this.messageSource.next(visibility);
-      console.log('sidebar visibility is'+visibility);
   }
 }

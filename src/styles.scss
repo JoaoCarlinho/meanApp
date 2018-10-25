@@ -4,7 +4,7 @@
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
 @import "../dist/cerulean/bootswatch";
 
-.requestModal, .confirmModal {
+.requestModal, .confirmModal, #editService, #confirmService {
     position: absolute;
     top:0;
     left: 0;
@@ -14,11 +14,11 @@
     overflow-y:scroll;
 }
 
-.requestModal {
+.requestModal, #editService {
     z-index: 3;
 }
 
-.confirmModal {
+.confirmModal, #confirmService {
     z-index: 4;
 }
 

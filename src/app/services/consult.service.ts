@@ -7,7 +7,7 @@ import { map } from "rxjs/operators";
   providedIn: 'root'
 })
 export class ConsultService {
-  private messageSource = new BehaviorSubject<any>('');
+  private messageSource = new BehaviorSubject<boolean>(false);
   private requestForm = new BehaviorSubject<boolean>(false);
   submissionState = this.messageSource.asObservable();
   formVisibility = this.requestForm.asObservable();

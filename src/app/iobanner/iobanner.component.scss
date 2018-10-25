@@ -1,7 +1,7 @@
 /*********************************************topNav elements********************************************************/
 
 #banner{
-    position:fixed; top:0; height:100px;  width:100%; clear:both; z-index: 5; text-align:center;
+    position:fixed; top:0; left:0; height:100px;  width:100%; clear:both; z-index: 5; text-align:center;
     margin: 0 auto 0 auto;
 }
     
@@ -46,7 +46,7 @@
 }
 
 #btnMainMenu{
-    height:45px; width:108px;
+    height:45px; width:45px;
 }
 
 #navTopSearch{
