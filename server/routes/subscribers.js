@@ -3,7 +3,7 @@ const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
 var express = require('express');
 var router = express.Router();
-var Subscriber = require('../models/Subscriber.js');
+var Subscriber = require('../models/subscriber.js');
 
 
 //set up mailer

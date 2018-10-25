@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var Newsletter = require('../models/Newsletter.js');
+var Newsletter = require('../models/newsletter.js');
 
 /* GET ALL NEWSLETTERS */
 router.get('/', function(req, res, next) {
