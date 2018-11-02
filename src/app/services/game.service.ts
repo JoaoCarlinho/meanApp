@@ -12,6 +12,6 @@ export class GameService {
 
   PlayGame(gameBool:boolean){
     this.gameSource.next(gameBool);
-    console.log('gameState ='+gameBool);
-}
+    //console.log('gameState ='+gameBool);
+  }
 }

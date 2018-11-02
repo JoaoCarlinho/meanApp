@@ -23,12 +23,15 @@ export class GameComponent {
   
   turn: string;
   //determine if there's a threat
-  threat = false;
+  possibleThreat = false;
+  threatPlayAvailable = false;
   //determine if there's a winner
   state = true;
   //array for marked spaces
   xSquares: String[] = [];
   oSquares: String[] = [];
+  //track number of moves played
+  moves: Number;
 
   corners: string[] = ['one', 'three', 'seven', 'nine'];
   options: string[] = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
@@ -58,33 +61,30 @@ export class GameComponent {
       const el: HTMLElement = document.getElementById(square);
       el.className = null;
     }
-
+    //remove ownership of squares
+    this.xSquares = [];
+    this.oSquares = [];
+    //set turn to x
+    this.xTurn = true;
     //set state to true
     this.state = true;
   
   }
 
   PlayAIMove(){
-    //console.log('AI controlling x is '+this.xControlledbyAI);
-    //console.log('AI controlling o is '+this.oControlledbyAI);
     if(this.state){
       if(this.CheckIfAIHasNextMove()){
         this.DetermineTurn();
-        alert(this.turn);
-        console.log('AI has next move');
         if(this.xControlledbyAI && this.xTurn){
           if(this.aiMove()){
-            console.log('AI x made a move');
           };
         }else if(this.oControlledbyAI && !this.xTurn){
           if(this.aiMove()){
-            console.log('AI o made a move');
           };
         }
         //this.sleep(30000);
         this.PlayAIMove();
       }else{
-        console.log('user has next move');
       }
     }
   }
@@ -151,10 +151,10 @@ export class GameComponent {
   }
 
   assignSpot(id): boolean{
+
     //give square to x's or o's
     const el: HTMLElement = document.getElementById(id);
-    //console.log(el.id+' being tested');
-    let elementName = el.id;
+    //let elementName = el.id;
 
     if(this.state == true){
       //true means game is still on
@@ -165,21 +165,16 @@ export class GameComponent {
         //add value to player's array
         if(this.xTurn){
           this.xSquares.push(id);
-          console.log('x owns');
-          console.log(this.xSquares);
         }else{
           this.oSquares.push(id);
-          console.log('o owns');
-          console.log(this.oSquares);
         }
+        this.moves = this.xSquares.length + this.oSquares.length;
         //determine game status
         if(this.findWinner() != "none"){
-          alert(this.findWinner()+' wins!');
-          this.status.nativeElement.innerHTML = "refresh and play again"
+          this.status.nativeElement.innerHTML = this.findWinner()+' wins!<br/>refresh and play again';
           return false;
         }else if(this.detectStaleMate()){
-          alert('Stalemate!');
-          this.status.nativeElement.innerHTML = "refresh and play again"
+          this.status.nativeElement.innerHTML = "Stalemate! <br/>refresh and play again"
           return false;
         }else{
           this.status.nativeElement.innerHTML = 'owned';
@@ -198,27 +193,27 @@ export class GameComponent {
 
   aiMove(): boolean{
     if(this.FindAndPlayThreats()){
-      //console.log('AI played threat');
+      console.log('AI played threat');
       return true;
     }
     if(this.Fork()){
-      //console.log('AI forked');
+      console.log('AI forked');
       return true;
     }
     if(this.TakeCenterSquare()){
-      //console.log('AI took center square');
+      console.log('AI took center square');
       return true;
     }if(this.MustPlayOppositeCorner()){
-      //console.log('AI played opposite corner');
+      console.log('AI played opposite corner');
       return true;
     }if(this.PlayEmptyCorner()){
-      //console.log('AI played empty corner');
+      console.log('AI played empty corner');
       return true;
     }
     else{
       for(let option of this.options){
         if(this.assignSpot(option)){
-          //console.log('AI played random open space');
+          console.log('AI played random open space');
           return true;
         }
       }
@@ -271,7 +266,7 @@ export class GameComponent {
   }
 
   TakeCenterSquare(): boolean{
-    const el: HTMLElement = document.getElementById('five');
+    //const el: HTMLElement = document.getElementById('five');
     if(this.assignSpot('five')){
       return true;
     }
@@ -313,98 +308,53 @@ export class GameComponent {
   }
 
   FindAndPlayThreats() : boolean{
-    let moves = this.xSquares.length + this.oSquares.length;
-    //console.log(moves+' moves have been made');
-    if(moves > 2){
+    if(this.moves > 2){
       if(this.xTurn){
-        // check opposite player's squares first'
-        if(this.DetermineThreat(this.oSquares)){
-          if(this.PlayThreat(this.oSquares)){
-            return true;
-          }
-        }else if(this.DetermineThreat(this.xSquares)){
-          if(this.PlayThreat(this.xSquares)){
-            return true;
-          }
-        }
-    }else{
-        // check opposite player's squares first'
+        // check own squares first'
         if(this.DetermineThreat(this.xSquares)){
-          if(this.PlayThreat(this.xSquares)){
             return true;
-          }
-        }else if(this.DetermineThreat(this.oSquares)){
-            if(this.PlayThreat(this.oSquares)){
-              return true;
-            }
         }
-        return false;
+        if(this.DetermineThreat(this.oSquares)){
+            return true;
+        }
+      }else{
+        if(this.DetermineThreat(this.oSquares)){
+            return true;
+        }
+        if(this.DetermineThreat(this.xSquares)){
+              return true;
+        }
       }
     }
     return false;
   }
 
-  DetermineThreat(playerArray){
-    //console.log('searching for threats');
-    //.log('winning arrays are');
-      //console.log(this.winningArrays);
-      for (let key in this.winningArrays) {
+  DetermineThreat(playerArray): boolean{
+      for (let key in this.winningArrays){
         let valueArray = this.winningArrays[key];
-        //console.log(valueArray);
-        this.threat = this.PlayerArrayContainsTwoFromWinners(playerArray, valueArray);
-        if(this.threat == true){
-            //console.log('threat determined');
+        if(this.PlayerArrayContainsTwoFromWinnerswith3rdOpen(playerArray, valueArray)){
             return true;
         }
     }
-    //console.log('no threat');
+    console.log('no threat plays available');
     return false;
   }
 
-  PlayThreat(playerArray): boolean{
-    for (let key in this.winningArrays) {
-      let valueArray = this.winningArrays[key];
-        //iterate through winning combos looking for threats for whichever array is for current AI player
-        this.threat = this.PlayerArrayContainsTwoFromWinners(playerArray, valueArray);
-        if(this.threat == true){
-            if(this.findMissingValueFromWinningCombo(valueArray,playerArray)){
-              return true;
-            }
-        }
-    }
-
-    return false;
-  }
-
-  PlayerArrayContainsTwoFromWinners(needle: string[], haystack: string[]): boolean{
-      
-        //console.log('searching for');
-        //console.log(needle);
-        //console.log('in');
-        //console.log(haystack);
-      
+  PlayerArrayContainsTwoFromWinnerswith3rdOpen(needle, haystack): boolean{
     let count = 0;
-    for(var i = 0; i < needle.length; i++){
-      if(haystack.indexOf(needle[i]) !== -1){
+    let matches = [];
+    let unmatched = [] ;
+    for(var i = 0; i < haystack.length; i++){
+      if(needle.indexOf(haystack[i]) !== -1){
         count++;
-        //console.log(count+'matches found');
+        matches.push(haystack[i]);
+      }else{
+        unmatched.push(haystack[i]);
       }
     }
     if(count == 2){
-      return true;
-    }else{
-      return false;
-    }
-  }
-
-  findMissingValueFromWinningCombo(needle, haystack): boolean{
-    for(var i = 0; i < needle.length; i++){
-      if(haystack.indexOf(needle[i]) === -1){
-        //play this value
-        //alert('playing '+needle[i]);
-        if(this.assignSpot(needle[i])){
-          return true;
-        }
+      if(this.assignSpot(unmatched[0])){
+        return true;
       }
     }
     return false;
@@ -481,11 +431,14 @@ export class GameComponent {
   }
 
   CheckAvailability(element){
-    if(element.className != 'oTurn' && element.className != 'xTurn'){
-      //alert(element.id+" will be played");
-      //console.log(element.id+" available");
-    }
+    if(element){
+      if(element.className != 'oTurn' && element.className != 'xTurn'){
+        console.log(element+" has class of "+ element.className +" and is available ");
+      }
+      console.log('unavailable element has class '+element.className)
     return (element.className != 'oTurn' && element.className != 'xTurn');
+    }
+    console.log('checkavailability received null');
   }
 
   UpdateChecked(e, marker){
@@ -497,7 +450,6 @@ export class GameComponent {
         this.xPlayer = 0;
       }
       this.aiPlayers = this.xPlayer + this.oPlayer;
-      //console.log('xPLayer:'+this.xPlayer);
     }else if(marker == 'o'){
       this.oAIChecked= e.target.checked;
       if(this.oAIChecked){
@@ -506,11 +458,9 @@ export class GameComponent {
         this.oPlayer = 0;
       }
       this.aiPlayers = this.xPlayer + this.oPlayer;
-      //console.log('oPLayer:'+this.oPlayer);
     }else{
       //console.log('no marker found');
     }
-    console.log(this.aiPlayers+' AI players in the game');
     
   }
 

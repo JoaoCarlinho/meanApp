@@ -651,7 +651,7 @@ var FooterComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n<div id=\"gameContainer\">\n    <h1>let's play {{title}}</h1>\n        <span>{{aiPlayers}} AI players in the game</span><br/>\n        <label>X controlled by AI</label><input type=\"checkbox\" [(ngModel)]=\"xControlledbyAI\" (change)=\"UpdateChecked($event, 'x'); PlayAIMove(); \"  data-md-icheck/><br/>\n        <label>O controlled by AI</label><input type=\"checkbox\" [(ngModel)]=\"oControlledbyAI\" (change)=\"UpdateChecked($event, 'o'); PlayAIMove();\" data-md-icheck/>\n    <!--<div>{{aiInvolved}}</div>-->\n    <div>\n        <h1 *ngIf=\"xTurn\">It's x's turn</h1>\n        <h1 *ngIf=\"!xTurn\">It's o's turn</h1>\n    </div>\n    <div #status *ngIf=\"this.state\">loading</div>\n    <div *ngIf=\"!this.state\" (click)=\"Restart()\">Play Again</div>\n    <table>\n        <tr><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('one');\" [id]=\"'one'\"></td><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('two');\" [id]=\"'two'\"></td><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('three');\" [id]=\"'three'\"></td></tr>\n        <tr><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('four');\" [id]=\"'four'\"></td><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('five');\" [id]=\"'five'\"></td><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('six');\" [id]=\"'six'\"></td></tr>\n        <tr><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('seven');\" [id]=\"'seven'\"></td><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('eight');\" [id]=\"'eight'\"></td><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('nine');\" [id]=\"'nine'\"></td></tr>\n    </table>\n</div>\n\n"
+module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n<div id=\"gameContainer\">\n    <h1>let's play {{title}}</h1>\n        <span>{{aiPlayers}} AI players in the game</span><br/>\n        <label>X's is AI player</label><input type=\"checkbox\" [(ngModel)]=\"xControlledbyAI\" (change)=\"UpdateChecked($event, 'x'); PlayAIMove(); \"  data-md-icheck/><br/>\n        <label>O's is AI player</label><input type=\"checkbox\" [(ngModel)]=\"oControlledbyAI\" (change)=\"UpdateChecked($event, 'o'); PlayAIMove();\" data-md-icheck/>\n    <!--<div>{{aiInvolved}}</div>-->\n    <div *ngIf=\"this.state\">\n        <h1 *ngIf=\"xTurn\">It's x's turn</h1>\n        <h1 *ngIf=\"!xTurn\">It's o's turn</h1>\n        <div #status></div>\n    </div>\n    <div *ngIf=\"!this.state\"> <button (click)=\"Restart()\" class=\"btn-primary\">Play Again</button></div>\n    <table>\n        <tr><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('one');\" [id]=\"'one'\"></td><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('two');\" [id]=\"'two'\"></td><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('three');\" [id]=\"'three'\"></td></tr>\n        <tr><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('four');\" [id]=\"'four'\"></td><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('five');\" [id]=\"'five'\"></td><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('six');\" [id]=\"'six'\"></td></tr>\n        <tr><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('seven');\" [id]=\"'seven'\"></td><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('eight');\" [id]=\"'eight'\"></td><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('nine');\" [id]=\"'nine'\"></td></tr>\n    </table>\n</div>\n\n"
 
 /***/ }),
 
@@ -702,7 +702,8 @@ var GameComponent = /** @class */ (function () {
         //determine who's turn it is
         this.xTurn = true;
         //determine if there's a threat
-        this.threat = false;
+        this.possibleThreat = false;
+        this.threatPlayAvailable = false;
         //determine if there's a winner
         this.state = true;
         //array for marked spaces
@@ -734,26 +735,25 @@ var GameComponent = /** @class */ (function () {
             var el = document.getElementById(square);
             el.className = null;
         }
+        //remove ownership of squares
+        this.xSquares = [];
+        this.oSquares = [];
+        //set turn to x
+        this.xTurn = true;
         //set state to true
         this.state = true;
     };
     GameComponent.prototype.PlayAIMove = function () {
-        //console.log('AI controlling x is '+this.xControlledbyAI);
-        //console.log('AI controlling o is '+this.oControlledbyAI);
         if (this.state) {
             if (this.CheckIfAIHasNextMove()) {
                 this.DetermineTurn();
-                alert(this.turn);
-                console.log('AI has next move');
                 if (this.xControlledbyAI && this.xTurn) {
                     if (this.aiMove()) {
-                        console.log('AI x made a move');
                     }
                     ;
                 }
                 else if (this.oControlledbyAI && !this.xTurn) {
                     if (this.aiMove()) {
-                        console.log('AI o made a move');
                     }
                     ;
                 }
@@ -761,7 +761,6 @@ var GameComponent = /** @class */ (function () {
                 this.PlayAIMove();
             }
             else {
-                console.log('user has next move');
             }
         }
     };
@@ -827,8 +826,7 @@ var GameComponent = /** @class */ (function () {
     GameComponent.prototype.assignSpot = function (id) {
         //give square to x's or o's
         var el = document.getElementById(id);
-        //console.log(el.id+' being tested');
-        var elementName = el.id;
+        //let elementName = el.id;
         if (this.state == true) {
             //true means game is still on
             if (this.CheckAvailability(el)) {
@@ -838,23 +836,18 @@ var GameComponent = /** @class */ (function () {
                 //add value to player's array
                 if (this.xTurn) {
                     this.xSquares.push(id);
-                    console.log('x owns');
-                    console.log(this.xSquares);
                 }
                 else {
                     this.oSquares.push(id);
-                    console.log('o owns');
-                    console.log(this.oSquares);
                 }
+                this.moves = this.xSquares.length + this.oSquares.length;
                 //determine game status
                 if (this.findWinner() != "none") {
-                    alert(this.findWinner() + ' wins!');
-                    this.status.nativeElement.innerHTML = "refresh and play again";
+                    this.status.nativeElement.innerHTML = this.findWinner() + ' wins!<br/>refresh and play again';
                     return false;
                 }
                 else if (this.detectStaleMate()) {
-                    alert('Stalemate!');
-                    this.status.nativeElement.innerHTML = "refresh and play again";
+                    this.status.nativeElement.innerHTML = "Stalemate! <br/>refresh and play again";
                     return false;
                 }
                 else {
@@ -875,30 +868,30 @@ var GameComponent = /** @class */ (function () {
     };
     GameComponent.prototype.aiMove = function () {
         if (this.FindAndPlayThreats()) {
-            //console.log('AI played threat');
+            console.log('AI played threat');
             return true;
         }
         if (this.Fork()) {
-            //console.log('AI forked');
+            console.log('AI forked');
             return true;
         }
         if (this.TakeCenterSquare()) {
-            //console.log('AI took center square');
+            console.log('AI took center square');
             return true;
         }
         if (this.MustPlayOppositeCorner()) {
-            //console.log('AI played opposite corner');
+            console.log('AI played opposite corner');
             return true;
         }
         if (this.PlayEmptyCorner()) {
-            //console.log('AI played empty corner');
+            console.log('AI played empty corner');
             return true;
         }
         else {
             for (var _i = 0, _a = this.options; _i < _a.length; _i++) {
                 var option = _a[_i];
                 if (this.assignSpot(option)) {
-                    //console.log('AI played random open space');
+                    console.log('AI played random open space');
                     return true;
                 }
             }
@@ -950,7 +943,7 @@ var GameComponent = /** @class */ (function () {
         return false;
     };
     GameComponent.prototype.TakeCenterSquare = function () {
-        var el = document.getElementById('five');
+        //const el: HTMLElement = document.getElementById('five');
         if (this.assignSpot('five')) {
             return true;
         }
@@ -987,95 +980,53 @@ var GameComponent = /** @class */ (function () {
         return false;
     };
     GameComponent.prototype.FindAndPlayThreats = function () {
-        var moves = this.xSquares.length + this.oSquares.length;
-        //console.log(moves+' moves have been made');
-        if (moves > 2) {
+        if (this.moves > 2) {
             if (this.xTurn) {
-                // check opposite player's squares first'
-                if (this.DetermineThreat(this.oSquares)) {
-                    if (this.PlayThreat(this.oSquares)) {
-                        return true;
-                    }
+                // check own squares first'
+                if (this.DetermineThreat(this.xSquares)) {
+                    return true;
                 }
-                else if (this.DetermineThreat(this.xSquares)) {
-                    if (this.PlayThreat(this.xSquares)) {
-                        return true;
-                    }
+                if (this.DetermineThreat(this.oSquares)) {
+                    return true;
                 }
             }
             else {
-                // check opposite player's squares first'
+                if (this.DetermineThreat(this.oSquares)) {
+                    return true;
+                }
                 if (this.DetermineThreat(this.xSquares)) {
-                    if (this.PlayThreat(this.xSquares)) {
-                        return true;
-                    }
+                    return true;
                 }
-                else if (this.DetermineThreat(this.oSquares)) {
-                    if (this.PlayThreat(this.oSquares)) {
-                        return true;
-                    }
-                }
-                return false;
             }
         }
         return false;
     };
     GameComponent.prototype.DetermineThreat = function (playerArray) {
-        //console.log('searching for threats');
-        //.log('winning arrays are');
-        //console.log(this.winningArrays);
         for (var key in this.winningArrays) {
             var valueArray = this.winningArrays[key];
-            //console.log(valueArray);
-            this.threat = this.PlayerArrayContainsTwoFromWinners(playerArray, valueArray);
-            if (this.threat == true) {
-                //console.log('threat determined');
+            if (this.PlayerArrayContainsTwoFromWinnerswith3rdOpen(playerArray, valueArray)) {
                 return true;
             }
         }
-        //console.log('no threat');
+        console.log('no threat plays available');
         return false;
     };
-    GameComponent.prototype.PlayThreat = function (playerArray) {
-        for (var key in this.winningArrays) {
-            var valueArray = this.winningArrays[key];
-            //iterate through winning combos looking for threats for whichever array is for current AI player
-            this.threat = this.PlayerArrayContainsTwoFromWinners(playerArray, valueArray);
-            if (this.threat == true) {
-                if (this.findMissingValueFromWinningCombo(valueArray, playerArray)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    };
-    GameComponent.prototype.PlayerArrayContainsTwoFromWinners = function (needle, haystack) {
-        //console.log('searching for');
-        //console.log(needle);
-        //console.log('in');
-        //console.log(haystack);
+    GameComponent.prototype.PlayerArrayContainsTwoFromWinnerswith3rdOpen = function (needle, haystack) {
         var count = 0;
-        for (var i = 0; i < needle.length; i++) {
-            if (haystack.indexOf(needle[i]) !== -1) {
+        var matches = [];
+        var unmatched = [];
+        for (var i = 0; i < haystack.length; i++) {
+            if (needle.indexOf(haystack[i]) !== -1) {
                 count++;
-                //console.log(count+'matches found');
+                matches.push(haystack[i]);
+            }
+            else {
+                unmatched.push(haystack[i]);
             }
         }
         if (count == 2) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    };
-    GameComponent.prototype.findMissingValueFromWinningCombo = function (needle, haystack) {
-        for (var i = 0; i < needle.length; i++) {
-            if (haystack.indexOf(needle[i]) === -1) {
-                //play this value
-                //alert('playing '+needle[i]);
-                if (this.assignSpot(needle[i])) {
-                    return true;
-                }
+            if (this.assignSpot(unmatched[0])) {
+                return true;
             }
         }
         return false;
@@ -1149,11 +1100,14 @@ var GameComponent = /** @class */ (function () {
         return '';
     };
     GameComponent.prototype.CheckAvailability = function (element) {
-        if (element.className != 'oTurn' && element.className != 'xTurn') {
-            //alert(element.id+" will be played");
-            //console.log(element.id+" available");
+        if (element) {
+            if (element.className != 'oTurn' && element.className != 'xTurn') {
+                console.log(element + " has class of " + element.className + " and is available ");
+            }
+            console.log('unavailable element has class ' + element.className);
+            return (element.className != 'oTurn' && element.className != 'xTurn');
         }
-        return (element.className != 'oTurn' && element.className != 'xTurn');
+        console.log('checkavailability received null');
     };
     GameComponent.prototype.UpdateChecked = function (e, marker) {
         if (marker == 'x') {
@@ -1165,7 +1119,6 @@ var GameComponent = /** @class */ (function () {
                 this.xPlayer = 0;
             }
             this.aiPlayers = this.xPlayer + this.oPlayer;
-            //console.log('xPLayer:'+this.xPlayer);
         }
         else if (marker == 'o') {
             this.oAIChecked = e.target.checked;
@@ -1176,12 +1129,10 @@ var GameComponent = /** @class */ (function () {
                 this.oPlayer = 0;
             }
             this.aiPlayers = this.xPlayer + this.oPlayer;
-            //console.log('oPLayer:'+this.oPlayer);
         }
         else {
             //console.log('no marker found');
         }
-        console.log(this.aiPlayers + ' AI players in the game');
     };
     GameComponent.prototype.sleep = function (milliseconds) {
         var start = new Date().getTime();
@@ -1817,7 +1768,7 @@ var GameService = /** @class */ (function () {
     }
     GameService.prototype.PlayGame = function (gameBool) {
         this.gameSource.next(gameBool);
-        console.log('gameState =' + gameBool);
+        //console.log('gameState ='+gameBool);
     };
     GameService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
@@ -2050,7 +2001,7 @@ var ServicelistService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"cp\" *ngIf=\"this.visibility\" class=\"text-center\">\n    <ul>\n      <li (click)=\"ShowServiceLine('Consulting Services')\"><div>Consulting</div></li>\n      <li (click)=\"ShowServiceLine('Digital Services')\"><div>Digital</div></li>\n      <li (click)=\"ShowServiceLine('Technology Services')\"><div>Technology</div></li>\n      <li (click)=\"ShowServiceLine('Operations Support')\"><div>Operations</div></li>\n    <!--\n      <li><div>Industries</div></li>\n      <li><div>Careers</div></li>\n    -->\n    </ul>\n    <hr style=\"background-color:white; height:3px;\">\n    <ul>\n      <li><div>About ISE Optimizations</div></li>\n      <li (click)=\"PlayGame()\"><div>AI games</div></li>\n      <!--\n      <li><div>Corporate Citizenship</div></li>\n      <li><div>Inclusion and Diversity</div></li>\n      <li><div>Inverstor Relations</div></li>\n      <li><div>NewsRoom</div></li>\n      -->\n      <li (click)=\"ShowAdminPanel()\"><div>Admin</div></li>\n  </ul>\n</div>"
+module.exports = "<div id=\"cp\" *ngIf=\"this.visibility\" class=\"text-center\">\n    <ul>\n      <li (click)=\"ShowServiceLine('Consulting Services')\"><div>Consulting</div></li>\n      <li (click)=\"ShowServiceLine('Digital Services')\"><div>Digital</div></li>\n      <li (click)=\"ShowServiceLine('Technology Services')\"><div>Technology</div></li>\n      <li (click)=\"ShowServiceLine('Operations Support')\"><div>Operations</div></li>\n    <!--\n      <li><div>Industries</div></li>\n      <li><div>Careers</div></li>\n    -->\n    </ul>\n    <hr style=\"background-color:white; height:3px;\">\n    <ul>\n      <!--<li><div>About ISE Optimizations</div></li> -->\n      <li (click)=\"PlayGame()\"><div>AI games</div></li>\n      <!--\n      <li><div>Corporate Citizenship</div></li>\n      <li><div>Inclusion and Diversity</div></li>\n      <li><div>Inverstor Relations</div></li>\n      <li><div>NewsRoom</div></li>\n      -->\n      <li (click)=\"ShowAdminPanel()\"><div>Admin</div></li>\n  </ul>\n</div>"
 
 /***/ }),
 
