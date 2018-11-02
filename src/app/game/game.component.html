@@ -1,6 +1,7 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div id="gameContainer">
-    <h1>let's play {{title}}</h1>
+    <div id="titleImage"></div>
+    <h1>{{title}}</h1>
         <span>{{aiPlayers}} AI players in the game</span><br/>
         <label>X's is AI player</label><input type="checkbox" [(ngModel)]="xControlledbyAI" (change)="UpdateChecked($event, 'x'); PlayAIMove(); "  data-md-icheck/><br/>
         <label>O's is AI player</label><input type="checkbox" [(ngModel)]="oControlledbyAI" (change)="UpdateChecked($event, 'o'); PlayAIMove();" data-md-icheck/>
@@ -8,8 +9,8 @@
     <div *ngIf="this.state">
         <h1 *ngIf="xTurn">It's x's turn</h1>
         <h1 *ngIf="!xTurn">It's o's turn</h1>
-        <div #status></div>
     </div>
+    <div #status></div>
     <div *ngIf="!this.state"> <button (click)="Restart()" class="btn-primary">Play Again</button></div>
     <table>
         <tr><td (mouseover)="CheckStatus($event);" (click)="assignSpot('one');" [id]="'one'"></td><td (mouseover)="CheckStatus($event);" (click)="assignSpot('two');" [id]="'two'"></td><td (mouseover)="CheckStatus($event);" (click)="assignSpot('three');" [id]="'three'"></td></tr>

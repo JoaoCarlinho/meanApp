@@ -1,6 +1,5 @@
 #gameContainer{
     text-align: center;
-
 }
 
 table {
@@ -34,12 +33,17 @@ table {
     background: gold;
   }
   
-  .xTurn{
-      background-color:blue;
+  .xTurn, .oTurn{
+      //background-color:blue;
+      background-size:cover; background-repeat:no-repeat;
   }
-  
-  .oTurn{
-      background-color:red;
+
+  #titleImage{
+      margin:0 auto;
+    height:180px; 
+    width:270px; 
+    background-image: url(../../../public/assets/gameTitle.jpg); 
+    background-size:contain; background-repeat:no-repeat;
   }
 
   //Large screens

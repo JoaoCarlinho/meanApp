@@ -6,7 +6,7 @@ import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
   styleUrls: ['./game.component.scss']
 })
 export class GameComponent {
-  title = 'tictactoe';
+  title = 'Crips vs Bloods';
   s//tatus = document.getElementById('status');
   @ViewChild('status') status: ElementRef;
   //determine if computer is x's or o's
@@ -32,6 +32,8 @@ export class GameComponent {
   oSquares: String[] = [];
   //track number of moves played
   moves: Number;
+  xImages: string[] = ['cripGroup.jpg', 'cripTits.jpg', 'cripTweety.jpg', 'doubleBarrelCrip.png'];
+  oImages: string[] = ['bloodGuns.png', 'doubleBarrelBlood.png', 'hopOut.jpg', 'hotBox.jpg', 'legoBlood.jpg', 'southParkBloods.gif'];
 
   corners: string[] = ['one', 'three', 'seven', 'nine'];
   options: string[] = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
@@ -60,6 +62,7 @@ export class GameComponent {
     for(let square of this.options){
       const el: HTMLElement = document.getElementById(square);
       el.className = null;
+      el.style.backgroundImage = "none";
     }
     //remove ownership of squares
     this.xSquares = [];
@@ -159,14 +162,19 @@ export class GameComponent {
     if(this.state == true){
       //true means game is still on
       if(this.CheckAvailability(el)){
+        let background = 'url(../../public/assets/';
         //update square mark
         el.className = (this.xTurn)?  'xTurn': 'oTurn';
         //console.log(elementName+"'s class is "+el.className)
         //add value to player's array
         if(this.xTurn){
+          background += this.xImages[Math.floor(Math.random() * this.xImages.length)]+')';
           this.xSquares.push(id);
+          el.style.backgroundImage = background;
         }else{
           this.oSquares.push(id);
+          background += this.oImages[Math.floor(Math.random() * this.oImages.length)]+')';
+          el.style.backgroundImage = background;
         }
         this.moves = this.xSquares.length + this.oSquares.length;
         //determine game status
