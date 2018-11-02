@@ -1,0 +1,20 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div id="gameContainer">
+    <h1>let's play {{title}}</h1>
+        <span>{{aiPlayers}} AI players in the game</span><br/>
+        <label>X controlled by AI</label><input type="checkbox" [(ngModel)]="xControlledbyAI" (change)="UpdateChecked($event, 'x'); PlayAIMove(); "  data-md-icheck/><br/>
+        <label>O controlled by AI</label><input type="checkbox" [(ngModel)]="oControlledbyAI" (change)="UpdateChecked($event, 'o'); PlayAIMove();" data-md-icheck/>
+    <!--<div>{{aiInvolved}}</div>-->
+    <div>
+        <h1 *ngIf="xTurn">It's x's turn</h1>
+        <h1 *ngIf="!xTurn">It's o's turn</h1>
+    </div>
+    <div #status *ngIf="this.state">loading</div>
+    <div *ngIf="!this.state" (click)="Restart()">Play Again</div>
+    <table>
+        <tr><td (mouseover)="CheckStatus($event);" (click)="assignSpot('one');" [id]="'one'"></td><td (mouseover)="CheckStatus($event);" (click)="assignSpot('two');" [id]="'two'"></td><td (mouseover)="CheckStatus($event);" (click)="assignSpot('three');" [id]="'three'"></td></tr>
+        <tr><td (mouseover)="CheckStatus($event);" (click)="assignSpot('four');" [id]="'four'"></td><td (mouseover)="CheckStatus($event);" (click)="assignSpot('five');" [id]="'five'"></td><td (mouseover)="CheckStatus($event);" (click)="assignSpot('six');" [id]="'six'"></td></tr>
+        <tr><td (mouseover)="CheckStatus($event);" (click)="assignSpot('seven');" [id]="'seven'"></td><td (mouseover)="CheckStatus($event);" (click)="assignSpot('eight');" [id]="'eight'"></td><td (mouseover)="CheckStatus($event);" (click)="assignSpot('nine');" [id]="'nine'"></td></tr>
+    </table>
+</div>
+

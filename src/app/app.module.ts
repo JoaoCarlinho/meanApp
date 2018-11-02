@@ -14,6 +14,7 @@ import { ServiceLinePipe } from './service-line.pipe';
 import { ConsultationComponent } from './consultation/consultation.component';
 import { NewsletterComponent } from './newsletter/newsletter.component';
 import { AdminComponent } from './admin/admin.component';
+import { GameComponent } from './game/game.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { AdminComponent } from './admin/admin.component';
     ServiceLinePipe,
     ConsultationComponent,
     NewsletterComponent,
-    AdminComponent
+    AdminComponent,
+    GameComponent
   ],
   imports: [
     BrowserModule,

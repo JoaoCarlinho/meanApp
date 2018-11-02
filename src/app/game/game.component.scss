@@ -1,0 +1,77 @@
+#gameContainer{
+    text-align: center;
+
+}
+
+table {
+    width: 90%;
+    border-collapse: collapse;
+  }
+  
+  h1, table{
+      margin:0 auto;
+  }
+  
+  table, th, td {
+      border: 1px solid black;
+  }
+  
+  td {
+    width: 33.33%;
+    position: relative;
+  }
+  td:after {
+    content: '';
+    display: block;
+    margin-top: 100%;
+  }
+  td .content {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: gold;
+  }
+  
+  .xTurn{
+      background-color:blue;
+  }
+  
+  .oTurn{
+      background-color:red;
+  }
+
+  //Large screens
+@media only screen and (min-width:600px) {
+
+    /*********************************Control Panel CSS****************************************/
+    #gameContainer{
+        margin-top:75px;
+    }
+    
+}
+/*
+//medium
+@media only screen and (min-width:600px){
+    #cp{
+        position:absolute;
+        right: 0;
+        top: 100px;
+        width:175px
+    }
+
+}
+*/
+
+//small screens
+@media only screen and (min-width:350px) and (max-width: 600px) {
+
+}
+
+//tiny screens
+@media only screen and (max-width: 600px) {
+    #gameContainer{
+        margin-top:75px;
+    }
+}

@@ -222,7 +222,7 @@ var AppRoutingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n<div id=\"contentContainer\">\n        <app-iobanner></app-iobanner>\n        <app-sidebar></app-sidebar>\n        <app-content></app-content>\n</div>\n"
+module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n<app-iobanner></app-iobanner>\n<app-sidebar></app-sidebar>\n<div *ngIf=\"this.bizInfo\" id=\"contentContainer\">\n        <app-content></app-content>\n</div>\n<div *ngIf=\"this.gamePlay\" id=\"contentContainer\">\n        <app-game></app-game>\n</div>\n<app-footer></app-footer>\n"
 
 /***/ }),
 
@@ -248,23 +248,37 @@ module.exports = "#contentContainer {\n  position: relative;\n  width: 100%;\n  
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppComponent", function() { return AppComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_game_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./services/game.service */ "./src/app/services/game.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent() {
+    function AppComponent(game) {
+        this.game = game;
         this.title = 'ISE Optimizations';
+        this.gamePlay = false;
+        this.bizInfo = true;
     }
+    AppComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.game.gameStatus.subscribe(function (game) { return _this.gamePlay = game; });
+        this.game.gameStatus.subscribe(function (game) { return _this.bizInfo = !game; });
+    };
     AppComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-root',
             template: __webpack_require__(/*! ./app.component.html */ "./src/app/app.component.html"),
             styles: [__webpack_require__(/*! ./app.component.scss */ "./src/app/app.component.scss")]
-        })
+        }),
+        __metadata("design:paramtypes", [_services_game_service__WEBPACK_IMPORTED_MODULE_1__["GameService"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -299,12 +313,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _consultation_consultation_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./consultation/consultation.component */ "./src/app/consultation/consultation.component.ts");
 /* harmony import */ var _newsletter_newsletter_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./newsletter/newsletter.component */ "./src/app/newsletter/newsletter.component.ts");
 /* harmony import */ var _admin_admin_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./admin/admin.component */ "./src/app/admin/admin.component.ts");
+/* harmony import */ var _game_game_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./game/game.component */ "./src/app/game/game.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -337,7 +353,8 @@ var AppModule = /** @class */ (function () {
                 _service_line_pipe__WEBPACK_IMPORTED_MODULE_12__["ServiceLinePipe"],
                 _consultation_consultation_component__WEBPACK_IMPORTED_MODULE_13__["ConsultationComponent"],
                 _newsletter_newsletter_component__WEBPACK_IMPORTED_MODULE_14__["NewsletterComponent"],
-                _admin_admin_component__WEBPACK_IMPORTED_MODULE_15__["AdminComponent"]
+                _admin_admin_component__WEBPACK_IMPORTED_MODULE_15__["AdminComponent"],
+                _game_game_component__WEBPACK_IMPORTED_MODULE_16__["GameComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
@@ -474,7 +491,7 @@ var Consultation = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"frontPageIntro\" class=\"text-center\">\n  <div class=\"page-header\" *ngIf=\"!this.detailVisibility\">\n  </div>\n  <app-service-list></app-service-list>\n  <router-outlet></router-outlet>\n  <app-consultation></app-consultation>\n  <app-footer></app-footer>\n  <app-newsletter></app-newsletter>\n  <app-admin></app-admin>\n</div>\n"
+module.exports = "<div id=\"frontPageIntro\" class=\"text-center\">\n  <div class=\"page-header\" *ngIf=\"!this.detailVisibility\">\n  </div>\n  <app-service-list></app-service-list>\n  <router-outlet></router-outlet>\n  <app-consultation></app-consultation>\n  <app-newsletter></app-newsletter>\n  <app-admin></app-admin>\n</div>\n"
 
 /***/ }),
 
@@ -621,6 +638,580 @@ var FooterComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [_services_newsletter_service__WEBPACK_IMPORTED_MODULE_1__["NewsletterService"], _services_hidepanel_service__WEBPACK_IMPORTED_MODULE_2__["HidepanelService"]])
     ], FooterComponent);
     return FooterComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/game/game.component.html":
+/*!******************************************!*\
+  !*** ./src/app/game/game.component.html ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n<div id=\"gameContainer\">\n    <h1>let's play {{title}}</h1>\n        <span>{{aiPlayers}} AI players in the game</span><br/>\n        <label>X controlled by AI</label><input type=\"checkbox\" [(ngModel)]=\"xControlledbyAI\" (change)=\"UpdateChecked($event, 'x'); PlayAIMove(); \"  data-md-icheck/><br/>\n        <label>O controlled by AI</label><input type=\"checkbox\" [(ngModel)]=\"oControlledbyAI\" (change)=\"UpdateChecked($event, 'o'); PlayAIMove();\" data-md-icheck/>\n    <!--<div>{{aiInvolved}}</div>-->\n    <div>\n        <h1 *ngIf=\"xTurn\">It's x's turn</h1>\n        <h1 *ngIf=\"!xTurn\">It's o's turn</h1>\n    </div>\n    <div #status *ngIf=\"this.state\">loading</div>\n    <div *ngIf=\"!this.state\" (click)=\"Restart()\">Play Again</div>\n    <table>\n        <tr><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('one');\" [id]=\"'one'\"></td><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('two');\" [id]=\"'two'\"></td><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('three');\" [id]=\"'three'\"></td></tr>\n        <tr><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('four');\" [id]=\"'four'\"></td><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('five');\" [id]=\"'five'\"></td><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('six');\" [id]=\"'six'\"></td></tr>\n        <tr><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('seven');\" [id]=\"'seven'\"></td><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('eight');\" [id]=\"'eight'\"></td><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('nine');\" [id]=\"'nine'\"></td></tr>\n    </table>\n</div>\n\n"
+
+/***/ }),
+
+/***/ "./src/app/game/game.component.scss":
+/*!******************************************!*\
+  !*** ./src/app/game/game.component.scss ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "#gameContainer {\n  text-align: center; }\n\ntable {\n  width: 90%;\n  border-collapse: collapse; }\n\nh1, table {\n  margin: 0 auto; }\n\ntable, th, td {\n  border: 1px solid black; }\n\ntd {\n  width: 33.33%;\n  position: relative; }\n\ntd:after {\n  content: '';\n  display: block;\n  margin-top: 100%; }\n\ntd .content {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  background: gold; }\n\n.xTurn {\n  background-color: blue; }\n\n.oTurn {\n  background-color: red; }\n\n@media only screen and (min-width: 600px) {\n  /*********************************Control Panel CSS****************************************/\n  #gameContainer {\n    margin-top: 75px; } }\n\n/*\n//medium\n@media only screen and (min-width:600px){\n    #cp{\n        position:absolute;\n        right: 0;\n        top: 100px;\n        width:175px\n    }\n\n}\n*/\n\n@media only screen and (max-width: 600px) {\n  #gameContainer {\n    margin-top: 75px; } }\n"
+
+/***/ }),
+
+/***/ "./src/app/game/game.component.ts":
+/*!****************************************!*\
+  !*** ./src/app/game/game.component.ts ***!
+  \****************************************/
+/*! exports provided: GameComponent, WinningArrays */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GameComponent", function() { return GameComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WinningArrays", function() { return WinningArrays; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var GameComponent = /** @class */ (function () {
+    function GameComponent() {
+        this.title = 'tictactoe';
+        //determine if computer is x's or o's
+        this.xControlledbyAI = false;
+        this.oControlledbyAI = false;
+        this.xAIChecked = false;
+        this.oAIChecked = false;
+        this.xPlayer = (this.xAIChecked) ? 1 : 0;
+        this.oPlayer = (this.oAIChecked) ? 1 : 0;
+        this.aiPlayers = this.xPlayer + this.oPlayer;
+        //determine who's turn it is
+        this.xTurn = true;
+        //determine if there's a threat
+        this.threat = false;
+        //determine if there's a winner
+        this.state = true;
+        //array for marked spaces
+        this.xSquares = [];
+        this.oSquares = [];
+        this.corners = ['one', 'three', 'seven', 'nine'];
+        this.options = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+        //arrays for winning conditions
+        this.winningArrays = new WinningArrays;
+    }
+    GameComponent.prototype.ngOnInit = function () {
+        //list winning combinations
+        this.winningArrays.topRow = ['one', 'two', 'three'];
+        this.winningArrays.midRow = ['four', 'five', 'six'];
+        this.winningArrays.botRow = ['seven', 'eight', 'nine'];
+        this.winningArrays.firstCol = ['one', 'four', 'seven'];
+        this.winningArrays.secondCol = ['two', 'five', 'eight'];
+        this.winningArrays.thirdCol = ['three', 'six', 'nine'];
+        this.winningArrays.topToBotDiagonal = ['one', 'five', 'nine'];
+        this.winningArrays.botToTopDiagonal = ['seven', 'five', 'three'];
+    };
+    GameComponent.prototype.Restart = function () {
+        //remove AI players
+        this.xControlledbyAI = this.xAIChecked = false;
+        this.oControlledbyAI = this.oAIChecked = false;
+        //set classnames for all squares to null
+        for (var _i = 0, _a = this.options; _i < _a.length; _i++) {
+            var square = _a[_i];
+            var el = document.getElementById(square);
+            el.className = null;
+        }
+        //set state to true
+        this.state = true;
+    };
+    GameComponent.prototype.PlayAIMove = function () {
+        //console.log('AI controlling x is '+this.xControlledbyAI);
+        //console.log('AI controlling o is '+this.oControlledbyAI);
+        if (this.state) {
+            if (this.CheckIfAIHasNextMove()) {
+                this.DetermineTurn();
+                alert(this.turn);
+                console.log('AI has next move');
+                if (this.xControlledbyAI && this.xTurn) {
+                    if (this.aiMove()) {
+                        console.log('AI x made a move');
+                    }
+                    ;
+                }
+                else if (this.oControlledbyAI && !this.xTurn) {
+                    if (this.aiMove()) {
+                        console.log('AI o made a move');
+                    }
+                    ;
+                }
+                //this.sleep(30000);
+                this.PlayAIMove();
+            }
+            else {
+                console.log('user has next move');
+            }
+        }
+    };
+    GameComponent.prototype.CheckIfAIHasNextMove = function () {
+        if (this.xControlledbyAI && this.xTurn) {
+            return true;
+        }
+        else if (this.oControlledbyAI && !this.xTurn) {
+            return true;
+        }
+        return false;
+    };
+    GameComponent.prototype.DetermineTurn = function () {
+        if (this.xTurn) {
+            this.turn = "It's X's turn";
+        }
+        else {
+            this.turn = "It's O's turn";
+        }
+    };
+    GameComponent.prototype.findWinner = function () {
+        for (var _i = 0, _a = Object.values(this.winningArrays); _i < _a.length; _i++) {
+            var value = _a[_i];
+            //alert(value);
+            this.state = !this.arrayContainsWinningArray(value, this.xSquares);
+            if (this.state == false) {
+                return "x's";
+            }
+            this.state = !this.arrayContainsWinningArray(value, this.oSquares);
+            if (this.state == false) {
+                return "o's";
+            }
+        }
+        return "none";
+    };
+    GameComponent.prototype.detectStaleMate = function () {
+        var staleMate = false;
+        var moves = this.xSquares.length + this.oSquares.length;
+        staleMate = (moves == 9) ? true : false;
+        if (staleMate) {
+            this.state = false;
+        }
+        return staleMate;
+    };
+    GameComponent.prototype.CheckStatus = function (event) {
+        //tell players status of squares and game
+        var target = event.target || event.srcElement || event.currentTarget;
+        var elementID = target.attributes.id.nodeValue;
+        var el = document.getElementById(elementID);
+        //alert('working with element id:'+elementID);
+        if (this.state == true) {
+            if (this.detectStaleMate()) {
+                this.status.nativeElement.innerHTML = "refresh and play again";
+            }
+            else if (el.className == 'xTurn' || el.className == 'oTurn') {
+                this.status.nativeElement.innerHTML = 'this is ' + el.className.substring(0, 1) + "'s";
+            }
+            else {
+                this.status.nativeElement.innerHTML = 'take it!';
+            }
+        }
+    };
+    GameComponent.prototype.assignSpot = function (id) {
+        //give square to x's or o's
+        var el = document.getElementById(id);
+        //console.log(el.id+' being tested');
+        var elementName = el.id;
+        if (this.state == true) {
+            //true means game is still on
+            if (this.CheckAvailability(el)) {
+                //update square mark
+                el.className = (this.xTurn) ? 'xTurn' : 'oTurn';
+                //console.log(elementName+"'s class is "+el.className)
+                //add value to player's array
+                if (this.xTurn) {
+                    this.xSquares.push(id);
+                    console.log('x owns');
+                    console.log(this.xSquares);
+                }
+                else {
+                    this.oSquares.push(id);
+                    console.log('o owns');
+                    console.log(this.oSquares);
+                }
+                //determine game status
+                if (this.findWinner() != "none") {
+                    alert(this.findWinner() + ' wins!');
+                    this.status.nativeElement.innerHTML = "refresh and play again";
+                    return false;
+                }
+                else if (this.detectStaleMate()) {
+                    alert('Stalemate!');
+                    this.status.nativeElement.innerHTML = "refresh and play again";
+                    return false;
+                }
+                else {
+                    this.status.nativeElement.innerHTML = 'owned';
+                    this.xTurn = !this.xTurn;
+                    this.PlayAIMove();
+                }
+                return true;
+            }
+            else {
+                this.status.nativeElement.innerHTML = "This seat's taken";
+                return false;
+            }
+        }
+        else {
+            return false;
+        }
+    };
+    GameComponent.prototype.aiMove = function () {
+        if (this.FindAndPlayThreats()) {
+            //console.log('AI played threat');
+            return true;
+        }
+        if (this.Fork()) {
+            //console.log('AI forked');
+            return true;
+        }
+        if (this.TakeCenterSquare()) {
+            //console.log('AI took center square');
+            return true;
+        }
+        if (this.MustPlayOppositeCorner()) {
+            //console.log('AI played opposite corner');
+            return true;
+        }
+        if (this.PlayEmptyCorner()) {
+            //console.log('AI played empty corner');
+            return true;
+        }
+        else {
+            for (var _i = 0, _a = this.options; _i < _a.length; _i++) {
+                var option = _a[_i];
+                if (this.assignSpot(option)) {
+                    //console.log('AI played random open space');
+                    return true;
+                }
+            }
+        }
+    };
+    GameComponent.prototype.PlayEmptyCorner = function () {
+        for (var _i = 0, _a = this.corners; _i < _a.length; _i++) {
+            var corner = _a[_i];
+            if (this.assignSpot(corner)) {
+                return true;
+            }
+        }
+        return false;
+    };
+    GameComponent.prototype.MustPlayOppositeCorner = function () {
+        var opArray = (this.xTurn) ? this.xSquares : this.oSquares;
+        for (var _i = 0, _a = this.corners; _i < _a.length; _i++) {
+            var corner = _a[_i];
+            if (opArray.indexOf(corner) !== -1) {
+                if (this.findAvailabilityofOppositeCorner(corner)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    };
+    GameComponent.prototype.findAvailabilityofOppositeCorner = function (corner) {
+        var opposite;
+        if (corner == 'one') {
+            if (this.assignSpot('nine')) {
+                return true;
+            }
+        }
+        else if (corner == 'three') {
+            if (this.assignSpot('seven')) {
+                return true;
+            }
+        }
+        else if (corner == 'seven') {
+            if (this.assignSpot('three')) {
+                return true;
+            }
+        }
+        else if (corner == 'nine') {
+            if (this.assignSpot('one')) {
+                return true;
+            }
+        }
+        return false;
+    };
+    GameComponent.prototype.TakeCenterSquare = function () {
+        var el = document.getElementById('five');
+        if (this.assignSpot('five')) {
+            return true;
+        }
+        return false;
+    };
+    GameComponent.prototype.Fork = function () {
+        var moves = this.xSquares.length + this.oSquares.length;
+        if (moves > 3) {
+            //create two threats if possible
+            var threatCombo = [];
+            //examine values currently in player's array
+            var myArray = (this.xTurn) ? this.xSquares : this.oSquares;
+            //determine if two or more values show up twice or more in set of winning arrays
+            //then determine if the two or more spots needed to create threats for each combo are available
+            if (this.FindForks(myArray)) {
+                //play the fork and return true
+                return true;
+            }
+            return false;
+        }
+        return false;
+    };
+    GameComponent.prototype.FindForks = function (myArray) {
+        //determine if two or more values show up twice or more in set of winning arrays
+        //Place id's of squares already owned in an array
+        if (this.MultipleFromWinnersInMyArray(myArray).length > 0) {
+            //then determine if the two or more spots needed to create threats for each combo are available
+            var forkMakers = this.MultipleFromWinnersInMyArray(myArray);
+            if (this.ForkOptionsMakeFork(forkMakers).length > 0) {
+                this.assignSpot(this.ForkOptionsMakeFork);
+                return true;
+            }
+        }
+        return false;
+    };
+    GameComponent.prototype.FindAndPlayThreats = function () {
+        var moves = this.xSquares.length + this.oSquares.length;
+        //console.log(moves+' moves have been made');
+        if (moves > 2) {
+            if (this.xTurn) {
+                // check opposite player's squares first'
+                if (this.DetermineThreat(this.oSquares)) {
+                    if (this.PlayThreat(this.oSquares)) {
+                        return true;
+                    }
+                }
+                else if (this.DetermineThreat(this.xSquares)) {
+                    if (this.PlayThreat(this.xSquares)) {
+                        return true;
+                    }
+                }
+            }
+            else {
+                // check opposite player's squares first'
+                if (this.DetermineThreat(this.xSquares)) {
+                    if (this.PlayThreat(this.xSquares)) {
+                        return true;
+                    }
+                }
+                else if (this.DetermineThreat(this.oSquares)) {
+                    if (this.PlayThreat(this.oSquares)) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+        return false;
+    };
+    GameComponent.prototype.DetermineThreat = function (playerArray) {
+        //console.log('searching for threats');
+        //.log('winning arrays are');
+        //console.log(this.winningArrays);
+        for (var key in this.winningArrays) {
+            var valueArray = this.winningArrays[key];
+            //console.log(valueArray);
+            this.threat = this.PlayerArrayContainsTwoFromWinners(playerArray, valueArray);
+            if (this.threat == true) {
+                //console.log('threat determined');
+                return true;
+            }
+        }
+        //console.log('no threat');
+        return false;
+    };
+    GameComponent.prototype.PlayThreat = function (playerArray) {
+        for (var key in this.winningArrays) {
+            var valueArray = this.winningArrays[key];
+            //iterate through winning combos looking for threats for whichever array is for current AI player
+            this.threat = this.PlayerArrayContainsTwoFromWinners(playerArray, valueArray);
+            if (this.threat == true) {
+                if (this.findMissingValueFromWinningCombo(valueArray, playerArray)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    };
+    GameComponent.prototype.PlayerArrayContainsTwoFromWinners = function (needle, haystack) {
+        //console.log('searching for');
+        //console.log(needle);
+        //console.log('in');
+        //console.log(haystack);
+        var count = 0;
+        for (var i = 0; i < needle.length; i++) {
+            if (haystack.indexOf(needle[i]) !== -1) {
+                count++;
+                //console.log(count+'matches found');
+            }
+        }
+        if (count == 2) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    };
+    GameComponent.prototype.findMissingValueFromWinningCombo = function (needle, haystack) {
+        for (var i = 0; i < needle.length; i++) {
+            if (haystack.indexOf(needle[i]) === -1) {
+                //play this value
+                //alert('playing '+needle[i]);
+                if (this.assignSpot(needle[i])) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    };
+    GameComponent.prototype.arrayContainsWinningArray = function (needle, haystack) {
+        for (var i = 0; i < needle.length; i++) {
+            if (haystack.indexOf(needle[i]) === -1)
+                return false;
+        }
+        return true;
+    };
+    GameComponent.prototype.MultipleFromWinnersInMyArray = function (needle) {
+        var comboOptions = [];
+        for (var _i = 0, _a = Object.values(this.winningArrays); _i < _a.length; _i++) {
+            var value = _a[_i];
+            for (var i = 0; i < needle.length; i++) {
+                if (value.indexOf(needle[i]) !== -1) {
+                    comboOptions.push(needle[i]);
+                }
+            }
+        }
+        if (comboOptions.length > 1) {
+            return comboOptions;
+        }
+        else {
+            return [];
+        }
+    };
+    GameComponent.prototype.ForkOptionsMakeFork = function (comboOptions) {
+        var ignoredValue;
+        for (var i = 0; i < comboOptions.length; i++) {
+            for (var j = i + 1; j < comboOptions.length; j++) {
+                //create object to save array objects containing both comboOptions[i] and [j]
+                //find out if i and j appear together in WinnningArrays object more than once
+                var forkObjectValues = void 0;
+                for (var _i = 0, _a = Object.values(this.winningArrays); _i < _a.length; _i++) {
+                    var value = _a[_i];
+                    //iterating through each winningArray object, search for matches to i and j
+                    for (var valueIndex = 0; valueIndex < value.length; value++) {
+                        //valueIndex keeps track of the index being tested for i and j
+                        var matchFound = 0;
+                        var matchIndexes = [];
+                        if (value[valueIndex] == comboOptions[i] || value[valueIndex] == comboOptions[j]) {
+                            //when comboOption[i] or [j] matches a value in the winningArray object, add to number of matches
+                            //and store the value at valueIndex of winningArray object
+                            matchFound++;
+                            matchIndexes.push(value[valueIndex]);
+                        }
+                        if (value[valueIndex] != comboOptions[i] && value[valueIndex] != comboOptions[j]) {
+                            //when neither comboOption[i] or [j] matches a value in the winningArray object, set value as ignored Value
+                            ignoredValue = value[valueIndex];
+                        }
+                        if (matchFound > 1) {
+                            //if i and j both matched, store unmatched value from winningArrays  
+                            forkObjectValues.push(ignoredValue);
+                            var forkOptions = [];
+                            for (var fOBIndex = 0; fOBIndex < forkObjectValues.length; fOBIndex++) {
+                                if (forkOptions.indexOf(forkObjectValues[fOBIndex]) !== -1) {
+                                    //if ignoredValue shows up twice for same i and j, play this value because it's the fork
+                                    return forkObjectValues[fOBIndex];
+                                }
+                                else {
+                                    forkOptions.push(forkObjectValues[fOBIndex]);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return '';
+    };
+    GameComponent.prototype.CheckAvailability = function (element) {
+        if (element.className != 'oTurn' && element.className != 'xTurn') {
+            //alert(element.id+" will be played");
+            //console.log(element.id+" available");
+        }
+        return (element.className != 'oTurn' && element.className != 'xTurn');
+    };
+    GameComponent.prototype.UpdateChecked = function (e, marker) {
+        if (marker == 'x') {
+            this.xAIChecked = e.target.checked;
+            if (this.xAIChecked) {
+                this.xPlayer = 1;
+            }
+            else {
+                this.xPlayer = 0;
+            }
+            this.aiPlayers = this.xPlayer + this.oPlayer;
+            //console.log('xPLayer:'+this.xPlayer);
+        }
+        else if (marker == 'o') {
+            this.oAIChecked = e.target.checked;
+            if (this.oAIChecked) {
+                this.oPlayer = 1;
+            }
+            else {
+                this.oPlayer = 0;
+            }
+            this.aiPlayers = this.xPlayer + this.oPlayer;
+            //console.log('oPLayer:'+this.oPlayer);
+        }
+        else {
+            //console.log('no marker found');
+        }
+        console.log(this.aiPlayers + ' AI players in the game');
+    };
+    GameComponent.prototype.sleep = function (milliseconds) {
+        var start = new Date().getTime();
+        var sleepTime = milliseconds / 1000;
+        //alert('sleeping for '+sleepTime+' seconds');
+        for (var i = 0; i < 1e7; i++) {
+            if ((new Date().getTime() - start) > milliseconds) {
+                break;
+            }
+        }
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('status'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
+    ], GameComponent.prototype, "status", void 0);
+    GameComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-game',
+            template: __webpack_require__(/*! ./game.component.html */ "./src/app/game/game.component.html"),
+            styles: [__webpack_require__(/*! ./game.component.scss */ "./src/app/game/game.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], GameComponent);
+    return GameComponent;
+}());
+
+var WinningArrays = /** @class */ (function () {
+    function WinningArrays() {
+    }
+    return WinningArrays;
 }());
 
 
@@ -1196,6 +1787,51 @@ var ConsultService = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/services/game.service.ts":
+/*!******************************************!*\
+  !*** ./src/app/services/game.service.ts ***!
+  \******************************************/
+/*! exports provided: GameService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GameService", function() { return GameService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var GameService = /** @class */ (function () {
+    function GameService() {
+        this.gameSource = new rxjs__WEBPACK_IMPORTED_MODULE_1__["BehaviorSubject"](false);
+        this.gameStatus = this.gameSource.asObservable();
+    }
+    GameService.prototype.PlayGame = function (gameBool) {
+        this.gameSource.next(gameBool);
+        console.log('gameState =' + gameBool);
+    };
+    GameService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [])
+    ], GameService);
+    return GameService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/services/hidepanel.service.ts":
 /*!***********************************************!*\
   !*** ./src/app/services/hidepanel.service.ts ***!
@@ -1414,7 +2050,7 @@ var ServicelistService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"cp\" *ngIf=\"this.visibility\" class=\"text-center\">\n    <ul>\n      <li (click)=\"ShowServiceLine('Consulting Services')\"><div>Consulting</div></li>\n      <li (click)=\"ShowServiceLine('Digital Services')\"><div>Digital</div></li>\n      <li (click)=\"ShowServiceLine('Technology Services')\"><div>Technology</div></li>\n      <li (click)=\"ShowServiceLine('Operations Support')\"><div>Operations</div></li>\n    <!--\n      <li><div>Industries</div></li>\n      <li><div>Careers</div></li>\n    -->\n    </ul>\n    <hr style=\"background-color:white; height:3px;\">\n    <ul>\n      <li><div>About ISE Optimizations</div></li>\n      <!--\n      <li><div>Corporate Citizenship</div></li>\n      <li><div>Inclusion and Diversity</div></li>\n      <li><div>Inverstor Relations</div></li>\n      <li><div>NewsRoom</div></li>\n      -->\n      <li (click)=\"ShowAdminPanel()\"><div>Admin</div></li>\n  </ul>\n</div>"
+module.exports = "<div id=\"cp\" *ngIf=\"this.visibility\" class=\"text-center\">\n    <ul>\n      <li (click)=\"ShowServiceLine('Consulting Services')\"><div>Consulting</div></li>\n      <li (click)=\"ShowServiceLine('Digital Services')\"><div>Digital</div></li>\n      <li (click)=\"ShowServiceLine('Technology Services')\"><div>Technology</div></li>\n      <li (click)=\"ShowServiceLine('Operations Support')\"><div>Operations</div></li>\n    <!--\n      <li><div>Industries</div></li>\n      <li><div>Careers</div></li>\n    -->\n    </ul>\n    <hr style=\"background-color:white; height:3px;\">\n    <ul>\n      <li><div>About ISE Optimizations</div></li>\n      <li (click)=\"PlayGame()\"><div>AI games</div></li>\n      <!--\n      <li><div>Corporate Citizenship</div></li>\n      <li><div>Inclusion and Diversity</div></li>\n      <li><div>Inverstor Relations</div></li>\n      <li><div>NewsRoom</div></li>\n      -->\n      <li (click)=\"ShowAdminPanel()\"><div>Admin</div></li>\n  </ul>\n</div>"
 
 /***/ }),
 
@@ -1425,7 +2061,7 @@ module.exports = "<div id=\"cp\" *ngIf=\"this.visibility\" class=\"text-center\"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/*********************************Control Panel CSS****************************************/\n#cp {\n  font-family: \"OpenSans\";\n  z-index: 2;\n  background: #3f4c92;\n  color: #ffffff;\n  cursor: pointer;\n  text-align: center; }\n#cp li {\n  display: block; }\nul {\n  padding: 0; }\nul div {\n  margin: 5px auto 0 auto;\n  border-bottom: 1px solid #9eabf8; }\nhr {\n  background-color: #9eabf8;\n  height: 2px; }\n@media only screen and (min-width: 600px) {\n  /*********************************Control Panel CSS****************************************/\n  #cp {\n    position: absolute;\n    right: 0;\n    top: 0;\n    width: 175px; }\n  li {\n    margin: 15px auto 0 auto; }\n  .cpBottom {\n    font-size: 1em; } }\n/*\n//medium\n@media only screen and (min-width:600px){\n    #cp{\n        position:absolute;\n        right: 0;\n        top: 100px;\n        width:175px\n    }\n\n}\n*/\n@media only screen and (max-width: 600px) {\n  #cp {\n    width: 100%;\n    margin-top: 75px; } }\n"
+module.exports = "/*********************************Control Panel CSS****************************************/\n#cp {\n  font-family: \"OpenSans\";\n  z-index: 2;\n  background: #3f4c92;\n  color: #ffffff;\n  cursor: pointer;\n  text-align: center; }\n#cp li {\n  display: block; }\nul {\n  padding: 0; }\nul div {\n  margin: 5px auto 0 auto;\n  border-bottom: 1px solid #9eabf8; }\nhr {\n  background-color: #9eabf8;\n  height: 2px; }\n@media only screen and (min-width: 600px) {\n  /*********************************Control Panel CSS****************************************/\n  #cp {\n    position: absolute;\n    right: 0;\n    top: 75px;\n    width: 175px; }\n  li {\n    margin: 15px auto 0 auto; }\n  .cpBottom {\n    font-size: 1em; } }\n/*\n//medium\n@media only screen and (min-width:600px){\n    #cp{\n        position:absolute;\n        right: 0;\n        top: 100px;\n        width:175px\n    }\n\n}\n*/\n@media only screen and (max-width: 600px) {\n  #cp {\n    width: 100%;\n    margin-top: 75px; } }\n"
 
 /***/ }),
 
@@ -1443,6 +2079,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_hidepanel_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/hidepanel.service */ "./src/app/services/hidepanel.service.ts");
 /* harmony import */ var _services_servicelist_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/servicelist.service */ "./src/app/services/servicelist.service.ts");
 /* harmony import */ var _services_admin_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/admin.service */ "./src/app/services/admin.service.ts");
+/* harmony import */ var _services_game_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../services/game.service */ "./src/app/services/game.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1456,26 +2093,35 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var SidebarComponent = /** @class */ (function () {
-    function SidebarComponent(data, info, admin) {
+    function SidebarComponent(data, info, admin, game) {
         this.data = data;
         this.info = info;
         this.admin = admin;
+        this.game = game;
     }
     SidebarComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.data.currentMessage.subscribe(function (visibility) { return _this.visibility = visibility; });
         this.info.currentLine.subscribe(function (line) { return _this.serviceLine = line; });
         this.admin.adminVisible.subscribe(function (line) { return _this.adminVisibility = line; });
+        this.game.gameStatus.subscribe(function (game) { return _this.gameState = game; });
     };
     SidebarComponent.prototype.ShowServiceLine = function (line) {
         this.serviceLine = line;
         this.info.ShowServiceLine(this.serviceLine);
+        this.gameState = false;
+        this.game.PlayGame(this.gameState);
         //console.log (this.serviceLine+'showing');
     };
     SidebarComponent.prototype.ShowAdminPanel = function () {
         this.adminVisibility = !this.adminVisibility;
         this.admin.ShowAdminPanel(this.adminVisibility);
+    };
+    SidebarComponent.prototype.PlayGame = function () {
+        this.gameState = true;
+        this.game.PlayGame(this.gameState);
     };
     SidebarComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -1483,7 +2129,7 @@ var SidebarComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./sidebar.component.html */ "./src/app/sidebar/sidebar.component.html"),
             styles: [__webpack_require__(/*! ./sidebar.component.scss */ "./src/app/sidebar/sidebar.component.scss")]
         }),
-        __metadata("design:paramtypes", [_services_hidepanel_service__WEBPACK_IMPORTED_MODULE_1__["HidepanelService"], _services_servicelist_service__WEBPACK_IMPORTED_MODULE_2__["ServicelistService"], _services_admin_service__WEBPACK_IMPORTED_MODULE_3__["AdminService"]])
+        __metadata("design:paramtypes", [_services_hidepanel_service__WEBPACK_IMPORTED_MODULE_1__["HidepanelService"], _services_servicelist_service__WEBPACK_IMPORTED_MODULE_2__["ServicelistService"], _services_admin_service__WEBPACK_IMPORTED_MODULE_3__["AdminService"], _services_game_service__WEBPACK_IMPORTED_MODULE_4__["GameService"]])
     ], SidebarComponent);
     return SidebarComponent;
 }());

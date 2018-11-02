@@ -1,6 +1,10 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div id="contentContainer">
-        <app-iobanner></app-iobanner>
-        <app-sidebar></app-sidebar>
+<app-iobanner></app-iobanner>
+<app-sidebar></app-sidebar>
+<div *ngIf="this.bizInfo" id="contentContainer">
         <app-content></app-content>
 </div>
+<div *ngIf="this.gamePlay" id="contentContainer">
+        <app-game></app-game>
+</div>
+<app-footer></app-footer>
