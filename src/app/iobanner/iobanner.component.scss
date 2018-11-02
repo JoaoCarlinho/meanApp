@@ -15,7 +15,8 @@
     
 #navTopLogoLeft{
     color:navy;
-    background:no-repeat url('../../assets/IO.png');
+    background:no-repeat;
+    background-image: url('../../assets/IO.png');
     background-size:contain;
 
 }
@@ -34,7 +35,8 @@
     
 #btnMainMenu{
     color:navy;
-    background:no-repeat url('../../assets/hamburger.png');
+    background:no-repeat;
+    background-image: url('../../assets/hamburger.png');
     background-size:contain;
     z-index:7;
 }

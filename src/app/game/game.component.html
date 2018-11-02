@@ -1,7 +1,7 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div id="gameContainer">
     <div id="titleImage"></div>
-    <h1>{{title}}</h1>
+    <h1>{{title}}<br/>tic-tac-toe</h1>
         <span>{{aiPlayers}} AI players in the game</span><br/>
         <label>X's is AI player</label><input type="checkbox" [(ngModel)]="xControlledbyAI" (change)="UpdateChecked($event, 'x'); PlayAIMove(); "  data-md-icheck/><br/>
         <label>O's is AI player</label><input type="checkbox" [(ngModel)]="oControlledbyAI" (change)="UpdateChecked($event, 'o'); PlayAIMove();" data-md-icheck/>

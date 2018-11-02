@@ -34,7 +34,7 @@ export class GameComponent {
   moves: Number;
   xImages: string[] = ['cripGroup.jpg', 'cripTits.jpg', 'cripTweety.jpg', 'doubleBarrelCrip.png'];
   oImages: string[] = ['bloodGuns.png', 'doubleBarrelBlood.png', 'hopOut.jpg', 'hotBox.jpg', 'legoBlood.jpg', 'southParkBloods.gif'];
-
+  usedImages: string[] = [];
   corners: string[] = ['one', 'three', 'seven', 'nine'];
   options: string[] = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
   //arrays for winning conditions
@@ -58,6 +58,8 @@ export class GameComponent {
     //remove AI players
     this.xControlledbyAI = this.xAIChecked = false;
     this.oControlledbyAI = this.oAIChecked = false;
+    //empty usedImages array
+    this.usedImages = [];
     //set classnames for all squares to null
     for(let square of this.options){
       const el: HTMLElement = document.getElementById(square);
@@ -153,6 +155,8 @@ export class GameComponent {
     }
   }
 
+
+
   assignSpot(id): boolean{
 
     //give square to x's or o's
@@ -162,19 +166,16 @@ export class GameComponent {
     if(this.state == true){
       //true means game is still on
       if(this.CheckAvailability(el)){
-        let background = 'url(../../public/assets/';
         //update square mark
         el.className = (this.xTurn)?  'xTurn': 'oTurn';
         //console.log(elementName+"'s class is "+el.className)
         //add value to player's array
         if(this.xTurn){
-          background += this.xImages[Math.floor(Math.random() * this.xImages.length)]+')';
           this.xSquares.push(id);
-          el.style.backgroundImage = background;
+          el.style.backgroundImage = this.SelectBackground();
         }else{
           this.oSquares.push(id);
-          background += this.oImages[Math.floor(Math.random() * this.oImages.length)]+')';
-          el.style.backgroundImage = background;
+          el.style.backgroundImage = this.SelectBackground();
         }
         this.moves = this.xSquares.length + this.oSquares.length;
         //determine game status
@@ -196,6 +197,23 @@ export class GameComponent {
       }
     }else{
       return false;
+    }
+  }
+
+  SelectBackground(): string{
+    let imageName = 'url(../../assets/';;
+    if(this.xTurn){
+      imageName += this.xImages[Math.floor(Math.random() * this.xImages.length)]+')';
+    }else{
+      imageName += this.oImages[Math.floor(Math.random() * this.oImages.length)]+')';
+    }
+
+    if(this.usedImages.indexOf(imageName) === -1){
+      this.usedImages.push(imageName);
+      console.log(this.usedImages);
+      return imageName;
+    }else{
+      this.SelectBackground();
     }
   }
 
@@ -441,9 +459,9 @@ export class GameComponent {
   CheckAvailability(element){
     if(element){
       if(element.className != 'oTurn' && element.className != 'xTurn'){
-        console.log(element+" has class of "+ element.className +" and is available ");
+        //console.log(element+" has class of "+ element.className +" and is available ");
       }
-      console.log('unavailable element has class '+element.className)
+      //console.log('unavailable element has class '+element.className)
     return (element.className != 'oTurn' && element.className != 'xTurn');
     }
     console.log('checkavailability received null');
