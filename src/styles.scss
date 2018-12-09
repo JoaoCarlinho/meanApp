@@ -1,8 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 /******************************* General styling for sitewide elements ******************************************/
-@import "../dist/cerulean/variables";
+@import "../node_modules/bootswatch/dist/cerulean/variables";
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
-@import "../dist/cerulean/bootswatch";
+@import "../node_modules/bootswatch/dist/cerulean/bootswatch";
 
 .requestModal, .confirmModal, #editService, #confirmService {
     position: absolute;

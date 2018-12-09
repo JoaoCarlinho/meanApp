@@ -651,7 +651,7 @@ var FooterComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n<div id=\"gameContainer\">\n    <h1>let's play {{title}}</h1>\n        <span>{{aiPlayers}} AI players in the game</span><br/>\n        <label>X's is AI player</label><input type=\"checkbox\" [(ngModel)]=\"xControlledbyAI\" (change)=\"UpdateChecked($event, 'x'); PlayAIMove(); \"  data-md-icheck/><br/>\n        <label>O's is AI player</label><input type=\"checkbox\" [(ngModel)]=\"oControlledbyAI\" (change)=\"UpdateChecked($event, 'o'); PlayAIMove();\" data-md-icheck/>\n    <!--<div>{{aiInvolved}}</div>-->\n    <div *ngIf=\"this.state\">\n        <h1 *ngIf=\"xTurn\">It's x's turn</h1>\n        <h1 *ngIf=\"!xTurn\">It's o's turn</h1>\n        <div #status></div>\n    </div>\n    <div *ngIf=\"!this.state\"> <button (click)=\"Restart()\" class=\"btn-primary\">Play Again</button></div>\n    <table>\n        <tr><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('one');\" [id]=\"'one'\"></td><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('two');\" [id]=\"'two'\"></td><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('three');\" [id]=\"'three'\"></td></tr>\n        <tr><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('four');\" [id]=\"'four'\"></td><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('five');\" [id]=\"'five'\"></td><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('six');\" [id]=\"'six'\"></td></tr>\n        <tr><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('seven');\" [id]=\"'seven'\"></td><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('eight');\" [id]=\"'eight'\"></td><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('nine');\" [id]=\"'nine'\"></td></tr>\n    </table>\n</div>\n\n"
+module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n<div id=\"gameContainer\">\n    <div id=\"titleImage\"></div>\n    <h1>{{title}}<br/>tic-tac-toe</h1>\n        <span>{{aiPlayers}} AI players in the game</span><br/>\n        <label>X's is AI player</label><input type=\"checkbox\" [(ngModel)]=\"xControlledbyAI\" (change)=\"UpdateChecked($event, 'x'); PlayAIMove(); \"  data-md-icheck/><br/>\n        <label>O's is AI player</label><input type=\"checkbox\" [(ngModel)]=\"oControlledbyAI\" (change)=\"UpdateChecked($event, 'o'); PlayAIMove();\" data-md-icheck/>\n    <!--<div>{{aiInvolved}}</div>-->\n    <div *ngIf=\"this.state\">\n        <h1 *ngIf=\"xTurn\">It's x's turn</h1>\n        <h1 *ngIf=\"!xTurn\">It's o's turn</h1>\n    </div>\n    <div #status></div>\n    <div *ngIf=\"!this.state\"> <button (click)=\"Restart()\" class=\"btn-primary\">Play Again</button></div>\n    <table>\n        <tr><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('one');\" [id]=\"'one'\"></td><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('two');\" [id]=\"'two'\"></td><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('three');\" [id]=\"'three'\"></td></tr>\n        <tr><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('four');\" [id]=\"'four'\"></td><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('five');\" [id]=\"'five'\"></td><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('six');\" [id]=\"'six'\"></td></tr>\n        <tr><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('seven');\" [id]=\"'seven'\"></td><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('eight');\" [id]=\"'eight'\"></td><td (mouseover)=\"CheckStatus($event);\" (click)=\"assignSpot('nine');\" [id]=\"'nine'\"></td></tr>\n    </table>\n</div>\n\n"
 
 /***/ }),
 
@@ -662,7 +662,7 @@ module.exports = "<!--The content below is only a placeholder and can be replace
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#gameContainer {\n  text-align: center; }\n\ntable {\n  width: 90%;\n  border-collapse: collapse; }\n\nh1, table {\n  margin: 0 auto; }\n\ntable, th, td {\n  border: 1px solid black; }\n\ntd {\n  width: 33.33%;\n  position: relative; }\n\ntd:after {\n  content: '';\n  display: block;\n  margin-top: 100%; }\n\ntd .content {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  background: gold; }\n\n.xTurn {\n  background-color: blue; }\n\n.oTurn {\n  background-color: red; }\n\n@media only screen and (min-width: 600px) {\n  /*********************************Control Panel CSS****************************************/\n  #gameContainer {\n    margin-top: 75px; } }\n\n/*\n//medium\n@media only screen and (min-width:600px){\n    #cp{\n        position:absolute;\n        right: 0;\n        top: 100px;\n        width:175px\n    }\n\n}\n*/\n\n@media only screen and (max-width: 600px) {\n  #gameContainer {\n    margin-top: 75px; } }\n"
+module.exports = "#gameContainer {\n  text-align: center; }\n\ntable {\n  width: 90%;\n  border-collapse: collapse; }\n\nh1, table {\n  margin: 0 auto; }\n\ntable, th, td {\n  border: 1px solid black; }\n\ntd {\n  width: 33.33%;\n  position: relative; }\n\ntd:after {\n  content: '';\n  display: block;\n  margin-top: 100%; }\n\ntd .content {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  background: gold; }\n\n.xTurn, .oTurn {\n  background-size: cover;\n  background-repeat: no-repeat; }\n\n#titleImage {\n  margin: 0 auto;\n  height: 180px;\n  width: 270px;\n  background-image: url('gameTitle.jpg');\n  background-size: contain;\n  background-repeat: no-repeat; }\n\n@media only screen and (min-width: 600px) {\n  /*********************************Control Panel CSS****************************************/\n  #gameContainer {\n    margin-top: 75px; } }\n\n/*\n//medium\n@media only screen and (min-width:600px){\n    #cp{\n        position:absolute;\n        right: 0;\n        top: 100px;\n        width:175px\n    }\n\n}\n*/\n\n@media only screen and (max-width: 600px) {\n  #gameContainer {\n    margin-top: 75px; } }\n"
 
 /***/ }),
 
@@ -690,7 +690,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 var GameComponent = /** @class */ (function () {
     function GameComponent() {
-        this.title = 'tictactoe';
+        this.title = 'Crips vs Bloods';
         //determine if computer is x's or o's
         this.xControlledbyAI = false;
         this.oControlledbyAI = false;
@@ -709,6 +709,9 @@ var GameComponent = /** @class */ (function () {
         //array for marked spaces
         this.xSquares = [];
         this.oSquares = [];
+        this.xImages = ['cripGroup.jpg', 'cripTits.jpg', 'cripTweety.jpg', 'doubleBarrelCrip.png'];
+        this.oImages = ['bloodGuns.png', 'doubleBarrelBlood.png', 'hopOut.jpg', 'hotBox.jpg', 'legoBlood.jpg', 'southParkBloods.gif'];
+        this.usedImages = [];
         this.corners = ['one', 'three', 'seven', 'nine'];
         this.options = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
         //arrays for winning conditions
@@ -729,11 +732,14 @@ var GameComponent = /** @class */ (function () {
         //remove AI players
         this.xControlledbyAI = this.xAIChecked = false;
         this.oControlledbyAI = this.oAIChecked = false;
+        //empty usedImages array
+        this.usedImages = [];
         //set classnames for all squares to null
         for (var _i = 0, _a = this.options; _i < _a.length; _i++) {
             var square = _a[_i];
             var el = document.getElementById(square);
             el.className = null;
+            el.style.backgroundImage = "none";
         }
         //remove ownership of squares
         this.xSquares = [];
@@ -836,9 +842,11 @@ var GameComponent = /** @class */ (function () {
                 //add value to player's array
                 if (this.xTurn) {
                     this.xSquares.push(id);
+                    el.style.backgroundImage = this.SelectBackground();
                 }
                 else {
                     this.oSquares.push(id);
+                    el.style.backgroundImage = this.SelectBackground();
                 }
                 this.moves = this.xSquares.length + this.oSquares.length;
                 //determine game status
@@ -864,6 +872,24 @@ var GameComponent = /** @class */ (function () {
         }
         else {
             return false;
+        }
+    };
+    GameComponent.prototype.SelectBackground = function () {
+        var imageName = 'url(../../assets/';
+        ;
+        if (this.xTurn) {
+            imageName += this.xImages[Math.floor(Math.random() * this.xImages.length)] + ')';
+        }
+        else {
+            imageName += this.oImages[Math.floor(Math.random() * this.oImages.length)] + ')';
+        }
+        if (this.usedImages.indexOf(imageName) === -1) {
+            this.usedImages.push(imageName);
+            console.log(this.usedImages);
+            return imageName;
+        }
+        else {
+            this.SelectBackground();
         }
     };
     GameComponent.prototype.aiMove = function () {
@@ -1102,9 +1128,9 @@ var GameComponent = /** @class */ (function () {
     GameComponent.prototype.CheckAvailability = function (element) {
         if (element) {
             if (element.className != 'oTurn' && element.className != 'xTurn') {
-                console.log(element + " has class of " + element.className + " and is available ");
+                //console.log(element+" has class of "+ element.className +" and is available ");
             }
-            console.log('unavailable element has class ' + element.className);
+            //console.log('unavailable element has class '+element.className)
             return (element.className != 'oTurn' && element.className != 'xTurn');
         }
         console.log('checkavailability received null');
@@ -1187,7 +1213,7 @@ module.exports = "<div id=\"banner\">\n  <nav id=\"topNav\">\n      <div id=\"na
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/*********************************************topNav elements********************************************************/\n#banner {\n  position: fixed;\n  top: 0;\n  left: 0;\n  height: 75px;\n  width: 100%;\n  clear: both;\n  z-index: 5;\n  text-align: center;\n  margin: 0 auto 0 auto; }\n#topNav {\n  background: #ffffff;\n  width: 100%;\n  display: block;\n  box-shadow: none;\n  font-family: \"Graphik Black\",\"Arial Black\",Sans-Serif;\n  font-weight: normal;\n  font-size: 1.25em; }\n#navTopLogoLeft {\n  color: navy;\n  background: no-repeat url('IO.png');\n  background-size: contain; }\n#navTopSearch {\n  color: navy;\n  font-weight: 100;\n  font-size: 1.25em; }\n#navTopRight {\n  color: navy; }\n#navTopRight li {\n  margin-top: 8px; }\n#btnMainMenu {\n  color: navy;\n  background: no-repeat url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAY1BMVEUAAABBeLxAeLxBd7xBeLxAeLw/dLk/d7tBd7s/b68/d7c/eLw/d7xBeLs/dbxBeLxCeb3///9yksucr9rK0+vy9ftRf8BchcRoi8fW3vCzweOGoNO+yufj6fV8mc+ouN+Rp9biExFJAAAAEHRSTlMAwNCg8OAwQIAQIHBgkFCwhZRvygAABNxJREFUeNrt3emS6ygMBlCBwRivcvbO0un3f8qZf9yqqclyW5FAxXmDr0SACBtDVVVVVVVVVVVVVVXEwh9aVcHmrjEW/8uYqSs8agzd4vEZ2wwBCtSPjcfX2WmOUJAwWXyfGVoowtw4/Ft+yj5k2zj8Hd/1kK04eKRgRshS3yAZ30XITTBIq+n15ksZM8unN2Nr8HOaCNJigx/lOpA1OPw0H0BOa5HDEkFIh0zcLFpAtWUckJULwCsa5DYBp+CQn41KR2jiWmDSoJQROESLchqhRULVstE6lGUjQ0DNEUeH8mz/wYCYBdcqDZi4D1WxxWzYyDDJaIqYAqqOGD3mpWHYqumK2GB+RoaOjLAWyMyYJReBSO8wTxaIWMzVBCQmzFcAAgEz5iLDUi9r0TpGk1npGE1cVDpGk4ZoM6N1Pu2xAB5+wWAJOoJpRu1k47EME0NvTVivtIRJo7WESf+JEh4u2x2T63bztIj0JdzuV063b/oi+ocF/Fq5namLOBIE5IwYabcz91XCN+nGpsUHjquIGz7gSVvA21XGibBBHB0+sFtlbPGBhXKp2K8yzoQLhsFHViE7fGQg/Of7leMoRU/44Np1lXHBh1q6Pv5llXHEhybC9swto4km8YRPV36vAvZHfKIlbED9CAQ8YfLL2TTicxfuNfF2wqcM6ZHv8bznzPdzwBdE4sOY04bLkfiYxmKpJoKfYd4MQ6dbGMN5k7Cg4DiGYkV0WK5G6USTWK0TTUKw7c5cS7CjyVsgmErLP/G26hNi0UxN+NZisWFzwlc5uoTH88povz3ga8gSbldm+w1Vwg5fcc6sH5y0BAlz7CYmgSThYb9KODMklO7qsyW8rjJ+GBIKn66xJVyF7NgS7lcZd7aEO/Wj9GeVcWJLeFxFfCFDQtFHhjYMCUXXizvSJJzxFYcd/zTD/O8JLzfepXCDXAmTzZbNz4mwJRxrJ6r8hB5LNtWe978aLNms9JA7CfX8kOO9Ufn3SbFgi/pnMTp4xaT+eZoZyxVB+VRj4TVewQNDWnc1I+kLwJfrfuVyO59IXwfu8bkTd6fmeqC8N8o+D7jn7yUeCG8emAgCSkQMdPd47rJs6ju6V/E3q4j94elaQTVMz6uMb7oro9oSz54c4Y0Rq5Ar4aUDXYEJW3hHX94o9fCeBR+45zjTDPCeOcfVgvayKF/Yit/QfofkKLJrI76gJrqidt6G/ELBI/dAvR+ebbqJiphszl9sU8zufsSHjIZbISlLmIpYCgOgvIgBQHcRDeW3ubRdP++V3pqYBK3XlyYL5m8g+2iA0s8HDFqnmcSUcOqreZxa+L1B6xhNTDnzqL7NmwEaoaC1XtmfjBbILDmf2pOINvcNt8ZV0TJ8HFDZ5wFHTJR+i3TUGjAZtAZMmpyeV9cdcQRQHdGN8EGD1t9gMioPKP/xcd/Cx7VOdifDoLcopYnAIi5iPQs2HQpwARgFh9xsD6yiYe/8shsc8vEBBPQGuUwRZAxOaQGTnmPd6CJICh4/y/QgbXBKB2gSO/epfCMk0hn15ksZleZL4uCRjpkhR/OCJFzTQ656gkKaMULW2uk3Ie3QQwHazuLfWFK8/MWx8fgOO81QnH6eDL7AL12IUKw+dI3x/1c40w0hggoxhLn7UwgBqqqqqqqqqqqqqmz8AzLJMWOJgY4mAAAAAElFTkSuQmCC\");\n  background-size: contain;\n  z-index: 7; }\n#navTopLogoLeft {\n  margin-left: 5px;\n  position: absolute;\n  height: 45px;\n  width: 108px; }\n#btnMainMenu {\n  height: 45px;\n  width: 45px; }\n#navTopSearch {\n  width: 175px;\n  height: 44px;\n  top: 11px;\n  text-align: center;\n  background-color: #000;\n  border-radius: 20px;\n  display: inline-block;\n  line-height: 10px; }\n#navTopRight {\n  position: absolute;\n  right: 5px;\n  top: 0px;\n  color: navy; }\n@media only screen and (min-width: 850px) {\n  #topNav {\n    padding: 10px;\n    height: 80px; }\n  /*   \n    #navTopLogoLeft{\n        margin-left: 5px; position: absolute; //z-index: 1;\n        height:45px; width:108px; text-align:center;\n    }\n    \n    #navTopSearch{\n        width:196px; height:44px; top:11px; text-align:center;\n        background-color: #000;  border-radius: 20px;  display: inline-block; line-height: 10px;\n    }\n    \n    #navTopRight{\n        position: absolute; right:100px; top: 20px; color:navy;\n    }\n*/\n  .nav > li > a {\n    position: relative;\n    display: block; }\n  #frontPageIntro {\n    height: 542px; } }\n@media only screen and (min-width: 600px) and (max-width: 850px) {\n  #topNav {\n    padding: 10px;\n    height: 60px; } }\n@media only screen and (min-width: 350px) and (max-width: 600px) {\n  #topNav {\n    padding: 5px;\n    height: 65px; } }\n@media only screen and (max-width: 350px) {\n  #topNav {\n    padding: 5px;\n    height: 65px; } }\n"
+module.exports = "/*********************************************topNav elements********************************************************/\n#banner {\n  position: fixed;\n  top: 0;\n  left: 0;\n  height: 75px;\n  width: 100%;\n  clear: both;\n  z-index: 5;\n  text-align: center;\n  margin: 0 auto 0 auto; }\n#topNav {\n  background: #ffffff;\n  width: 100%;\n  display: block;\n  box-shadow: none;\n  font-family: \"Graphik Black\",\"Arial Black\",Sans-Serif;\n  font-weight: normal;\n  font-size: 1.25em; }\n#navTopLogoLeft {\n  color: navy;\n  background: no-repeat;\n  background-image: url('IO.png');\n  background-size: contain; }\n#navTopSearch {\n  color: navy;\n  font-weight: 100;\n  font-size: 1.25em; }\n#navTopRight {\n  color: navy; }\n#navTopRight li {\n  margin-top: 8px; }\n#btnMainMenu {\n  color: navy;\n  background: no-repeat;\n  background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAY1BMVEUAAABBeLxAeLxBd7xBeLxAeLw/dLk/d7tBd7s/b68/d7c/eLw/d7xBeLs/dbxBeLxCeb3///9yksucr9rK0+vy9ftRf8BchcRoi8fW3vCzweOGoNO+yufj6fV8mc+ouN+Rp9biExFJAAAAEHRSTlMAwNCg8OAwQIAQIHBgkFCwhZRvygAABNxJREFUeNrt3emS6ygMBlCBwRivcvbO0un3f8qZf9yqqclyW5FAxXmDr0SACBtDVVVVVVVVVVVVVVXEwh9aVcHmrjEW/8uYqSs8agzd4vEZ2wwBCtSPjcfX2WmOUJAwWXyfGVoowtw4/Ft+yj5k2zj8Hd/1kK04eKRgRshS3yAZ30XITTBIq+n15ksZM8unN2Nr8HOaCNJigx/lOpA1OPw0H0BOa5HDEkFIh0zcLFpAtWUckJULwCsa5DYBp+CQn41KR2jiWmDSoJQROESLchqhRULVstE6lGUjQ0DNEUeH8mz/wYCYBdcqDZi4D1WxxWzYyDDJaIqYAqqOGD3mpWHYqumK2GB+RoaOjLAWyMyYJReBSO8wTxaIWMzVBCQmzFcAAgEz5iLDUi9r0TpGk1npGE1cVDpGk4ZoM6N1Pu2xAB5+wWAJOoJpRu1k47EME0NvTVivtIRJo7WESf+JEh4u2x2T63bztIj0JdzuV063b/oi+ocF/Fq5namLOBIE5IwYabcz91XCN+nGpsUHjquIGz7gSVvA21XGibBBHB0+sFtlbPGBhXKp2K8yzoQLhsFHViE7fGQg/Of7leMoRU/44Np1lXHBh1q6Pv5llXHEhybC9swto4km8YRPV36vAvZHfKIlbED9CAQ8YfLL2TTicxfuNfF2wqcM6ZHv8bznzPdzwBdE4sOY04bLkfiYxmKpJoKfYd4MQ6dbGMN5k7Cg4DiGYkV0WK5G6USTWK0TTUKw7c5cS7CjyVsgmErLP/G26hNi0UxN+NZisWFzwlc5uoTH88povz3ga8gSbldm+w1Vwg5fcc6sH5y0BAlz7CYmgSThYb9KODMklO7qsyW8rjJ+GBIKn66xJVyF7NgS7lcZd7aEO/Wj9GeVcWJLeFxFfCFDQtFHhjYMCUXXizvSJJzxFYcd/zTD/O8JLzfepXCDXAmTzZbNz4mwJRxrJ6r8hB5LNtWe978aLNms9JA7CfX8kOO9Ufn3SbFgi/pnMTp4xaT+eZoZyxVB+VRj4TVewQNDWnc1I+kLwJfrfuVyO59IXwfu8bkTd6fmeqC8N8o+D7jn7yUeCG8emAgCSkQMdPd47rJs6ju6V/E3q4j94elaQTVMz6uMb7oro9oSz54c4Y0Rq5Ar4aUDXYEJW3hHX94o9fCeBR+45zjTDPCeOcfVgvayKF/Yit/QfofkKLJrI76gJrqidt6G/ELBI/dAvR+ebbqJiphszl9sU8zufsSHjIZbISlLmIpYCgOgvIgBQHcRDeW3ubRdP++V3pqYBK3XlyYL5m8g+2iA0s8HDFqnmcSUcOqreZxa+L1B6xhNTDnzqL7NmwEaoaC1XtmfjBbILDmf2pOINvcNt8ZV0TJ8HFDZ5wFHTJR+i3TUGjAZtAZMmpyeV9cdcQRQHdGN8EGD1t9gMioPKP/xcd/Cx7VOdifDoLcopYnAIi5iPQs2HQpwARgFh9xsD6yiYe/8shsc8vEBBPQGuUwRZAxOaQGTnmPd6CJICh4/y/QgbXBKB2gSO/epfCMk0hn15ksZleZL4uCRjpkhR/OCJFzTQ656gkKaMULW2uk3Ie3QQwHazuLfWFK8/MWx8fgOO81QnH6eDL7AL12IUKw+dI3x/1c40w0hggoxhLn7UwgBqqqqqqqqqqqqqmz8AzLJMWOJgY4mAAAAAElFTkSuQmCC\");\n  background-size: contain;\n  z-index: 7; }\n#navTopLogoLeft {\n  margin-left: 5px;\n  position: absolute;\n  height: 45px;\n  width: 108px; }\n#btnMainMenu {\n  height: 45px;\n  width: 45px; }\n#navTopSearch {\n  width: 175px;\n  height: 44px;\n  top: 11px;\n  text-align: center;\n  background-color: #000;\n  border-radius: 20px;\n  display: inline-block;\n  line-height: 10px; }\n#navTopRight {\n  position: absolute;\n  right: 5px;\n  top: 0px;\n  color: navy; }\n@media only screen and (min-width: 850px) {\n  #topNav {\n    padding: 10px;\n    height: 80px; }\n  /*   \n    #navTopLogoLeft{\n        margin-left: 5px; position: absolute; //z-index: 1;\n        height:45px; width:108px; text-align:center;\n    }\n    \n    #navTopSearch{\n        width:196px; height:44px; top:11px; text-align:center;\n        background-color: #000;  border-radius: 20px;  display: inline-block; line-height: 10px;\n    }\n    \n    #navTopRight{\n        position: absolute; right:100px; top: 20px; color:navy;\n    }\n*/\n  .nav > li > a {\n    position: relative;\n    display: block; }\n  #frontPageIntro {\n    height: 542px; } }\n@media only screen and (min-width: 600px) and (max-width: 850px) {\n  #topNav {\n    padding: 10px;\n    height: 60px; } }\n@media only screen and (min-width: 350px) and (max-width: 600px) {\n  #topNav {\n    padding: 5px;\n    height: 65px; } }\n@media only screen and (max-width: 350px) {\n  #topNav {\n    padding: 5px;\n    height: 65px; } }\n"
 
 /***/ }),
 
@@ -2150,7 +2176,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/user/Public/angularTutorial/IO/mean/src/main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! /Users/owner/Desktop/meanApp/src/main.ts */"./src/main.ts");
 
 
 /***/ })
