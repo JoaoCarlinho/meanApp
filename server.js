@@ -14,7 +14,7 @@ const errorHandler = require('errorhandler');
 var methodOverride = require('method-override');
 
 
-mongoose.connect('mongodb://JCarlinho:g3t$MART18js@ds133104.mlab.com:33104/io',{
+mongoose.connect('mongodb://JCarlinho:JSML2020$tar@ds133104.mlab.com:33104/io',{
     useNewUrlParser: true
 });
 
