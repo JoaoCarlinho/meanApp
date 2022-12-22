@@ -44,7 +44,7 @@
     "grunt-exec": "^3.0.0",
     "grunt-sass": "^3.0.2",
     "jquery": "^3.3.1",
-    "jsonwebtoken": "^8.3.0",
+    "jsonwebtoken": "^9.0.0",
     "method-override": "^3.0.0",
     "mongodb": "^3.1.6",
     "mongoose": "^5.3.3",
